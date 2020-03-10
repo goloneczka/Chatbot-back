@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>chatbot</groupId>
-        <artifactId>backend</artifactId>
+        <groupId>com.pip.chatbot</groupId>
+        <artifactId>pip2020-back</artifactId>
         <version>0.0.1</version>
     </parent>
 
