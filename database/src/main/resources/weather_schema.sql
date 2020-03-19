@@ -1,5 +1,6 @@
-CREATE SCHEMA weather
-    CREATE TABLE info(
+CREATE SCHEMA weather;
+    SET search_path TO weather;
+    CREATE TABLE forecast(
         id serial PRIMARY KEY,
 		created_on TIMESTAMP NOT NULL,
 		date TIMESTAMP NOT NULL,
@@ -11,3 +12,4 @@ CREATE SCHEMA weather
 		air_humidity REAL NOT NULL,
 		city VARCHAR(25) NOT NULL
     )
+

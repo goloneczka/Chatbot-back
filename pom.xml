@@ -19,6 +19,8 @@
         <java.version>13</java.version>
         <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
         <spring-framework-bom.version>5.2.4.RELEASE</spring-framework-bom.version>
+        <jooq-codegen-maven.version>3.13.1</jooq-codegen-maven.version>
+        <org.postgresql.version>9.4.1212</org.postgresql.version>
     </properties>
 
     <modules>

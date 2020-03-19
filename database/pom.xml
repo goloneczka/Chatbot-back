@@ -9,17 +9,14 @@
         <artifactId>pip2020-back</artifactId>
         <version>0.0.1</version>
     </parent>
-
     <artifactId>database</artifactId>
     <version>0.0.1</version>
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
-                <version>3.13.1</version>
-
+                <version>${jooq-codegen-maven.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -27,26 +24,18 @@
                         </goals>
                     </execution>
                 </executions>
-
                 <dependencies>
                     <dependency>
                         <groupId>org.postgresql</groupId>
                         <artifactId>postgresql</artifactId>
-                        <version>9.4.1212</version>
+                        <version>${org.postgresql.version}</version>
                     </dependency>
                 </dependencies>
-
                 <configuration>
-
-                    <jdbc>
-                        <driver>org.postgresql.Driver</driver>
-                        <url>jdbc:postgresql://localhost/postgres</url>
-                        <user>postgres</user>
-                        <password>qazwsx1234</password>
-                    </jdbc>
-
-                    <!-- Generator parameters -->
                     <generator>
+                        <jdbc>
+                            <driver>org.postgresql.Driver</driver>
+                        </jdbc>
                         <database>
                             <name>org.jooq.meta.postgres.PostgresDatabase</name>
                             <includes>.*</includes>
@@ -54,8 +43,8 @@
                             <inputSchema>weather</inputSchema>
                         </database>
                         <target>
-                            <packageName>org.jooq.database</packageName>
-                            <directory>generated-sources/jooq</directory>
+                            <packageName>com.pip.chatbot.jooq</packageName>
+                            <directory>src/main/java</directory>
                         </target>
                     </generator>
                 </configuration>
