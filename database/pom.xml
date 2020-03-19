@@ -9,55 +9,9 @@
         <artifactId>pip2020-back</artifactId>
         <version>0.0.1</version>
     </parent>
+
     <artifactId>database</artifactId>
     <version>0.0.1</version>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq-meta</artifactId>
-        </dependency>
-    </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.jooq</groupId>
-                <artifactId>jooq-codegen-maven</artifactId>
-                <version>${jooq.version}</version>
-
-                <dependencies>
-                    <dependency>
-                        <groupId>org.postgresql</groupId>
-                        <artifactId>postgresql</artifactId>
-                        <version>${org.postgresql.version}</version>
-                    </dependency>
-                </dependencies>
-
-                <configuration>
-                    <jdbc>
-                        <driver>org.postgresql.Driver</driver>
-                    </jdbc>
-
-                    <!-- Generator parameters -->
-                    <generator>
-                        <database>
-                            <name>org.jooq.meta.postgres.PostgresDatabase</name>
-                            <includes>.*</includes>
-                            <excludes></excludes>
-                            <inputSchema>weather</inputSchema>
-                        </database>
-                        <target>
-                            <packageName>com.pip.chatbot.jooq</packageName>
-                            <directory>src/main/java</directory>
-                        </target>
-                    </generator>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

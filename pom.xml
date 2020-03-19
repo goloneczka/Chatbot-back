@@ -19,8 +19,6 @@
         <java.version>13</java.version>
         <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
         <spring-framework-bom.version>5.2.4.RELEASE</spring-framework-bom.version>
-        <org.postgresql.version>9.4.1212</org.postgresql.version>
-        <jooq.version>3.13.1</jooq.version>
     </properties>
 
     <modules>
@@ -32,16 +30,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.jooq</groupId>
-                <artifactId>jooq</artifactId>
-                <version>${jooq.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jooq</groupId>
-                <artifactId>jooq-meta</artifactId>
-                <version>${jooq.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-framework-bom</artifactId>
