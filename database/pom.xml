@@ -11,19 +11,24 @@
     </parent>
     <artifactId>database</artifactId>
     <version>0.0.1</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-meta</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
-                <version>${jooq-codegen-maven.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <version>${jooq.version}</version>
 
                 <dependencies>
                     <dependency>
@@ -34,7 +39,6 @@
                 </dependencies>
 
                 <configuration>
-
                     <jdbc>
                         <driver>org.postgresql.Driver</driver>
                     </jdbc>
