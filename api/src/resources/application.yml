@@ -1,1 +1,3 @@
-admin.password=$2a$10$Ko74E4Zrz4kWwZ82vQIDLO4MH0yV5Dab8P5Cj5coWlmTAjsWFCHbK
+application:
+  admin:
+    password: "{bcrypt}$2a$10$N7tHgHhjvt.4AsnW9nMqduLrYLdKFEsP5GKBUPdeIB5emQ5Uz5nlC"
