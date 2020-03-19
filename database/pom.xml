@@ -24,6 +24,7 @@
                         </goals>
                     </execution>
                 </executions>
+
                 <dependencies>
                     <dependency>
                         <groupId>org.postgresql</groupId>
@@ -31,11 +32,15 @@
                         <version>${org.postgresql.version}</version>
                     </dependency>
                 </dependencies>
+
                 <configuration>
+
+                    <jdbc>
+                        <driver>org.postgresql.Driver</driver>
+                    </jdbc>
+
+                    <!-- Generator parameters -->
                     <generator>
-                        <jdbc>
-                            <driver>org.postgresql.Driver</driver>
-                        </jdbc>
                         <database>
                             <name>org.jooq.meta.postgres.PostgresDatabase</name>
                             <includes>.*</includes>
