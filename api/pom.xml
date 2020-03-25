@@ -27,18 +27,6 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-        <groupId>com.intuit.karate</groupId>
-        <artifactId>karate-apache</artifactId>
-        <version>0.9.5</version>
-    </dependency>
-        <dependency>
-            <groupId>com.intuit.karate</groupId>
-            <artifactId>karate-junit5</artifactId>
-            <version>0.9.5</version>
-        </dependency>
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
