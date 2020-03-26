@@ -21,6 +21,7 @@
         <spring-framework-bom.version>5.2.4.RELEASE</spring-framework-bom.version>
         <karate-apache.version>0.9.5</karate-apache.version>
         <karate-junit.version>0.9.5</karate-junit.version>
+        <tests-skip.regex>integration-tests</tests-skip.regex>
     </properties>
 
     <modules>
@@ -29,6 +30,28 @@
         <module>integration</module>
         <module>integration-tests</module>
     </modules>
+    <profiles>
+        <profile>
+            <id>skipTests</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        <properties>
+            <maven.test.skip>true</maven.test.skip>
+            <regex>${tests-skip.regex}</regex>
+        </properties>
+        </profile>
+        <profile>
+            <id>fullTests</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <maven.test.skip>false</maven.test.skip>
+            </properties>
+        </profile>
+    </profiles>
+
 
     <dependencyManagement>
         <dependencies>
