@@ -3,7 +3,7 @@ SET search_path TO jokes;
 CREATE TABLE IF NOT EXISTS joke
 (
     id                    SERIAL PRIMARY KEY,
-    category              VARCHAR(127) references category(category) ON UPDATE CASCADE ON DELETE CASCADE,
+    category              VARCHAR(127) not null references category(category) ON UPDATE CASCADE ON DELETE CASCADE,
     joke                  TEXT not null
 );
 

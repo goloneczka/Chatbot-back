@@ -32,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Joke extends TableImpl<JokeRecord> {
 
-    private static final long serialVersionUID = -1032743125;
+    private static final long serialVersionUID = -660697974;
 
     /**
      * The reference instance of <code>jokes.joke</code>
@@ -55,7 +55,7 @@ public class Joke extends TableImpl<JokeRecord> {
     /**
      * The column <code>jokes.joke.category</code>.
      */
-    public final TableField<JokeRecord, String> CATEGORY = createField(DSL.name("category"), org.jooq.impl.SQLDataType.VARCHAR(127), this, "");
+    public final TableField<JokeRecord, String> CATEGORY = createField(DSL.name("category"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
 
     /**
      * The column <code>jokes.joke.joke</code>.
