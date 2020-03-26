@@ -22,6 +22,8 @@
         <karate-apache.version>0.9.5</karate-apache.version>
         <karate-junit.version>0.9.5</karate-junit.version>
         <tests-skip.regex>integration-tests</tests-skip.regex>
+        <org.postgresql.version>9.4.1212</org.postgresql.version>
+        <jooq.version>3.13.1</jooq.version>
     </properties>
 
     <modules>
