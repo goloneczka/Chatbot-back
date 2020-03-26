@@ -14,3 +14,4 @@ Poniższa linijka służy do wygenerowania schemy bazy danych w jooq-u. Musisz p
 ````
 mvn jooq-codegen:generate -Djooq.codegen.jdbc.url= -Djooq.codegen.jdbc.user= -Djooq.codegen.jdbc.password=
 ````
+
