@@ -12,7 +12,17 @@
 
     <artifactId>integration-tests</artifactId>
     <version>0.0.1</version>
-
+    <profiles>
+        <profile>
+            <id>fullTests</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+    </profiles>
     <dependencies>
         <dependency>
             <groupId>com.intuit.karate</groupId>
