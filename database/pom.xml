@@ -49,10 +49,10 @@
                             <name>org.jooq.meta.postgres.PostgresDatabase</name>
                             <includes>.*</includes>
                             <excludes></excludes>
-                            <inputSchema>weather</inputSchema>
+                            <inputSchema>jokes</inputSchema>
                         </database>
                         <target>
-                            <packageName>com.pip.chatbot.jooq</packageName>
+                            <packageName>com.pip.chatbot.jooq.jokes</packageName>
                             <directory>src/main/java</directory>
                         </target>
                     </generator>
