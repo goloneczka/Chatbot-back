@@ -4,6 +4,7 @@
 package com.pip.chatbot.jooq.jokes;
 
 
+import com.pip.chatbot.jooq.jokes.tables.Category;
 import com.pip.chatbot.jooq.jokes.tables.Joke;
 
 
@@ -12,6 +13,11 @@ import com.pip.chatbot.jooq.jokes.tables.Joke;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>jokes.category</code>.
+     */
+    public static final Category CATEGORY = Category.CATEGORY;
 
     /**
      * The table <code>jokes.joke</code>.

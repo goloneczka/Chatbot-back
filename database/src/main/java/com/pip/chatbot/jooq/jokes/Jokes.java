@@ -4,6 +4,7 @@
 package com.pip.chatbot.jooq.jokes;
 
 
+import com.pip.chatbot.jooq.jokes.tables.Category;
 import com.pip.chatbot.jooq.jokes.tables.Joke;
 
 import java.util.Arrays;
@@ -21,12 +22,17 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Jokes extends SchemaImpl {
 
-    private static final long serialVersionUID = -281659427;
+    private static final long serialVersionUID = -1127075373;
 
     /**
      * The reference instance of <code>jokes</code>
      */
     public static final Jokes JOKES = new Jokes();
+
+    /**
+     * The table <code>jokes.category</code>.
+     */
+    public final Category CATEGORY = Category.CATEGORY;
 
     /**
      * The table <code>jokes.joke</code>.
@@ -55,6 +61,7 @@ public class Jokes extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.<Table<?>>asList(
+            Category.CATEGORY,
             Joke.JOKE);
     }
 }

@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JokeRecord extends UpdatableRecordImpl<JokeRecord> implements Record3<Integer, String, String> {
 
-    private static final long serialVersionUID = -272951609;
+    private static final long serialVersionUID = -759085619;
 
     /**
      * Setter for <code>jokes.joke.id</code>.
@@ -50,16 +50,16 @@ public class JokeRecord extends UpdatableRecordImpl<JokeRecord> implements Recor
     }
 
     /**
-     * Setter for <code>jokes.joke.text_joke</code>.
+     * Setter for <code>jokes.joke.joke</code>.
      */
-    public void setTextJoke(String value) {
+    public void setJoke(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>jokes.joke.text_joke</code>.
+     * Getter for <code>jokes.joke.joke</code>.
      */
-    public String getTextJoke() {
+    public String getJoke() {
         return (String) get(2);
     }
 
@@ -98,7 +98,7 @@ public class JokeRecord extends UpdatableRecordImpl<JokeRecord> implements Recor
 
     @Override
     public Field<String> field3() {
-        return Joke.JOKE.TEXT_JOKE;
+        return Joke.JOKE.JOKE_;
     }
 
     @Override
@@ -113,7 +113,7 @@ public class JokeRecord extends UpdatableRecordImpl<JokeRecord> implements Recor
 
     @Override
     public String component3() {
-        return getTextJoke();
+        return getJoke();
     }
 
     @Override
@@ -128,7 +128,7 @@ public class JokeRecord extends UpdatableRecordImpl<JokeRecord> implements Recor
 
     @Override
     public String value3() {
-        return getTextJoke();
+        return getJoke();
     }
 
     @Override
@@ -145,7 +145,7 @@ public class JokeRecord extends UpdatableRecordImpl<JokeRecord> implements Recor
 
     @Override
     public JokeRecord value3(String value) {
-        setTextJoke(value);
+        setJoke(value);
         return this;
     }
 
@@ -171,11 +171,11 @@ public class JokeRecord extends UpdatableRecordImpl<JokeRecord> implements Recor
     /**
      * Create a detached, initialised JokeRecord
      */
-    public JokeRecord(Integer id, String category, String textJoke) {
+    public JokeRecord(Integer id, String category, String joke) {
         super(Joke.JOKE);
 
         set(0, id);
         set(1, category);
-        set(2, textJoke);
+        set(2, joke);
     }
 }

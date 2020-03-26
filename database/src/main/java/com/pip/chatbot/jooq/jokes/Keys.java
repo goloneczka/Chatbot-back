@@ -4,9 +4,12 @@
 package com.pip.chatbot.jooq.jokes;
 
 
+import com.pip.chatbot.jooq.jokes.tables.Category;
 import com.pip.chatbot.jooq.jokes.tables.Joke;
+import com.pip.chatbot.jooq.jokes.tables.records.CategoryRecord;
 import com.pip.chatbot.jooq.jokes.tables.records.JokeRecord;
 
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.TableField;
 import org.jooq.UniqueKey;
@@ -30,12 +33,14 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<CategoryRecord> CATEGORY_PKEY = UniqueKeys0.CATEGORY_PKEY;
     public static final UniqueKey<JokeRecord> JOKE_PKEY = UniqueKeys0.JOKE_PKEY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<JokeRecord, CategoryRecord> JOKE__JOKE_CATEGORY_FKEY = ForeignKeys0.JOKE__JOKE_CATEGORY_FKEY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -46,6 +51,11 @@ public class Keys {
     }
 
     private static class UniqueKeys0 {
+        public static final UniqueKey<CategoryRecord> CATEGORY_PKEY = Internal.createUniqueKey(Category.CATEGORY, "category_pkey", new TableField[] { Category.CATEGORY.CATEGORY_ }, true);
         public static final UniqueKey<JokeRecord> JOKE_PKEY = Internal.createUniqueKey(Joke.JOKE, "joke_pkey", new TableField[] { Joke.JOKE.ID }, true);
+    }
+
+    private static class ForeignKeys0 {
+        public static final ForeignKey<JokeRecord, CategoryRecord> JOKE__JOKE_CATEGORY_FKEY = Internal.createForeignKey(Keys.CATEGORY_PKEY, Joke.JOKE, "joke_category_fkey", new TableField[] { Joke.JOKE.CATEGORY }, true);
     }
 }

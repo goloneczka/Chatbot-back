@@ -32,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Joke extends TableImpl<JokeRecord> {
 
-    private static final long serialVersionUID = -895015707;
+    private static final long serialVersionUID = -1032743125;
 
     /**
      * The reference instance of <code>jokes.joke</code>
@@ -55,12 +55,12 @@ public class Joke extends TableImpl<JokeRecord> {
     /**
      * The column <code>jokes.joke.category</code>.
      */
-    public final TableField<JokeRecord, String> CATEGORY = createField(DSL.name("category"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
+    public final TableField<JokeRecord, String> CATEGORY = createField(DSL.name("category"), org.jooq.impl.SQLDataType.VARCHAR(127), this, "");
 
     /**
-     * The column <code>jokes.joke.text_joke</code>.
+     * The column <code>jokes.joke.joke</code>.
      */
-    public final TableField<JokeRecord, String> TEXT_JOKE = createField(DSL.name("text_joke"), org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
+    public final TableField<JokeRecord, String> JOKE_ = createField(DSL.name("joke"), org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
 
     /**
      * Create a <code>jokes.joke</code> table reference
@@ -113,6 +113,15 @@ public class Joke extends TableImpl<JokeRecord> {
     @Override
     public List<UniqueKey<JokeRecord>> getKeys() {
         return Arrays.<UniqueKey<JokeRecord>>asList(Keys.JOKE_PKEY);
+    }
+
+    @Override
+    public List<ForeignKey<JokeRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<JokeRecord, ?>>asList(Keys.JOKE__JOKE_CATEGORY_FKEY);
+    }
+
+    public Category category() {
+        return new Category(this, Keys.JOKE__JOKE_CATEGORY_FKEY);
     }
 
     @Override
