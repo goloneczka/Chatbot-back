@@ -15,8 +15,8 @@ pipeline {
             steps {
                  sh '''#!/bin/bash
                  mkdir -p chatbot-backend
-                 cp -r ./api/target/api-0.0.1.jar ./chatbot-backend/
-                 cp -r ./integration/target/integration-0.0.1.jar ./chatbot-backend/
+                 cp -r ./api/target/api.jar ./chatbot-backend/
+                 cp -r ./integration/target/integration.jar ./chatbot-backend/
                  '''
             }
         }
@@ -24,8 +24,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''#!/bin/bash
-                java -jar -Dspring.profiles.active=prod ./chatbot-backend/api-0.0.1.jar --httpPort=8080 &
-                java -jar -Dspring.profiles.active=prod ./chatbot-backend/integration-0.0.1.jar --httpPort=9090 &
+                java -jar -Dspring.profiles.active=prod ./chatbot-backend/api.jar  &
+                java -jar -Dspring.profiles.active=prod ./chatbot-backend/integration.jar &
                 '''
             }
         }

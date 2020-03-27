@@ -1,6 +1,2 @@
 server:
   port: 8080
-
-integration:
-  port: 9090
-
