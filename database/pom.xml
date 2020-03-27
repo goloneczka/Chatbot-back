@@ -49,7 +49,15 @@
                             <name>org.jooq.meta.postgres.PostgresDatabase</name>
                             <includes>.*</includes>
                             <excludes></excludes>
-                            <inputSchema>weather</inputSchema>
+                            <schemata>
+                                <schema>
+                                    <inputSchema>jokes</inputSchema>
+                                </schema>
+                                <schema>
+                                    <inputSchema>weather</inputSchema>
+                                </schema>
+                            </schemata>
+
                         </database>
                         <target>
                             <packageName>com.pip.chatbot.jooq</packageName>
