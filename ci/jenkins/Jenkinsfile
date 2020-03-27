@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    parameters {
+            booleanParam(name: 'MODIFICATION', defaultValue: false, description: 'If you want to add something')
+        }
     stages {
         stage('Build') {
             steps {
@@ -22,6 +25,9 @@ pipeline {
         }
 
         stage('Deploy') {
+            when {
+                expression {params.MODIFICATION}
+            }
             steps {
                 sh '''#!/bin/bash
                 java -jar -Dspring.profiles.active=prod ./chatbot-backend/api.jar  &
