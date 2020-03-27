@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+         }
+        stage('Copy') {
+            steps {
+                 sh '''#!/bin/bash
+                 mkdir -p chatbot-backend
+                 cp -r ./api/target/api.jar ./chatbot-backend/
+                 cp -r ./integration/target/integration.jar ./chatbot-backend/
+                 '''
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh '''#!/bin/bash
+                java -jar -Dspring.profiles.active=prod ./chatbot-backend/api.jar  &
+                java -jar -Dspring.profiles.active=prod ./chatbot-backend/integration.jar &
+                '''
+            }
+        }
+    }
+}

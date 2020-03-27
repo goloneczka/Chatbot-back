@@ -13,5 +13,9 @@
     <artifactId>integration</artifactId>
     <version>0.0.1</version>
 
+    <build>
+        <finalName>integration</finalName>
+    </build>
+
 
 </project>
