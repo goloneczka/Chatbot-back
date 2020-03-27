@@ -22,7 +22,6 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                readProp = readProperties file: 'application-prod.yml'
                 sh '''#!/bin/bash
                 java -jar ./chatbot-backend/api-0.0.1.jar --httpPort=8080 &
                 java -jar ./chatbot-backend/integration-0.0.1.jar --httpPort=9090 &
