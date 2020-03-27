@@ -14,7 +14,7 @@ pipeline {
         stage('Copy') {
             steps {
                  sh '''#!/bin/bash
-                 cp -r target/* chatbot-backend/
+                 cp -r ./api/target/* chatbot-backend/
                  '''
             }
         }
