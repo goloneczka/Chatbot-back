@@ -23,8 +23,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''#!/bin/bash
-                java -jar ./chatbot-backend/api-0.0.1.jar --httpPort=8080 &
-                java -jar ./chatbot-backend/integration-0.0.1.jar --httpPort=8090 &
+                java -jar ./chatbot-backend/api-0.0.1.jar --httpPort=${server.port} &
+                java -jar ./chatbot-backend/integration-0.0.1.jar --httpPort=${integration.port}&
                 '''
             }
         }
