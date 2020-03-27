@@ -15,6 +15,7 @@ pipeline {
             steps {
                  sh '''#!/bin/bash
                  cp -r ./api/target/api-0.0.1.jar ./chatbot-backend/
+                 cp -r ./integration/target/integration-0.0.1.jar ./chatbot-backend/
                  '''
             }
         }
@@ -23,6 +24,7 @@ pipeline {
             steps {
                 sh '''#!/bin/bash
                 java -jar ./chatbot-backend/api-0.0.1.jar --httpPort=8080 &
+                java -jar ./chatbot-backend/integration-0.0.1.jar --httpPort=8090 &
                 '''
             }
         }
