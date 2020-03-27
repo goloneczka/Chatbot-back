@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Forecast extends TableImpl<ForecastRecord> {
 
-    private static final long serialVersionUID = -1538439299;
+    private static final long serialVersionUID = 1521992777;
 
     /**
      * The reference instance of <code>weather.forecast</code>

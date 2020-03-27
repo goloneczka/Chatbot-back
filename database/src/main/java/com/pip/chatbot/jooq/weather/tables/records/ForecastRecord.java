@@ -21,7 +21,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implements Record10<Integer, LocalDateTime, LocalDateTime, Float, Float, Float, String, Float, Float, String> {
 
-    private static final long serialVersionUID = -241094644;
+    private static final long serialVersionUID = 1548235672;
 
     /**
      * Setter for <code>weather.forecast.id</code>.

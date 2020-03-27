@@ -4,6 +4,7 @@
 package com.pip.chatbot.jooq.weather;
 
 
+import com.pip.chatbot.jooq.DefaultCatalog;
 import com.pip.chatbot.jooq.weather.tables.Forecast;
 
 import java.util.Arrays;
@@ -21,7 +22,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Weather extends SchemaImpl {
 
-    private static final long serialVersionUID = -1640349439;
+    private static final long serialVersionUID = -289853935;
 
     /**
      * The reference instance of <code>weather</code>

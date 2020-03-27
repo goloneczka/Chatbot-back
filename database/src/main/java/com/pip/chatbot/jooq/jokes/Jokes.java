@@ -4,6 +4,7 @@
 package com.pip.chatbot.jooq.jokes;
 
 
+import com.pip.chatbot.jooq.DefaultCatalog;
 import com.pip.chatbot.jooq.jokes.tables.Category;
 import com.pip.chatbot.jooq.jokes.tables.Joke;
 
@@ -22,7 +23,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Jokes extends SchemaImpl {
 
-    private static final long serialVersionUID = -1127075373;
+    private static final long serialVersionUID = -1224553085;
 
     /**
      * The reference instance of <code>jokes</code>
