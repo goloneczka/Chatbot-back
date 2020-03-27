@@ -15,3 +15,4 @@ Dodatkowo należy przejsc do katalogu 'database'
 ````
 mvn jooq-codegen:generate -Djooq.codegen.jdbc.url= -Djooq.codegen.jdbc.user= -Djooq.codegen.jdbc.password=
 ````
+
