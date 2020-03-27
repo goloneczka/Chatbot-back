@@ -17,9 +17,9 @@ pipeline {
         stage('Copy') {
             steps {
                  sh '''#!/bin/bash
-                 mkdir -p chatbot-backend
-                 cp -r ./api/target/api.jar ./chatbot-backend/
-                 cp -r ./integration/target/integration.jar ./chatbot-backend/
+                 mkdir -p home/app
+                 cp -r ./api/target/api.jar ./home/app/
+                 cp -r ./integration/target/integration.jar ./home/app/
                  '''
             }
         }
@@ -30,8 +30,8 @@ pipeline {
             }
             steps {
                 sh '''#!/bin/bash
-                java -jar -Dspring.profiles.active=prod ./chatbot-backend/api.jar  &
-                java -jar -Dspring.profiles.active=prod ./chatbot-backend/integration.jar &
+                java -jar -Dspring.profiles.active=prod ./home/app/api.jar  &
+                java -jar -Dspring.profiles.active=prod ./home/app/integration.jar &
                 '''
             }
         }
