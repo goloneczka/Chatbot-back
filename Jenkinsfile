@@ -3,23 +3,17 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                    sh '''#!/bin/bash
-                    mvn clean compile
-                    '''
+                sh 'mvn clean install'
             }
         }
         stage('Test') {
             steps {
-                     sh '''#!/bin/bash
-                     mvn test
-                     '''
+                sh 'mvn test'
             }
         }
         stage('Deploy') {
             steps {
-                   sh '''#!/bin/bash
-                   mvn deploy
-                   '''
+                sh 'mvn deploy'
             }
         }
     }
