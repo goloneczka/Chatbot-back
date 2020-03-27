@@ -14,7 +14,6 @@ pipeline {
         stage('Copy') {
             steps {
                  sh '''#!/bin/bash
-                 mkdir chatbot-backend
                  cp -r ./api/target/api-0.0.1.jar ./chatbot-backend/
                  '''
             }
@@ -23,7 +22,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''#!/bin/bash
-                java -jar ./chatbot-backend/api-0.0.1.jar --httpPort=8080
+                java -jar ./chatbot-backend/api-0.0.1.jar --httpPort=8080 &
                 '''
             }
         }
