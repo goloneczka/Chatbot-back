@@ -10,20 +10,29 @@
         <version>0.0.1</version>
     </parent>
 
+
     <artifactId>integration-tests</artifactId>
     <version>0.0.1</version>
+
+    <properties>
+        <skipTests>true</skipTests>
+    </properties>
+
     <profiles>
         <profile>
             <id>fullTests</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
-                <maven.test.skip>true</maven.test.skip>
+                <skipTests>false</skipTests>
             </properties>
         </profile>
     </profiles>
+
     <dependencies>
+        <dependency>
+            <groupId>com.pip.chatbot</groupId>
+            <artifactId>api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.intuit.karate</groupId>
             <artifactId>karate-apache</artifactId>
@@ -43,5 +52,14 @@
                 </excludes>
             </testResource>
         </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>${skipTests}</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>

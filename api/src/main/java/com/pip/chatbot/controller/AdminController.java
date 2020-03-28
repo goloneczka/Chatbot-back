@@ -1,8 +1,8 @@
 package com.pip.chatbot.controller;
 
-import com.pip.chatbot.model.Empty;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.pip.chatbot.model.Empty;
 
 @RestController
 public class AdminController {
