@@ -20,11 +20,11 @@ pipeline {
             }
             steps {
                 sh '''#!/bin/bash
-                mkdir -p home/app
-                cp -r ./api/target/api.jar ./home/app/
-                cp -r ./integration/target/integration.jar ./home/app/
-                java -jar -Dspring.profiles.active=prod ./home/app/api.jar  &
-                java -jar -Dspring.profiles.active=prod ./home/app/integration.jar &
+                mkdir -p /home/app
+                cp -r ./api/target/api.jar /home/app/
+                cp -r ./integration/target/integration.jar /home/app/
+                java -jar -Dspring.profiles.active=prod /home/app/api.jar  &
+                java -jar -Dspring.profiles.active=prod /home/app/integration.jar &
                 '''
             }
         }
