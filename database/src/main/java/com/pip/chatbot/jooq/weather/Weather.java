@@ -5,6 +5,8 @@ package com.pip.chatbot.jooq.weather;
 
 
 import com.pip.chatbot.jooq.DefaultCatalog;
+import com.pip.chatbot.jooq.weather.tables.City;
+import com.pip.chatbot.jooq.weather.tables.Country;
 import com.pip.chatbot.jooq.weather.tables.Forecast;
 
 import java.util.Arrays;
@@ -22,12 +24,22 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Weather extends SchemaImpl {
 
-    private static final long serialVersionUID = -289853935;
+    private static final long serialVersionUID = -78760477;
 
     /**
      * The reference instance of <code>weather</code>
      */
     public static final Weather WEATHER = new Weather();
+
+    /**
+     * The table <code>weather.city</code>.
+     */
+    public final City CITY = City.CITY;
+
+    /**
+     * The table <code>weather.country</code>.
+     */
+    public final Country COUNTRY = Country.COUNTRY;
 
     /**
      * The table <code>weather.forecast</code>.
@@ -56,6 +68,8 @@ public class Weather extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.<Table<?>>asList(
+            City.CITY,
+            Country.COUNTRY,
             Forecast.FORECAST);
     }
 }
