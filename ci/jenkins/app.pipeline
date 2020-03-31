@@ -26,7 +26,8 @@ pipeline {
 
                 #Needed for jenkins no to kill processes that it starts
                 #https://wiki.jenkins.io/display/JENKINS/Spawning+processes+from+build
-                export BUILD_ID=DO_NOT_KILL_ME
+                export BUILD_ID=dontKillMe
+                export JENKINS_NODE_COOKIE=dontKillMe
 
                 java -jar -Dspring.profiles.active=prod /app/api.jar &
                 java -jar -Dspring.profiles.active=prod /app/integration.jar &
