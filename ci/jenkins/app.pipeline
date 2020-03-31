@@ -23,7 +23,7 @@ pipeline {
                 mkdir -p /app
                 cp -r ./api/target/api.jar /app
                 cp -r ./integration/target/integration.jar /app
-                java -jar -Dspring.profiles.active=prod /app/api.jar  &
+                java -jar -Dspring.profiles.active=prod /app/api.jar
                 java -jar -Dspring.profiles.active=prod /app/integration.jar &
                 '''
             }
