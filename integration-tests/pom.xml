@@ -12,14 +12,18 @@
 
     <artifactId>integration-tests</artifactId>
     <version>0.0.1</version>
+
+    <properties>
+        <skipTest>true</skipTest>
+    </properties>
     <profiles>
         <profile>
             <id>fullTests</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <maven.test.skip>true</maven.test.skip>
+                <skipTest>false</skipTest>
             </properties>
         </profile>
     </profiles>
@@ -43,5 +47,15 @@
                 </excludes>
             </testResource>
         </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <configuration>
+                    <skipTests>${skipTest}</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
