@@ -23,7 +23,12 @@ pipeline {
                 mkdir -p /app
                 cp -r ./api/target/api.jar /app
                 cp -r ./integration/target/integration.jar /app
-                java -jar -Dspring.profiles.active=prod /app/api.jar
+
+                #Needed for jenkins no to kill processes that it starts
+                #https://wiki.jenkins.io/display/JENKINS/Spawning+processes+from+build
+                export BUILD_ID=DO_NOT_KILL_ME
+
+                java -jar -Dspring.profiles.active=prod /app/api.jar &
                 java -jar -Dspring.profiles.active=prod /app/integration.jar &
                 '''
             }
