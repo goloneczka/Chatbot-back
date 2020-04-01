@@ -3,6 +3,7 @@ package com.pip.chatbot.dao;
 import com.pip.chatbot.jooq.weather.Sequences;
 import com.pip.chatbot.jooq.weather.Tables;
 import com.pip.chatbot.jooq.weather.tables.records.ForecastRecord;
+import com.pip.chatbot.model.Forecast;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Field;
@@ -18,15 +19,14 @@ public class ForecastDao {
     private String password = "michal45";
     private String url = "jdbc:postgresql://localhost:5432/postgres";
 
-    public void createForecast(LocalDateTime date, float temperature, float perceived_temperature, float wind_power, float atmospheric_pressure, float air_humidity, String summary, String precipType, String city){
+    public void createForecast(Forecast forecast){
         try{
             Connection conn = DriverManager.getConnection(url, userName, password);
             DSLContext create = DSL.using(conn, SQLDialect.POSTGRES);
-            Condition dayCondition = DSL.dayOfYear(Tables.FORECAST.DATE).eq(DSL.dayOfYear(date));
-            Condition yearCondition = DSL.year(Tables.FORECAST.DATE).eq(DSL.year(date));
-            Condition cityCondition = Tables.FORECAST.CITY.eq(city);
+            Condition dayCondition = DSL.dayOfYear(Tables.FORECAST.DATE).eq(DSL.dayOfYear(forecast.getDate()));
+            Condition yearCondition = DSL.year(Tables.FORECAST.DATE).eq(DSL.year(forecast.getDate()));
+            Condition cityCondition = Tables.FORECAST.CITY.eq(forecast.getCity());
             ForecastRecord forecastRecord;
-            System.out.println(create.fetchExists(create.selectFrom(Tables.FORECAST).where(dayCondition).and(yearCondition).and(cityCondition)));
             if(create.fetchExists(create.selectFrom(Tables.FORECAST).where(dayCondition).and(yearCondition).and(cityCondition))) {
                 forecastRecord = create.selectFrom(Tables.FORECAST).where(dayCondition).and(yearCondition).and(cityCondition).fetchAny();
             }
@@ -37,15 +37,15 @@ public class ForecastDao {
             }
 
             forecastRecord.setCreatedOn(LocalDateTime.now());
-            forecastRecord.setDate(date);
-            forecastRecord.setPerceivedTemperature(perceived_temperature);
-            forecastRecord.setTemperature(temperature);
-            forecastRecord.setWindPower(wind_power);
-            forecastRecord.setAtmosphericPressure(atmospheric_pressure);
-            forecastRecord.setAirHumidity(air_humidity);
-            forecastRecord.setSummary(summary);
-            forecastRecord.setPreciptype(precipType);
-            forecastRecord.setCity(city);
+            forecastRecord.setDate(forecast.getDate());
+            forecastRecord.setPerceivedTemperature(forecast.getApparentTemperatureHigh());
+            forecastRecord.setTemperature(forecast.temperatureHigh);
+            forecastRecord.setWindPower(forecast.getWindSpeed());
+            forecastRecord.setAtmosphericPressure(forecast.getPressure());
+            forecastRecord.setAirHumidity(forecast.humidity);
+            forecastRecord.setSummary(forecast.getSummary());
+            forecastRecord.setPreciptype(forecast.getPrecipType());
+            forecastRecord.setCity(forecast.getCity());
             forecastRecord.store();
         }catch (Exception e){
             e.printStackTrace();
