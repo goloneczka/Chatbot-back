@@ -23,6 +23,7 @@
         <karate-junit.version>0.9.5</karate-junit.version>
         <org.postgresql.version>9.4.1212</org.postgresql.version>
         <jooq.version>3.13.1</jooq.version>
+        <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
     </properties>
 
     <modules>
