@@ -19,8 +19,11 @@
         <java.version>13</java.version>
         <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
         <spring-framework-bom.version>5.2.4.RELEASE</spring-framework-bom.version>
+        <karate-apache.version>0.9.5</karate-apache.version>
+        <karate-junit.version>0.9.5</karate-junit.version>
         <org.postgresql.version>9.4.1212</org.postgresql.version>
         <jooq.version>3.13.1</jooq.version>
+        <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
     </properties>
 
     <modules>
@@ -76,7 +79,16 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <dependency>
+                <groupId>com.intuit.karate</groupId>
+                <artifactId>karate-apache</artifactId>
+                <version>${karate-apache.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.intuit.karate</groupId>
+                <artifactId>karate-junit5</artifactId>
+                <version>${karate-junit.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
 </project>
