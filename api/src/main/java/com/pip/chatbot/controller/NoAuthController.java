@@ -1,10 +1,8 @@
 package com.pip.chatbot.controller;
 
 
-import com.pip.chatbot.jooq.jokes.tables.records.JokeRecord;
 import com.pip.chatbot.model.Joke;
 import com.pip.chatbot.service.JokeService;
-import org.jooq.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
