@@ -1,5 +1,6 @@
 package com.pip.chatbot.dao;
 
+
 import com.pip.chatbot.jooq.jokes.tables.records.JokeRecord;
 import com.pip.chatbot.model.Joke;
 import org.jooq.DSLContext;
@@ -22,10 +23,25 @@ public class JokeDao {
         this.dslContext = jooqConfiguration.configuration();
     }
 
-    public List<Joke> getAll(){
+    public List<Joke> getAll() {
         Result<Record> result = dslContext.select().from(JOKE).fetch();
         return result.into(Joke.class);
     }
 
+    public Joke getRandomJoke(Integer value) {
+        JokeRecord result = dslContext
+                .selectFrom(JOKE)
+                .where(JOKE.ID.eq(value))
+                .fetchOne();
+
+        return result.into(Joke.class);
+    }
+
+    public int getJokesTableSize() {
+        return dslContext
+                .selectCount()
+                .from(JOKE)
+                .fetchOne(0, int.class);
+    }
 
 }

@@ -1,16 +1,14 @@
 package com.pip.chatbot.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Category {
 
+    @Getter
+    @Setter
     private String category;
 
     public Category() { };
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 }

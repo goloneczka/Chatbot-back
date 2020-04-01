@@ -1,37 +1,14 @@
 package com.pip.chatbot.model;
 
-
+import lombok.Getter;
+import lombok.Setter;
 public class Joke {
 
 
-    private Long id;
-    private String joke;
+    @Getter @Setter private Long id;
+    @Getter @Setter private String joke;
 
-    private String category;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getJoke() {
-        return joke;
-    }
-
-    public void setJoke(String joke) {
-        this.joke = joke;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
+    @Getter @Setter private String category;
 
     public Joke() {
     }

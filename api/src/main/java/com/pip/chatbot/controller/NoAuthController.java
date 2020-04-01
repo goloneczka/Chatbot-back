@@ -28,4 +28,9 @@ public class NoAuthController {
     public List<Joke> getAll(){
         return jokeService.getAll();
     }
+
+    @RequestMapping(value = "/random", method = RequestMethod.GET )
+    public Joke getRandomJoke(){
+        return jokeService.getRandomJoke();
+    }
 }

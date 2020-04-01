@@ -22,6 +22,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+            <version>${org.postgresql.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -44,6 +45,7 @@
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq</artifactId>
+            <version>${jooq.version}</version>
         </dependency>
         <dependency>
             <groupId>com.pip.chatbot</groupId>

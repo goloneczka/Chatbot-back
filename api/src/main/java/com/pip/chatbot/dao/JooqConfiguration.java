@@ -19,7 +19,6 @@ public class JooqConfiguration {
 
     @Primary
     @Bean
-//    @ConfigurationProperties(prefix = "application.datasources")
     public DSLContext configuration() {
         DataSource dataSource = DataSourceBuilder.create()
                 .driverClassName("org.postgresql.Driver")
