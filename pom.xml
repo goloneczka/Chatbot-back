@@ -21,8 +21,6 @@
         <spring-framework-bom.version>5.2.4.RELEASE</spring-framework-bom.version>
         <org.postgresql.version>9.4.1212</org.postgresql.version>
         <jooq.version>3.13.1</jooq.version>
-        <httpclient.version>4.5.10</httpclient.version>
-        <orgJson.version>20180130</orgJson.version>
         <lombok.version>1.18.10</lombok.version>
     </properties>
 
@@ -66,16 +64,6 @@
                 <artifactId>spring-boot-starter</artifactId>
                 <version>${spring-boot.version}</version>
 
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${httpclient.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.json</groupId>
-                <artifactId>json</artifactId>
-                <version>${orgJson.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>

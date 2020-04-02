@@ -1,8 +1,15 @@
 application:
   admin:
     password: "{bcrypt}$2a$10$N7tHgHhjvt.4AsnW9nMqduLrYLdKFEsP5GKBUPdeIB5emQ5Uz5nlC"
-  forecasts:
-    delay: 86400000
-
+  darksky:
+    language: "pl"
+    unitsType: "ca"
+    key: "5d11f59a5bb65e816b54f9476d2e21c3"
+    forecastDelay: 86400000
+spring:
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/postgres"
+    username: "postgres"
+    password: "postgres"
 server:
   port: 9090

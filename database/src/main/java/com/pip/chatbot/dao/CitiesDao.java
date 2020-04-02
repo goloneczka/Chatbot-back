@@ -1,44 +1,44 @@
 package com.pip.chatbot.dao;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pip.chatbot.jooq.weather.Tables;
 import com.pip.chatbot.jooq.weather.tables.records.CityRecord;
+import com.pip.chatbot.model.City;
 import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.Result;
-import org.jooq.SQLDialect;
-import org.jooq.impl.DSL;
+import org.jooq.JSONFormat;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.List;
 
+@Component
 public class CitiesDao {
-    private String userName = "postgres";
-    private String password = "michal45";
-    private String url = "jdbc:postgresql://localhost:5432/postgres";
+    @Autowired
+    DSLContext dsl;
 
-    public Result<CityRecord> getAllCities(){
+    public List<City> getAllCities() {
         try {
-            Connection conn = DriverManager.getConnection(url, userName, password);
-            DSLContext create = DSL.using(conn, SQLDialect.POSTGRES);
-             return create.selectFrom(Tables.CITY).fetch();
-        }catch (Exception e){
+            String citiesJson = dsl.selectFrom(Tables.CITY).fetch().formatJSON(new JSONFormat()
+                    .header(false)
+                    .recordFormat(JSONFormat.RecordFormat.OBJECT));
+            return new ObjectMapper().readValue(citiesJson, new TypeReference<>(){});
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-    public void createCity(String city, String country, float latitude, float longitude){
+
+    public void createCity(City city) {
         try {
-            Connection conn = DriverManager.getConnection(url, userName, password);
-            DSLContext create = DSL.using(conn, SQLDialect.POSTGRES);
-            CityRecord cityRecord = create.newRecord(Tables.CITY);
-            cityRecord.setCity(city);
-            cityRecord.setCountry(country);
-            cityRecord.setLatitude(latitude);
-            cityRecord.setLongitude(longitude);
+            CityRecord cityRecord = dsl.newRecord(Tables.CITY);
+            cityRecord.setCity(city.getCity());
+            cityRecord.setCountry(city.getCountry());
+            cityRecord.setLatitude(city.getLatitude());
+            cityRecord.setLongitude(city.getLongitude());
             cityRecord.store();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
