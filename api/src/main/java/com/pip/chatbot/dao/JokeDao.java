@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.pip.chatbot.jooq.jokes.tables.Joke.JOKE;
 
@@ -23,18 +24,18 @@ public class JokeDao {
         this.dslContext = jooqConfiguration.configuration();
     }
 
-    public List<Joke> getAll() {
+    public Optional<List<Joke>> getAll() {
         Result<Record> result = dslContext.select().from(JOKE).fetch();
-        return result.into(Joke.class);
+        return Optional.ofNullable(result.into(Joke.class));
     }
 
-    public Joke getRandomJoke(Integer value) {
+    public Optional<Joke> getById(Integer value) {
         JokeRecord result = dslContext
                 .selectFrom(JOKE)
                 .where(JOKE.ID.eq(value))
                 .fetchOne();
 
-        return result.into(Joke.class);
+        return Optional.ofNullable(result.into(Joke.class));
     }
 
     public int getJokesTableSize() {

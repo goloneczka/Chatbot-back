@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -19,11 +20,12 @@ public class JokeService {
         this.jokeDao = jokeDao;
     }
 
-    public List<Joke> getAll(){
+    public Optional<List<Joke>> getAll(){
         return jokeDao.getAll();
     }
 
-    public Joke getRandomJoke() {
-        return jokeDao.getRandomJoke(new Random().nextInt(jokeDao.getJokesTableSize()) + 1);
+    public Optional<Joke> getRandomJoke() {
+        return jokeDao.getById(new Random().nextInt(jokeDao.getJokesTableSize()) + 1);
     }
+
 }

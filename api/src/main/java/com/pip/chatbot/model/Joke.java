@@ -1,14 +1,13 @@
 package com.pip.chatbot.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+
+@Data
 public class Joke {
 
-
-    @Getter @Setter private Long id;
-    @Getter @Setter private String joke;
-
-    @Getter @Setter private String category;
+    private Long id;
+    private String joke;
+    private String category;
 
     public Joke() {
     }
