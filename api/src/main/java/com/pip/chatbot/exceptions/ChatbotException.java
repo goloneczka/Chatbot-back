@@ -17,4 +17,5 @@ public class ChatbotException extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, bodyOfResponse,
                 new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
+
 }
