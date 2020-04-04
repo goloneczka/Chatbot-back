@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    parameters {
+            booleanParam(name: 'MODIFICATION', defaultValue: false, description: 'If you want to deploy')
+        }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn clean install -DskipTests'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+         }
+        stage('Deploy') {
+            when {
+                expression {params.MODIFICATION}
+            }
+            steps {
+                sh '''#!/bin/bash
+                mkdir -p /app
+                cp -r ./api/target/api.jar /app
+                cp -r ./integration/target/integration.jar /app
+
+                #Needed for jenkins no to kill processes that it starts
+                #https://wiki.jenkins.io/display/JENKINS/Spawning+processes+from+build
+                export BUILD_ID=dontKillMe
+                export JENKINS_NODE_COOKIE=dontKillMe
+
+                java -jar -Dspring.profiles.active=prod /app/api.jar &
+                java -jar -Dspring.profiles.active=prod /app/integration.jar &
+                '''
+            }
+        }
+    }
+}
