@@ -8,8 +8,8 @@ application:
     forecastDelay: 86400000
 spring:
   datasource:
-    url: "jdbc:postgresql://localhost:5432/postgres"
-    username: "postgres"
-    password: "postgres"
+    url: jdbc:postgresql://trainings:5432/appdb
+    username: app
+    password: Ao4eiT2w
 server:
   port: 9090

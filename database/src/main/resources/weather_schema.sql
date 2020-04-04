@@ -10,7 +10,7 @@ CREATE SCHEMA weather;
 		atmospheric_pressure REAL NOT NULL,
 		air_humidity REAL NOT NULL,
 		summary char(127) NOT NULL,
-		precipType char(127) NOT NULL,
+		precipType char(127),
 		city VARCHAR(127) NOT NULL REFERENCES city(city) ON UPDATE CASCADE ON DELETE CASCADE
     );
     CREATE TABLE city(

@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Forecast extends TableImpl<ForecastRecord> {
 
-    private static final long serialVersionUID = -1968889423;
+    private static final long serialVersionUID = 1316306416;
 
     /**
      * The reference instance of <code>weather.forecast</code>
@@ -96,7 +96,7 @@ public class Forecast extends TableImpl<ForecastRecord> {
     /**
      * The column <code>weather.forecast.preciptype</code>.
      */
-    public final TableField<ForecastRecord, String> PRECIPTYPE = createField(DSL.name("preciptype"), org.jooq.impl.SQLDataType.CHAR(127).nullable(false), this, "");
+    public final TableField<ForecastRecord, String> PRECIPTYPE = createField(DSL.name("preciptype"), org.jooq.impl.SQLDataType.CHAR(127), this, "");
 
     /**
      * The column <code>weather.forecast.city</code>.

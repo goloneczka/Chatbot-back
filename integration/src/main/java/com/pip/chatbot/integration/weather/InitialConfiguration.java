@@ -1,5 +1,9 @@
-package com.pip.chatbot.dao;
+package com.pip.chatbot.integration.weather;
 
+import com.pip.chatbot.repository.CitiesRepository;
+import com.pip.chatbot.repository.CountriesRepository;
+import com.pip.chatbot.repository.ForecastRepository;
+import org.jooq.ExecuteListener;
 import org.jooq.SQLDialect;
 import org.jooq.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +24,29 @@ public class InitialConfiguration {
                 (new TransactionAwareDataSourceProxy(dataSource));
     }
 
-    @Bean
     public DefaultDSLContext dsl() {
         return new DefaultDSLContext(configuration());
     }
 
+    @Bean
+    public ForecastRepository forecastRepository() {
+        return new ForecastRepository(dsl());
+    }
+
+    @Bean
+    public CitiesRepository citiesRepository(){
+        return new CitiesRepository(dsl());
+    }
+
+    @Bean
+    public CountriesRepository countriesRepository(){
+        return new CountriesRepository(dsl());
+    }
     public DefaultConfiguration configuration() {
         DefaultConfiguration jooqConfiguration = new DefaultConfiguration();
         jooqConfiguration.set(connectionProvider());
         jooqConfiguration
-                .set(new DefaultExecuteListenerProvider(new ExceptionTranslator()));
+                .set(new DefaultExecuteListenerProvider(new DefaultExecuteListener()));
         jooqConfiguration.setSQLDialect(SQLDialect.POSTGRES);
         return jooqConfiguration;
     }

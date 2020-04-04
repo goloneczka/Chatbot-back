@@ -1,16 +1,14 @@
-package com.pip.chatbot.dao;
+package com.pip.chatbot.repository;
 
 import com.pip.chatbot.jooq.weather.Tables;
 import com.pip.chatbot.jooq.weather.tables.records.CountryRecord;
 import org.jooq.DSLContext;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
-public class CountriesDao {
-    @Autowired
+public class CountriesRepository {
     DSLContext dsl;
-
+    public CountriesRepository(DSLContext dsl){
+        this.dsl = dsl;
+    }
     public void createCountry(String country) {
         try {
             CountryRecord countryRecord = dsl.newRecord(Tables.COUNTRY);

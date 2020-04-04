@@ -22,6 +22,7 @@
         <org.postgresql.version>9.4.1212</org.postgresql.version>
         <jooq.version>3.13.1</jooq.version>
         <lombok.version>1.18.10</lombok.version>
+        <spring-boot-jooq.version>2.2.5.RELEASE</spring-boot-jooq.version>
     </properties>
 
     <modules>
@@ -63,13 +64,17 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
                 <version>${spring-boot.version}</version>
-
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jooq</artifactId>
+                <version>${spring-boot-jooq.version}</version>
             </dependency>
             <!-- Tests dependencies !-->
             <dependency>

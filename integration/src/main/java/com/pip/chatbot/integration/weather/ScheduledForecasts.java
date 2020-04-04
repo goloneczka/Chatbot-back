@@ -3,8 +3,8 @@ package com.pip.chatbot.integration.weather;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pip.chatbot.dao.CitiesDao;
-import com.pip.chatbot.dao.ForecastDao;
+import com.pip.chatbot.repository.CitiesRepository;
+import com.pip.chatbot.repository.ForecastRepository;
 import com.pip.chatbot.model.City;
 import com.pip.chatbot.model.Forecast;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +21,18 @@ public class ScheduledForecasts {
     @Autowired
     DarkSkyApi darkSkyApi;
     @Autowired
-    ForecastDao forecastDao;
+    ForecastRepository forecastRepository;
     @Autowired
-    CitiesDao citiesDao;
+    CitiesRepository citiesRepository;
 
     @Scheduled(fixedDelayString = "${application.darksky.forecastDelay}")
     public void saveForecastToDb() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            objectMapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
 
-            for (City city : citiesDao.getAllCities()) {
+            for (City city : citiesRepository.getAllCities()) {
                 String forecastDaysJson = darkSkyApi.getWeatherForecast(city.getLatitude(), city.getLongitude());
                 List<Forecast> forecasts = objectMapper.readValue(forecastDaysJson, new TypeReference<List<Forecast>>() {
                 });
@@ -40,7 +41,7 @@ public class ScheduledForecasts {
                     forecasts.get(i).setCreatedOn(LocalDateTime.now());
                     forecasts.get(i).setDate(LocalDateTime.now().plusDays(i));
                     forecasts.get(i).setCity(city.getCity());
-                    forecastDao.createForecast(forecasts.get(i));
+                    forecastRepository.createForecast(forecasts.get(i));
                 }
             }
         } catch (Exception e) {

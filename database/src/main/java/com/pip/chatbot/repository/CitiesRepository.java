@@ -1,4 +1,4 @@
-package com.pip.chatbot.dao;
+package com.pip.chatbot.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,15 +7,14 @@ import com.pip.chatbot.jooq.weather.tables.records.CityRecord;
 import com.pip.chatbot.model.City;
 import org.jooq.DSLContext;
 import org.jooq.JSONFormat;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
-public class CitiesDao {
-    @Autowired
+public class CitiesRepository {
     DSLContext dsl;
+    public CitiesRepository(DSLContext dsl){
+        this.dsl = dsl;
+    }
 
     public List<City> getAllCities() {
         try {
