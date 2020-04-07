@@ -25,13 +25,13 @@ pipeline {
                 cp -r ./integration/target/integration.jar /app
 
                 REVIOUS_PID=$(pgrep -f 'java -jar -Dspring.profiles.active=prod /app/api.jar')
-                if [ -z "${PREVIOUS_PID}" ]; then
-                  kill "${PREVIOUS_PID}"
+                if [ ! -z "${PREVIOUS_PID}" ]; then
+                  kill -9 "${PREVIOUS_PID}"
                 fi
 
                 PREVIOUS_PID=$(pgrep -f 'java -jar -Dspring.profiles.active=prod /app/integration.jar')
-                if [ -z "${PREVIOUS_PID}" ]; then
-                  kill "${PREVIOUS_PID}"
+                if [ ! -z "${PREVIOUS_PID}" ]; then
+                  kill -9 "${PREVIOUS_PID}"
                 fi
 
                 #Needed for jenkins no to kill processes that it starts
