@@ -1,4 +1,4 @@
-package com.pip.chatbot.integrationApplication.weather;
+package com.pip.chatbot.integration.weather;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

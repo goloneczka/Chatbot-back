@@ -1,4 +1,4 @@
-package com.pip.chatbot.integrationApplication.weather;
+package com.pip.chatbot.integration.weather;
 
 import com.pip.chatbot.repository.CitiesRepository;
 import com.pip.chatbot.repository.ForecastRepository;
