@@ -4,6 +4,8 @@
 package com.pip.chatbot.jooq.weather;
 
 
+import com.pip.chatbot.jooq.weather.tables.City;
+import com.pip.chatbot.jooq.weather.tables.Country;
 import com.pip.chatbot.jooq.weather.tables.Forecast;
 
 
@@ -12,6 +14,16 @@ import com.pip.chatbot.jooq.weather.tables.Forecast;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>weather.city</code>.
+     */
+    public static final City CITY = City.CITY;
+
+    /**
+     * The table <code>weather.country</code>.
+     */
+    public static final Country COUNTRY = Country.COUNTRY;
 
     /**
      * The table <code>weather.forecast</code>.

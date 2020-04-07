@@ -17,7 +17,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row10;
+import org.jooq.Row11;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Forecast extends TableImpl<ForecastRecord> {
 
-    private static final long serialVersionUID = 1521992777;
+    private static final long serialVersionUID = 1316306416;
 
     /**
      * The reference instance of <code>weather.forecast</code>
@@ -79,11 +79,6 @@ public class Forecast extends TableImpl<ForecastRecord> {
     public final TableField<ForecastRecord, Float> WIND_POWER = createField(DSL.name("wind_power"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
 
     /**
-     * The column <code>weather.forecast.wind_direction</code>.
-     */
-    public final TableField<ForecastRecord, String> WIND_DIRECTION = createField(DSL.name("wind_direction"), org.jooq.impl.SQLDataType.CHAR(2).nullable(false), this, "");
-
-    /**
      * The column <code>weather.forecast.atmospheric_pressure</code>.
      */
     public final TableField<ForecastRecord, Float> ATMOSPHERIC_PRESSURE = createField(DSL.name("atmospheric_pressure"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
@@ -94,9 +89,19 @@ public class Forecast extends TableImpl<ForecastRecord> {
     public final TableField<ForecastRecord, Float> AIR_HUMIDITY = createField(DSL.name("air_humidity"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
 
     /**
+     * The column <code>weather.forecast.summary</code>.
+     */
+    public final TableField<ForecastRecord, String> SUMMARY = createField(DSL.name("summary"), org.jooq.impl.SQLDataType.CHAR(127).nullable(false), this, "");
+
+    /**
+     * The column <code>weather.forecast.preciptype</code>.
+     */
+    public final TableField<ForecastRecord, String> PRECIPTYPE = createField(DSL.name("preciptype"), org.jooq.impl.SQLDataType.CHAR(127), this, "");
+
+    /**
      * The column <code>weather.forecast.city</code>.
      */
-    public final TableField<ForecastRecord, String> CITY = createField(DSL.name("city"), org.jooq.impl.SQLDataType.VARCHAR(25).nullable(false), this, "");
+    public final TableField<ForecastRecord, String> CITY = createField(DSL.name("city"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
 
     /**
      * Create a <code>weather.forecast</code> table reference
@@ -152,6 +157,15 @@ public class Forecast extends TableImpl<ForecastRecord> {
     }
 
     @Override
+    public List<ForeignKey<ForecastRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<ForecastRecord, ?>>asList(Keys.FORECAST__FORECAST_CITY_FKEY);
+    }
+
+    public City city() {
+        return new City(this, Keys.FORECAST__FORECAST_CITY_FKEY);
+    }
+
+    @Override
     public Forecast as(String alias) {
         return new Forecast(DSL.name(alias), this);
     }
@@ -178,11 +192,11 @@ public class Forecast extends TableImpl<ForecastRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row10 type methods
+    // Row11 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row10<Integer, LocalDateTime, LocalDateTime, Float, Float, Float, String, Float, Float, String> fieldsRow() {
-        return (Row10) super.fieldsRow();
+    public Row11<Integer, LocalDateTime, LocalDateTime, Float, Float, Float, Float, Float, String, String, String> fieldsRow() {
+        return (Row11) super.fieldsRow();
     }
 }
