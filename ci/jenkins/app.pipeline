@@ -25,12 +25,12 @@ pipeline {
                 cp -r ./integration/target/integration.jar /app
 
                 REVIOUS_PID=$(pgrep -f 'java -jar -Dspring.profiles.active=prod /app/api.jar')
-                if [ -z "$PREVIOUS_ID" ]; then
+                if [ -z "${PREVIOUS_PID}" ]; then
                   kill "${PREVIOUS_PID}"
                 fi
 
                 PREVIOUS_PID=$(pgrep -f 'java -jar -Dspring.profiles.active=prod /app/integration.jar')
-                if [ -z "$PREVIOUS_ID" ]; then
+                if [ -z "${PREVIOUS_PID}" ]; then
                   kill "${PREVIOUS_PID}"
                 fi
 
