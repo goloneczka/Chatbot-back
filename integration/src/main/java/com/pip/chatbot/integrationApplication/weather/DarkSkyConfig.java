@@ -1,4 +1,4 @@
-package com.pip.chatbot.integration.weather;
+package com.pip.chatbot.integrationApplication.weather;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

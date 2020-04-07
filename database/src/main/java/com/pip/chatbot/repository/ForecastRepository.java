@@ -37,8 +37,10 @@ public class ForecastRepository {
     }
 
     public void createForecasts(List<Forecast> forecasts) {
-        for (Forecast forecast : forecasts) {
-            createForecast(forecast);
-        }
+        dsl.transaction(outer -> {
+            for (Forecast forecast : forecasts) {
+                createForecast(forecast);
+            }
+        });
     }
 }

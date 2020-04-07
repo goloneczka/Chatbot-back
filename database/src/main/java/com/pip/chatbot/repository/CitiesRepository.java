@@ -20,6 +20,7 @@ public class CitiesRepository {
 
     public void createCity(City city) {
         CityRecord cityRecord = dsl.newRecord(Tables.CITY);
+
         cityRecord.setCity(city.getCity());
         cityRecord.setCountry(city.getCountry());
         cityRecord.setLatitude(city.getLatitude());

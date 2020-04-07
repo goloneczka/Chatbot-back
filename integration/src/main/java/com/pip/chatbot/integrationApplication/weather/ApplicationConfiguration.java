@@ -1,4 +1,4 @@
-package com.pip.chatbot.integration.weather;
+package com.pip.chatbot.integrationApplication.weather;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,7 +8,6 @@ import com.pip.chatbot.repository.ForecastRepository;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
@@ -17,15 +16,8 @@ import javax.sql.DataSource;
 
 @Configuration
 public class ApplicationConfiguration {
-    @Autowired
-    private final DataSource dataSource;
-
-    public ApplicationConfiguration(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
     @Bean
-    public DataSourceConnectionProvider connectionProvider() {
+    public DataSourceConnectionProvider connectionProvider(DataSource dataSource) {
         return new DataSourceConnectionProvider
                 (new TransactionAwareDataSourceProxy(dataSource));
     }
@@ -51,9 +43,9 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public DefaultConfiguration configuration() {
+    public DefaultConfiguration configuration(DataSourceConnectionProvider connectionProvider) {
         DefaultConfiguration jooqConfiguration = new DefaultConfiguration();
-        jooqConfiguration.set(connectionProvider());
+        jooqConfiguration.set(connectionProvider);
 
         jooqConfiguration
                 .set(new DefaultExecuteListenerProvider(new DefaultExecuteListener()));
