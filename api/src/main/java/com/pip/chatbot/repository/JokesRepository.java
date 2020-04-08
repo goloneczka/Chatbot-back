@@ -1,70 +1,69 @@
 package com.pip.chatbot.repository;
 
-import com.pip.chatbot.dto.JokeDto;
+import com.pip.chatbot.model.Joke;
 import com.pip.chatbot.jooq.jokes.tables.records.JokeRecord;
+import lombok.AllArgsConstructor;
 import org.jooq.*;
-import org.jooq.impl.DSL;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.pip.chatbot.jooq.jokes.tables.Joke.JOKE;
 
 @Repository
+@AllArgsConstructor
 public class JokesRepository {
-    private static String url = "jdbc:postgresql://localhost:5432/appdb_test1";
-    private static String username = "app";
-    private static String password = "Ao4eiT2w";
+    @Autowired
+    private final DSLContext dslContext;
 
-    private Connection connect() throws SQLException {
-        return DriverManager.getConnection(url, username, password);
-    }
+    @Autowired
+    private final ModelMapper modelMapper;
 
-    private DSLContext getDSLContext() throws SQLException {
-        var con = connect();
-        return DSL.using(con, SQLDialect.POSTGRES);
-    }
-
-    public List<JokeRecord> getJokeList() throws SQLException {
-        return getDSLContext()
+    public List<Joke> getAll() {
+        List<JokeRecord> result = dslContext
                 .selectFrom(JOKE)
                 .fetchInto(JokeRecord.class);
+
+        List<Joke> jokes = new ArrayList<>();
+        result.forEach(v -> jokes.add(modelMapper.map(v, Joke.class)));
+        return jokes;
     }
 
-    public JokeRecord getJoke(int id) throws SQLException {
-         return (JokeRecord) getDSLContext()
-                 .fetchOne(JOKE, JOKE.ID.eq(id));
+    public Optional<Joke> get(int id) {
+        Optional<JokeRecord> record = dslContext
+                .fetchOptional(JOKE, JOKE.ID.eq(id));
+
+        return Optional.ofNullable(record.get().into(Joke.class));
     }
 
-    public JokeRecord postJoke(JokeDto joke) throws SQLException {
-         Result<JokeRecord> result = getDSLContext()
+    public Optional<Joke> create(Joke joke) {
+        Optional<JokeRecord> record = dslContext
                 .insertInto(JOKE, JOKE.CATEGORY, JOKE.JOKE_)
                 .values(joke.getCategory(), joke.getJoke())
                 .returning(JOKE.ID, JOKE.CATEGORY, JOKE.JOKE_)
-                .fetch();
+                .fetchOptional();
 
-         return result.get(0);
+        return Optional.ofNullable(record.get().into(Joke.class));
     }
 
-    public JokeRecord updateJoke(int id, JokeDto joke) throws SQLException {
-        Result<JokeRecord> result = getDSLContext()
+    public Optional<Joke> update(int id, Joke joke) {
+        Optional<JokeRecord> record = dslContext
                 .update(JOKE)
                 .set(JOKE.CATEGORY, joke.getCategory())
                 .set(JOKE.JOKE_, joke.getJoke())
                 .where(JOKE.ID.eq(id))
                 .returning(JOKE.ID, JOKE.CATEGORY, JOKE.JOKE_)
-                .fetch();
+                .fetchOptional();
 
-        return result.get(0);
+        return Optional.ofNullable(record.get().into(Joke.class));
     }
 
-    public boolean deleteJoke(int id) throws SQLException {
-        return 0 < getDSLContext()
+    public boolean delete(int id) {
+        return 0 < dslContext
                 .deleteFrom(JOKE)
                 .where(JOKE.ID.eq(id))
                 .execute();

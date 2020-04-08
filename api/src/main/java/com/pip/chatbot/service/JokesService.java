@@ -1,48 +1,58 @@
 package com.pip.chatbot.service;
 
-import com.pip.chatbot.dto.JokeDto;
-import com.pip.chatbot.jooq.jokes.tables.records.JokeRecord;
+import com.pip.chatbot.model.Joke;
+import com.pip.chatbot.exception.ChatbotExceptionBuilder;
+import com.pip.chatbot.exception.messages.JokesErrorMessages;
 import com.pip.chatbot.repository.JokesRepository;
-import org.modelmapper.ModelMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class JokesService {
     @Autowired
-    JokesRepository jokesRepository;
+    private final JokesRepository jokesRepository;
 
-    @Autowired
-    ModelMapper modelMapper;
-
-    public List<JokeDto> getJokeList() throws SQLException {
-        var jokeList = jokesRepository.getJokeList();
-        var jokeDtoList = new ArrayList<JokeDto>();
-
-        jokeList.forEach(joke -> {
-            jokeDtoList.add(modelMapper.map(joke, JokeDto.class));
-        });
-
-        return jokeDtoList;
+    public List<Joke> getAll() {
+        return jokesRepository.getAll();
     }
 
-    public JokeDto getJoke(int id) throws SQLException {
-        return modelMapper.map(jokesRepository.getJoke(id), JokeDto.class);
+    public Joke get(int id) {
+        var result = jokesRepository.get(id);
+
+        if (result.isEmpty()) {
+            throw new ChatbotExceptionBuilder().addError(JokesErrorMessages.NOT_FOUND).build();
+        }
+
+        return result.get();
     }
 
-    public JokeDto postJoke(JokeDto joke) throws SQLException {
-        return modelMapper.map(jokesRepository.postJoke(joke), JokeDto.class);
+    public Joke create(Joke joke) {
+        var result = jokesRepository.create(joke);
+
+        if (result.isEmpty()) {
+            throw new ChatbotExceptionBuilder().addError(JokesErrorMessages.CREATE_FAILURE).build();
+        }
+
+        return result.get();
     }
 
-    public JokeDto updateJoke(int id, JokeDto joke) throws SQLException {
-        return modelMapper.map(jokesRepository.updateJoke(id, joke), JokeDto.class);
+    public Joke update(int id, Joke joke) {
+        var result = jokesRepository.update(id, joke);
+
+        if (result.isEmpty()) {
+            throw new ChatbotExceptionBuilder().addError(JokesErrorMessages.UPDATE_FAILURE).build();
+        }
+
+        return result.get();
     }
 
-    public boolean deleteJoke(int id) throws SQLException {
-        return jokesRepository.deleteJoke(id);
+    public void delete(int id) {
+        if (!jokesRepository.delete(id)) {
+            throw new ChatbotExceptionBuilder().addError(JokesErrorMessages.DELETE_FAILURE).build();
+        }
     }
 }
