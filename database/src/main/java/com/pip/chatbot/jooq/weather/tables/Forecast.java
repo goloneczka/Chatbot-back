@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Forecast extends TableImpl<ForecastRecord> {
 
-    private static final long serialVersionUID = 1316306416;
+    private static final long serialVersionUID = -612117030;
 
     /**
      * The reference instance of <code>weather.forecast</code>
@@ -64,29 +64,29 @@ public class Forecast extends TableImpl<ForecastRecord> {
     public final TableField<ForecastRecord, LocalDateTime> DATE = createField(DSL.name("date"), org.jooq.impl.SQLDataType.LOCALDATETIME.nullable(false), this, "");
 
     /**
-     * The column <code>weather.forecast.temperature</code>.
+     * The column <code>weather.forecast.temperature_high</code>.
      */
-    public final TableField<ForecastRecord, Float> TEMPERATURE = createField(DSL.name("temperature"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
+    public final TableField<ForecastRecord, Float> TEMPERATURE_HIGH = createField(DSL.name("temperature_high"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
 
     /**
-     * The column <code>weather.forecast.perceived_temperature</code>.
+     * The column <code>weather.forecast.apparent_temperature_high</code>.
      */
-    public final TableField<ForecastRecord, Float> PERCEIVED_TEMPERATURE = createField(DSL.name("perceived_temperature"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
+    public final TableField<ForecastRecord, Float> APPARENT_TEMPERATURE_HIGH = createField(DSL.name("apparent_temperature_high"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
 
     /**
-     * The column <code>weather.forecast.wind_power</code>.
+     * The column <code>weather.forecast.wind_speed</code>.
      */
-    public final TableField<ForecastRecord, Float> WIND_POWER = createField(DSL.name("wind_power"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
+    public final TableField<ForecastRecord, Float> WIND_SPEED = createField(DSL.name("wind_speed"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
 
     /**
-     * The column <code>weather.forecast.atmospheric_pressure</code>.
+     * The column <code>weather.forecast.pressure</code>.
      */
-    public final TableField<ForecastRecord, Float> ATMOSPHERIC_PRESSURE = createField(DSL.name("atmospheric_pressure"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
+    public final TableField<ForecastRecord, Float> PRESSURE = createField(DSL.name("pressure"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
 
     /**
-     * The column <code>weather.forecast.air_humidity</code>.
+     * The column <code>weather.forecast.humidity</code>.
      */
-    public final TableField<ForecastRecord, Float> AIR_HUMIDITY = createField(DSL.name("air_humidity"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
+    public final TableField<ForecastRecord, Float> HUMIDITY = createField(DSL.name("humidity"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
 
     /**
      * The column <code>weather.forecast.summary</code>.
@@ -94,9 +94,9 @@ public class Forecast extends TableImpl<ForecastRecord> {
     public final TableField<ForecastRecord, String> SUMMARY = createField(DSL.name("summary"), org.jooq.impl.SQLDataType.CHAR(127).nullable(false), this, "");
 
     /**
-     * The column <code>weather.forecast.preciptype</code>.
+     * The column <code>weather.forecast.precip_type</code>.
      */
-    public final TableField<ForecastRecord, String> PRECIPTYPE = createField(DSL.name("preciptype"), org.jooq.impl.SQLDataType.CHAR(127), this, "");
+    public final TableField<ForecastRecord, String> PRECIP_TYPE = createField(DSL.name("precip_type"), org.jooq.impl.SQLDataType.CHAR(127), this, "");
 
     /**
      * The column <code>weather.forecast.city</code>.

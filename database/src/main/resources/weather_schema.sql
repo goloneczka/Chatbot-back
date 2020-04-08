@@ -4,13 +4,13 @@ CREATE SCHEMA weather;
         id serial PRIMARY KEY,
 		created_on TIMESTAMP NOT NULL,
 		date TIMESTAMP NOT NULL,
-        temperature REAL NOT NULL,
-		perceived_temperature REAL NOT NULL,
-        wind_power REAL NOT NULL,
-		atmospheric_pressure REAL NOT NULL,
-		air_humidity REAL NOT NULL,
+        temperature_high REAL NOT NULL,
+		apparent_temperature_high REAL NOT NULL,
+        wind_speed REAL NOT NULL,
+		pressure REAL NOT NULL,
+		humidity REAL NOT NULL,
 		summary char(127) NOT NULL,
-		precipType char(127),
+		precip_type char(127),
 		city VARCHAR(127) NOT NULL REFERENCES city(city) ON UPDATE CASCADE ON DELETE CASCADE
     );
     CREATE TABLE city(

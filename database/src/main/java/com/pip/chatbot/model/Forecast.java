@@ -8,15 +8,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class Forecast {
-    public Integer id;
-    public LocalDateTime createdOn;
-    public LocalDateTime date;
-    public float temperatureHigh;
-    public float apparentTemperatureHigh;
-    public float windSpeed;
-    public float pressure;
-    public float humidity;
-    public String summary;
-    public String precipType;
-    public String city;
+    private Integer id;
+    private LocalDateTime createdOn;
+    private LocalDateTime date;
+    private float temperatureHigh;
+    private float apparentTemperatureHigh;
+    private float windSpeed;
+    private float pressure;
+    private float humidity;
+    private String summary;
+    private String precipType;
+    private String city;
 }

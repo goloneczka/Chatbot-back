@@ -6,5 +6,5 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 public class Country {
-    public String country;
+    private String country;
 }

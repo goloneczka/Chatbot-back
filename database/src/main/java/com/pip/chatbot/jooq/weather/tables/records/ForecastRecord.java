@@ -21,7 +21,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implements Record11<Integer, LocalDateTime, LocalDateTime, Float, Float, Float, Float, Float, String, String, String> {
 
-    private static final long serialVersionUID = 607934713;
+    private static final long serialVersionUID = 658782750;
 
     /**
      * Setter for <code>weather.forecast.id</code>.
@@ -66,72 +66,72 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
     }
 
     /**
-     * Setter for <code>weather.forecast.temperature</code>.
+     * Setter for <code>weather.forecast.temperature_high</code>.
      */
-    public void setTemperature(Float value) {
+    public void setTemperatureHigh(Float value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>weather.forecast.temperature</code>.
+     * Getter for <code>weather.forecast.temperature_high</code>.
      */
-    public Float getTemperature() {
+    public Float getTemperatureHigh() {
         return (Float) get(3);
     }
 
     /**
-     * Setter for <code>weather.forecast.perceived_temperature</code>.
+     * Setter for <code>weather.forecast.apparent_temperature_high</code>.
      */
-    public void setPerceivedTemperature(Float value) {
+    public void setApparentTemperatureHigh(Float value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>weather.forecast.perceived_temperature</code>.
+     * Getter for <code>weather.forecast.apparent_temperature_high</code>.
      */
-    public Float getPerceivedTemperature() {
+    public Float getApparentTemperatureHigh() {
         return (Float) get(4);
     }
 
     /**
-     * Setter for <code>weather.forecast.wind_power</code>.
+     * Setter for <code>weather.forecast.wind_speed</code>.
      */
-    public void setWindPower(Float value) {
+    public void setWindSpeed(Float value) {
         set(5, value);
     }
 
     /**
-     * Getter for <code>weather.forecast.wind_power</code>.
+     * Getter for <code>weather.forecast.wind_speed</code>.
      */
-    public Float getWindPower() {
+    public Float getWindSpeed() {
         return (Float) get(5);
     }
 
     /**
-     * Setter for <code>weather.forecast.atmospheric_pressure</code>.
+     * Setter for <code>weather.forecast.pressure</code>.
      */
-    public void setAtmosphericPressure(Float value) {
+    public void setPressure(Float value) {
         set(6, value);
     }
 
     /**
-     * Getter for <code>weather.forecast.atmospheric_pressure</code>.
+     * Getter for <code>weather.forecast.pressure</code>.
      */
-    public Float getAtmosphericPressure() {
+    public Float getPressure() {
         return (Float) get(6);
     }
 
     /**
-     * Setter for <code>weather.forecast.air_humidity</code>.
+     * Setter for <code>weather.forecast.humidity</code>.
      */
-    public void setAirHumidity(Float value) {
+    public void setHumidity(Float value) {
         set(7, value);
     }
 
     /**
-     * Getter for <code>weather.forecast.air_humidity</code>.
+     * Getter for <code>weather.forecast.humidity</code>.
      */
-    public Float getAirHumidity() {
+    public Float getHumidity() {
         return (Float) get(7);
     }
 
@@ -150,16 +150,16 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
     }
 
     /**
-     * Setter for <code>weather.forecast.preciptype</code>.
+     * Setter for <code>weather.forecast.precip_type</code>.
      */
-    public void setPreciptype(String value) {
+    public void setPrecipType(String value) {
         set(9, value);
     }
 
     /**
-     * Getter for <code>weather.forecast.preciptype</code>.
+     * Getter for <code>weather.forecast.precip_type</code>.
      */
-    public String getPreciptype() {
+    public String getPrecipType() {
         return (String) get(9);
     }
 
@@ -217,27 +217,27 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
 
     @Override
     public Field<Float> field4() {
-        return Forecast.FORECAST.TEMPERATURE;
+        return Forecast.FORECAST.TEMPERATURE_HIGH;
     }
 
     @Override
     public Field<Float> field5() {
-        return Forecast.FORECAST.PERCEIVED_TEMPERATURE;
+        return Forecast.FORECAST.APPARENT_TEMPERATURE_HIGH;
     }
 
     @Override
     public Field<Float> field6() {
-        return Forecast.FORECAST.WIND_POWER;
+        return Forecast.FORECAST.WIND_SPEED;
     }
 
     @Override
     public Field<Float> field7() {
-        return Forecast.FORECAST.ATMOSPHERIC_PRESSURE;
+        return Forecast.FORECAST.PRESSURE;
     }
 
     @Override
     public Field<Float> field8() {
-        return Forecast.FORECAST.AIR_HUMIDITY;
+        return Forecast.FORECAST.HUMIDITY;
     }
 
     @Override
@@ -247,7 +247,7 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
 
     @Override
     public Field<String> field10() {
-        return Forecast.FORECAST.PRECIPTYPE;
+        return Forecast.FORECAST.PRECIP_TYPE;
     }
 
     @Override
@@ -272,27 +272,27 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
 
     @Override
     public Float component4() {
-        return getTemperature();
+        return getTemperatureHigh();
     }
 
     @Override
     public Float component5() {
-        return getPerceivedTemperature();
+        return getApparentTemperatureHigh();
     }
 
     @Override
     public Float component6() {
-        return getWindPower();
+        return getWindSpeed();
     }
 
     @Override
     public Float component7() {
-        return getAtmosphericPressure();
+        return getPressure();
     }
 
     @Override
     public Float component8() {
-        return getAirHumidity();
+        return getHumidity();
     }
 
     @Override
@@ -302,7 +302,7 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
 
     @Override
     public String component10() {
-        return getPreciptype();
+        return getPrecipType();
     }
 
     @Override
@@ -327,27 +327,27 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
 
     @Override
     public Float value4() {
-        return getTemperature();
+        return getTemperatureHigh();
     }
 
     @Override
     public Float value5() {
-        return getPerceivedTemperature();
+        return getApparentTemperatureHigh();
     }
 
     @Override
     public Float value6() {
-        return getWindPower();
+        return getWindSpeed();
     }
 
     @Override
     public Float value7() {
-        return getAtmosphericPressure();
+        return getPressure();
     }
 
     @Override
     public Float value8() {
-        return getAirHumidity();
+        return getHumidity();
     }
 
     @Override
@@ -357,7 +357,7 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
 
     @Override
     public String value10() {
-        return getPreciptype();
+        return getPrecipType();
     }
 
     @Override
@@ -385,31 +385,31 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
 
     @Override
     public ForecastRecord value4(Float value) {
-        setTemperature(value);
+        setTemperatureHigh(value);
         return this;
     }
 
     @Override
     public ForecastRecord value5(Float value) {
-        setPerceivedTemperature(value);
+        setApparentTemperatureHigh(value);
         return this;
     }
 
     @Override
     public ForecastRecord value6(Float value) {
-        setWindPower(value);
+        setWindSpeed(value);
         return this;
     }
 
     @Override
     public ForecastRecord value7(Float value) {
-        setAtmosphericPressure(value);
+        setPressure(value);
         return this;
     }
 
     @Override
     public ForecastRecord value8(Float value) {
-        setAirHumidity(value);
+        setHumidity(value);
         return this;
     }
 
@@ -421,7 +421,7 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
 
     @Override
     public ForecastRecord value10(String value) {
-        setPreciptype(value);
+        setPrecipType(value);
         return this;
     }
 
@@ -461,19 +461,19 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
     /**
      * Create a detached, initialised ForecastRecord
      */
-    public ForecastRecord(Integer id, LocalDateTime createdOn, LocalDateTime date, Float temperature, Float perceivedTemperature, Float windPower, Float atmosphericPressure, Float airHumidity, String summary, String preciptype, String city) {
+    public ForecastRecord(Integer id, LocalDateTime createdOn, LocalDateTime date, Float temperatureHigh, Float apparentTemperatureHigh, Float windSpeed, Float pressure, Float humidity, String summary, String precipType, String city) {
         super(Forecast.FORECAST);
 
         set(0, id);
         set(1, createdOn);
         set(2, date);
-        set(3, temperature);
-        set(4, perceivedTemperature);
-        set(5, windPower);
-        set(6, atmosphericPressure);
-        set(7, airHumidity);
+        set(3, temperatureHigh);
+        set(4, apparentTemperatureHigh);
+        set(5, windSpeed);
+        set(6, pressure);
+        set(7, humidity);
         set(8, summary);
-        set(9, preciptype);
+        set(9, precipType);
         set(10, city);
     }
 }
