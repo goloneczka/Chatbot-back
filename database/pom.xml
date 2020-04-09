@@ -32,7 +32,6 @@
         <dependency>
             <groupId>org.modelmapper.extensions</groupId>
             <artifactId>modelmapper-jooq</artifactId>
-            <version>${modelmapper-jooq.version}</version>
         </dependency>
     </dependencies>
 
