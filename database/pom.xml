@@ -32,7 +32,7 @@
         <dependency>
             <groupId>org.modelmapper.extensions</groupId>
             <artifactId>modelmapper-jooq</artifactId>
-            <version>2.3.0</version>
+            <version>${modelmapper-jooq.version}</version>
         </dependency>
     </dependencies>
 
@@ -93,12 +93,6 @@
                     </dependency>
                 </dependencies>
 
-                <configuration>
-                    <driver>org.postgresql.Driver</driver>
-                    <locations>
-                        <location>filesystem:./src/main/resources/migration</location>
-                    </locations>
-                </configuration>
             </plugin>
         </plugins>
     </build>

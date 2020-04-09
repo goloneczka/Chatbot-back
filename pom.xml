@@ -27,6 +27,7 @@
         <spring-boot-jooq.version>2.2.5.RELEASE</spring-boot-jooq.version>
         <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
         <maven-flyway-plugin.version>6.3.2</maven-flyway-plugin.version>
+        <modelmapper-jooq.version>2.3.0</modelmapper-jooq.version>
     </properties>
 
     <modules>

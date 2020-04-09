@@ -23,7 +23,7 @@ Parametry polecenia potrzebne do wykonania migracji schematu bazy danych za pomo
 * "-Dflyway.password" - hasło używane do połączenia z baza danych
 * "-Dflyway.url" - adres url do bazy danych
 
-Pliki z kwerendami, które mają zostać wykonane znajduja się w katalogu: "database/src/main/resources/migration".
+Pliki z kwerendami, które mają zostać wykonane znajduja się w katalogu: "database/src/main/resources/db/migration".
 
 Znajdując się w katalogu "database" należy wpisać poniższą komendę z odpowiednio uzupełnionymi parametrami:
 ````
