@@ -1,55 +1,24 @@
 package com.pip.chatbot.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pip.chatbot.repository.ForecastRepository;
+import com.pip.chatbot.model.Forecast;
+import com.pip.chatbot.payload.response.ResponseStatus;
+import com.pip.chatbot.service.ForecastService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 
 @RestController
 public class ForecastsController {
-    private final ForecastRepository forecastRepository;
-    private final ObjectMapper objectMapper;
+    private final ForecastService forecastService;
 
-    public ForecastsController(ForecastRepository forecastRepository, ObjectMapper objectMapper) {
-        this.forecastRepository = forecastRepository;
-        this.objectMapper = objectMapper;
+    public ForecastsController(ForecastService forecastService) {
+        this.forecastService = forecastService;
     }
 
-    @GetMapping("admin/forecasts/city/{city}")
-    public ResponseEntity<?> getForecastsForCity(@PathVariable String city) {
-        try {
-            return ResponseEntity.ok().body(forecastRepository.getForecastsForCity(city));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .status(404)
-                    .body(new HashMap.SimpleEntry<>("message", "City not found"));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(400)
-                    .body(new HashMap.SimpleEntry<>("message", e.getMessage()));
-        }
-    }
-
-    @GetMapping("admin/forecasts/cityAndDate/{city}")
-    public ResponseEntity<?> getForecastForDayAndCity(@PathVariable String city, @RequestBody JsonNode dateJson) {
-        try {
-            LocalDate date = LocalDate.parse(dateJson.get("date").asText());
-            return ResponseEntity.ok().body(forecastRepository.getForecastsForCityAndDate(city, date.atStartOfDay()));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .status(404)
-                    .body(new HashMap.SimpleEntry<>("message", "City not found"));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(400)
-                    .body(new HashMap.SimpleEntry<>("message", e.getMessage()));
-        }
+    @GetMapping("forecasts/city/{city}")
+    public ResponseEntity<Forecast> getForecastsForCity(@PathVariable String city, @RequestParam String date) {
+        LocalDate dateParsed = LocalDate.parse(date);
+        return ResponseEntity.status(ResponseStatus.OK).body(forecastService.getForecast(city, dateParsed.atStartOfDay()));
     }
 }

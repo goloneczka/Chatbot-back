@@ -1,55 +1,33 @@
 package com.pip.chatbot.controller;
 
 import com.pip.chatbot.model.Country;
-import com.pip.chatbot.repository.CountriesRepository;
+import com.pip.chatbot.payload.response.Response;
+import com.pip.chatbot.payload.response.ResponseStatus;
+import com.pip.chatbot.service.CountryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-
 @RestController
 public class CountriesController {
-    private final CountriesRepository countriesRepository;
+    private final CountryService countryService;
 
-    CountriesController(CountriesRepository countriesRepository) {
-        this.countriesRepository = countriesRepository;
+    CountriesController(CountryService countryService) {
+        this.countryService = countryService;
     }
 
-    @GetMapping("/admin/countries")
-    public ResponseEntity<?> getCountriesList() {
-        try {
-            return ResponseEntity.ok(countriesRepository.getCountriesList());
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(400)
-                    .body(new HashMap.SimpleEntry<>("message", "error"));
-        }
+    @GetMapping("/countries")
+    public ResponseEntity<?> getCountries() {
+        return ResponseEntity.status(ResponseStatus.OK).body(countryService.getCountries());
     }
 
     @PostMapping("/admin/countries")
-    public ResponseEntity<?> postCountry(@RequestBody Country country) {
-        try {
-            return ResponseEntity.ok(countriesRepository.createCountry(country));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(400)
-                    .body(new HashMap.SimpleEntry<>("message", e.getMessage()));
-        }
+    public ResponseEntity<?> createCountry(@RequestBody Country country) {
+        return ResponseEntity.status(ResponseStatus.OK).body(countryService.createCountry(country));
     }
 
     @DeleteMapping("/admin/countries/{country}")
     public ResponseEntity<?> deleteCountry(@PathVariable String country) {
-        try {
-            countriesRepository.deleteCountry(country);
-            return ResponseEntity.ok().body("Succesfully deleted");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .status(404)
-                    .body(new HashMap.SimpleEntry<>("message", "country not found"));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(400)
-                    .body(new HashMap.SimpleEntry<>("message", e.getMessage()));
-        }
+        countryService.deleteCountry(country);
+        return Response.SUCCESS;
     }
 }

@@ -9,6 +9,7 @@ import org.jooq.impl.DSL;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public class ForecastRepository {
     private final DSLContext dsl;
@@ -45,21 +46,21 @@ public class ForecastRepository {
     }
 
     public List<Forecast> getForecastsForCity(String city) {
-        if (!dsl.fetchExists(dsl.selectFrom(Tables.CITY).where(Tables.CITY.CITY_.eq(city)))) {
-            throw new IllegalArgumentException();
-        }
-        return dsl.selectFrom(Tables.FORECAST).where(Tables.FORECAST.CITY.eq(city)).orderBy(Tables.FORECAST.DATE.asc()).fetchInto(Forecast.class);
+        return dsl.selectFrom(Tables.FORECAST)
+                .where(Tables.FORECAST.CITY.eq(city))
+                .orderBy(Tables.FORECAST.DATE.asc())
+                .fetchInto(Forecast.class);
     }
 
-    public Forecast getForecastsForCityAndDate(String city, LocalDateTime date) {
-        if (!dsl.fetchExists(dsl.selectFrom(Tables.CITY).where(Tables.CITY.CITY_.eq(city)))) {
-            throw new IllegalArgumentException();
-        }
+    public Optional<Forecast> getForecastsForCityAndDate(String city, LocalDateTime date) {
         Condition dayCondition = (DSL.dayOfYear(Tables.FORECAST.DATE)).eq(date.getDayOfYear());
         Condition yearCondition = DSL.year(Tables.FORECAST.DATE).eq(date.getYear());
         Condition cityCondition = Tables.FORECAST.CITY.equal(city);
 
-        return dsl.selectFrom(Tables.FORECAST).where(cityCondition).and(dayCondition).and(yearCondition).fetchAnyInto(Forecast.class);
-
+        return Optional.ofNullable(dsl.selectFrom(Tables.FORECAST)
+                .where(cityCondition)
+                .and(dayCondition)
+                .and(yearCondition)
+                .fetchAnyInto(Forecast.class));
     }
 }

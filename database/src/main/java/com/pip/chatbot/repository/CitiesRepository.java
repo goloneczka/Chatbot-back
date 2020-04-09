@@ -1,11 +1,11 @@
 package com.pip.chatbot.repository;
 
 import com.pip.chatbot.jooq.weather.Tables;
-import com.pip.chatbot.jooq.weather.tables.records.CityRecord;
 import com.pip.chatbot.model.City;
 import org.jooq.DSLContext;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CitiesRepository {
     private final DSLContext dsl;
@@ -14,43 +14,41 @@ public class CitiesRepository {
         this.dsl = dsl;
     }
 
-    public City getCity(String cityName) throws IllegalArgumentException {
-        City city = dsl.selectFrom(Tables.CITY).where(Tables.CITY.CITY_.eq(cityName)).fetchAnyInto(City.class);
-        if (city == null) {
-            throw new IllegalArgumentException();
-        }
-        return city;
+    public Optional<City> getCity(String cityName) {
+        return Optional.ofNullable(dsl.selectFrom(Tables.CITY)
+                .where(Tables.CITY.CITY_.eq(cityName))
+                .fetchAnyInto(City.class));
+    }
+
+    public boolean isCityExist(String city) {
+        return dsl.fetchExists(dsl.selectFrom(Tables.CITY).where(Tables.CITY.CITY_.eq(city)));
     }
 
     public List<City> getAllCities() {
         return dsl.selectFrom(Tables.CITY).fetchInto(City.class);
     }
 
-    public City createCity(City city) {
-        CityRecord cityRecord = dsl.newRecord(Tables.CITY);
-
-        cityRecord.setCity(city.getCity());
-        cityRecord.setCountry(city.getCountry());
-        cityRecord.setLatitude(city.getLatitude());
-        cityRecord.setLongitude(city.getLongitude());
-        cityRecord.store();
-        System.out.println(cityRecord.into(City.class));
-        return cityRecord.into(City.class);
+    public Optional<City> createCity(City city) {
+        return Optional.ofNullable(dsl.insertInto(Tables.CITY)
+                .set(Tables.CITY.CITY_, city.getCity())
+                .set(Tables.CITY.COUNTRY, city.getCountry())
+                .set(Tables.CITY.LATITUDE, city.getLatitude())
+                .set(Tables.CITY.LONGITUDE, city.getLongitude())
+                .returningResult()
+                .fetchOne()
+                .into(City.class));
     }
 
-    public void deleteCity(String city) throws IllegalArgumentException {
-        int numberOfRowsAffected = dsl.delete(Tables.CITY).where(Tables.CITY.CITY_.eq(city)).execute();
-        if (numberOfRowsAffected < 1) {
-            throw new IllegalArgumentException();
-        }
-        ;
+    public boolean deleteCity(String city) {
+        int numberOfRowsAffected = dsl.delete(Tables.CITY)
+                .where(Tables.CITY.CITY_.eq(city))
+                .execute();
+        return numberOfRowsAffected >= 1;
     }
 
-    public List<City> getCitiesForCountry(String country) throws IllegalArgumentException {
-        //Checking if given country is correct
-        if (!dsl.fetchExists(dsl.selectFrom(Tables.COUNTRY).where(Tables.COUNTRY.COUNTRY_.eq(country)))) {
-            throw new IllegalArgumentException();
-        }
-        return dsl.selectFrom(Tables.CITY).where(Tables.CITY.COUNTRY.eq(country)).fetchInto(City.class);
+    public List<City> getCitiesForCountry(String country) {
+        return dsl.selectFrom(Tables.CITY)
+                .where(Tables.CITY.COUNTRY.eq(country))
+                .fetchInto(City.class);
     }
 }

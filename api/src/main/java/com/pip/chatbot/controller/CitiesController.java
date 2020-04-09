@@ -1,86 +1,46 @@
 package com.pip.chatbot.controller;
 
 import com.pip.chatbot.model.City;
-import com.pip.chatbot.repository.CitiesRepository;
+import com.pip.chatbot.payload.response.Response;
+import com.pip.chatbot.payload.response.ResponseStatus;
+import com.pip.chatbot.service.CityService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class CitiesController {
-    private final CitiesRepository citiesRepository;
+    private final CityService cityService;
 
-    CitiesController(CitiesRepository citiesRepository) {
-        this.citiesRepository = citiesRepository;
+    CitiesController(CityService cityService) {
+        this.cityService = cityService;
     }
 
-    @GetMapping("/admin/cities")
-    public ResponseEntity<?> getCitiesList() {
-        try {
-            return ResponseEntity.ok(citiesRepository.getAllCities());
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(400)
-                    .body(new HashMap.SimpleEntry<>("message", "error"));
-        }
+    @GetMapping("/cities")
+    public ResponseEntity<List<City>> getCities(@RequestParam Optional<String> country) {
+        List<City> cities;
+        if (country.isPresent())
+            cities = cityService.getCities(country.get());
+        else
+            cities = cityService.getCities();
+        return ResponseEntity.status(ResponseStatus.OK).body(cities);
     }
 
-    @GetMapping("/admin/cities/{city}")
+    @GetMapping("/cities/{city}")
     public ResponseEntity<?> getCity(@PathVariable String city) {
-        try {
-            return ResponseEntity.ok().body(citiesRepository.getCity(city));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .status(404)
-                    .body(new HashMap.SimpleEntry<>("message", "City not found"));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(400)
-                    .body(new HashMap.SimpleEntry<>("message", e.getMessage()));
-        }
+        return ResponseEntity.status(ResponseStatus.OK).body(cityService.getCity(city));
     }
 
     @PostMapping("/admin/cities")
-    public ResponseEntity<?> postCity(@RequestBody City city) {
-        try {
-            System.out.println(city);
-            return ResponseEntity.ok(citiesRepository.createCity(city));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(400)
-                    .body(new HashMap.SimpleEntry<>("message", e.getMessage()));
-        }
+    public ResponseEntity<?> createCity(@RequestBody City city) {
+        return ResponseEntity.status(ResponseStatus.OK).body(cityService.createCity(city));
     }
 
     @DeleteMapping("/admin/cities/{city}")
     public ResponseEntity<?> deleteCity(@PathVariable String city) {
-        try {
-            citiesRepository.deleteCity(city);
-            return ResponseEntity.ok().body("Succesfully deleted");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .status(404)
-                    .body(new HashMap.SimpleEntry<>("message", "city not found"));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(400)
-                    .body(new HashMap.SimpleEntry<>("message", e.getMessage()));
-        }
-    }
-
-    @GetMapping("/admin/cities/country/{country}")
-    public ResponseEntity<?> getCitiesForCountry(@PathVariable String country) {
-        try {
-            return ResponseEntity.ok(citiesRepository.getCitiesForCountry(country));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .status(404)
-                    .body(new HashMap.SimpleEntry<>("message", "country not found"));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(400)
-                    .body(new HashMap.SimpleEntry<>("message", "error"));
-        }
+        cityService.deleteCity(city);
+        return Response.SUCCESS;
     }
 }
