@@ -1,4 +1,4 @@
-package com.pip.chatbot.Exception.messages;
+package com.pip.chatbot.exception.messages;
 
 public class CitiesErrorMessages {
     public final static String NOT_FOUND = "City not found";

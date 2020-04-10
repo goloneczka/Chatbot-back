@@ -14,15 +14,15 @@ public class CountriesRepository {
         this.dsl = dsl;
     }
 
-    public Optional<Country> createCountry(Country country) {
-        return Optional.ofNullable(dsl.insertInto(Tables.COUNTRY)
+    public Country createCountry(Country country) {
+        return dsl.insertInto(Tables.COUNTRY)
                 .set(Tables.COUNTRY.COUNTRY_, country.getCountry())
                 .returning()
                 .fetchOne()
-                .into(Country.class));
+                .into(Country.class);
     }
 
-    public boolean isCountryExist(String country) {
+    public boolean doesCountryExist(String country) {
         return dsl.fetchExists(dsl.selectFrom(Tables.COUNTRY).where(Tables.COUNTRY.COUNTRY_.eq(country)));
     }
 

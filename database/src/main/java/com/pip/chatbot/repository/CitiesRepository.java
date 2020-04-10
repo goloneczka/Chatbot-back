@@ -20,7 +20,7 @@ public class CitiesRepository {
                 .fetchAnyInto(City.class));
     }
 
-    public boolean isCityExist(String city) {
+    public boolean doesCityExist(String city) {
         return dsl.fetchExists(dsl.selectFrom(Tables.CITY).where(Tables.CITY.CITY_.eq(city)));
     }
 
@@ -28,15 +28,15 @@ public class CitiesRepository {
         return dsl.selectFrom(Tables.CITY).fetchInto(City.class);
     }
 
-    public Optional<City> createCity(City city) {
-        return Optional.ofNullable(dsl.insertInto(Tables.CITY)
+    public City createCity(City city) {
+        return dsl.insertInto(Tables.CITY)
                 .set(Tables.CITY.CITY_, city.getCity())
                 .set(Tables.CITY.COUNTRY, city.getCountry())
                 .set(Tables.CITY.LATITUDE, city.getLatitude())
                 .set(Tables.CITY.LONGITUDE, city.getLongitude())
                 .returningResult()
                 .fetchOne()
-                .into(City.class));
+                .into(City.class);
     }
 
     public boolean deleteCity(String city) {

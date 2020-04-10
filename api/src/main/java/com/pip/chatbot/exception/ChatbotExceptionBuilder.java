@@ -1,4 +1,4 @@
-package com.pip.chatbot.Exception;
+package com.pip.chatbot.exception;
 
 import java.util.ArrayList;
 import java.util.List;

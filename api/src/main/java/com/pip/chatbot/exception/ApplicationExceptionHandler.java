@@ -1,4 +1,4 @@
-package com.pip.chatbot.Exception;
+package com.pip.chatbot.exception;
 
 import com.pip.chatbot.payload.response.ErrorResponse;
 import com.pip.chatbot.payload.response.ResponseStatus;
