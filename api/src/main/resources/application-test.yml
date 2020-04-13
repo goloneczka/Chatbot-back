@@ -1,0 +1,12 @@
+server:
+  port: 8081
+
+application:
+  admin:
+    password: "{bcrypt}$2a$10$jXI7IkpEVqv7Qq.UfQUhO.353gfrtL/qxPFHLZMinUFw5KObS54mi"
+
+spring:
+  datasource:
+    url: "jdbc:postgresql://trainings/appdb_test1"
+    username: "app"
+    password: "Ao4eiT2w"
