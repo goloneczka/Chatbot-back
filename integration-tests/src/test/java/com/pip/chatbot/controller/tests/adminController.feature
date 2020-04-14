@@ -1,11 +1,11 @@
 Feature: Admin Controller
 
   Background:
-    * url 'http://localhost:9090'
-    * def authorizationHeader = read('./karateAuthorization.json')
+    * call read('./../karate-config.js')
+    * url baseUrl
 
   Scenario: Testing correct Authorization Endpoint
-    * configure headers = { Authorization: '#(authorizationHeader.correctAuthorization)' }
+    * header Authorization = header
       Given path '/admin/login'
       When method GET
       Then status 200
@@ -13,7 +13,7 @@ Feature: Admin Controller
 
 
   Scenario: Testing unCorrect Authorization Endpoint
-    * configure headers = { Authorization: '#(authorizationHeader.unCorrectAuthorization)' }
+    * header Authorization = unCorrectHeader
     Given path '/admin/login'
     When method GET
     Then status 401
