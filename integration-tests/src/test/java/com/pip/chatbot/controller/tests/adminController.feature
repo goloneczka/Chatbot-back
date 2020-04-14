@@ -1,11 +1,10 @@
 Feature: Admin Controller
 
   Background:
-    * call read('./../karate-config.js')
     * url baseUrl
 
   Scenario: Testing correct Authorization Endpoint
-    * header Authorization = header
+    * header Authorization =  call read('basic-auth.js') {user: #(user), password: #(password)}
       Given path '/admin/login'
       When method GET
       Then status 200
@@ -13,7 +12,7 @@ Feature: Admin Controller
 
 
   Scenario: Testing unCorrect Authorization Endpoint
-    * header Authorization = unCorrectHeader
+    * header Authorization = call read('basic-auth.js') {user: #(user), password: #(unCorrectPassword)}
     Given path '/admin/login'
     When method GET
     Then status 401
