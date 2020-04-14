@@ -1,26 +1,28 @@
-CREATE SCHEMA weather;
     SET search_path TO weather;
-    CREATE TABLE country(
-        country VARCHAR(127) PRIMARY KEY
-    );
-    CREATE TABLE city(
-        city VARCHAR(127) NOT NULL PRIMARY KEY,
-        country VARCHAR(127) NOT NULL REFERENCES country(country) ON UPDATE CASCADE ON DELETE CASCADE,
-        latitude REAL NOT NULL,
-        longitude REAL NOT NULL
-    );
-    CREATE TABLE forecast(
-        id serial PRIMARY KEY,
-		created_on TIMESTAMP NOT NULL,
-		date TIMESTAMP NOT NULL,
-        temperature_high REAL NOT NULL,
-		apparent_temperature_high REAL NOT NULL,
-        wind_speed REAL NOT NULL,
-		pressure REAL NOT NULL,
-		humidity REAL NOT NULL,
-		summary char(127) NOT NULL,
-		precip_type char(127),
-		city VARCHAR(127) NOT NULL REFERENCES city(city) ON UPDATE CASCADE ON DELETE CASCADE
-    );
+
+    ALTER TABLE FORECAST
+        RENAME COLUMN temperature to temperature_high;
+
+    ALTER TABLE FORECAST
+        RENAME COLUMN wind_power to wind_speed;
+
+    ALTER TABLE FORECAST
+        RENAME COLUMN perceived_temperature to apparent_temperature_high;
+
+    ALTER TABLE FORECAST
+        RENAME COLUMN atmospheric_pressure to pressure;
+
+    ALTER TABLE FORECAST
+        RENAME COLUMN air_humidity to humidity;
+
+    ALTER TABLE FORECAST
+        RENAME COLUMN precipType to precip_type;
+
+
+
+
+
+
+
 
 

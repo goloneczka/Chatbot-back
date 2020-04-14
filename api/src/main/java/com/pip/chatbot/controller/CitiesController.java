@@ -7,6 +7,7 @@ import com.pip.chatbot.service.CitiesService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,17 +30,17 @@ public class CitiesController {
     }
 
     @GetMapping("/cities/{city}")
-    public ResponseEntity<?> getCity(@PathVariable String city) {
+    public ResponseEntity<City> getCity(@PathVariable String city) {
         return ResponseEntity.status(ResponseStatus.OK).body(citiesService.getCity(city));
     }
 
     @PostMapping("/admin/cities")
-    public ResponseEntity<?> createCity(@RequestBody City city) {
+    public ResponseEntity<City> createCity(@RequestBody City city) {
         return ResponseEntity.status(ResponseStatus.OK).body(citiesService.createCity(city));
     }
 
     @DeleteMapping("/admin/cities/{city}")
-    public ResponseEntity<?> deleteCity(@PathVariable String city) {
+    public ResponseEntity<HashMap.SimpleEntry<String,Boolean>> deleteCity(@PathVariable String city) {
         citiesService.deleteCity(city);
         return Response.SUCCESS;
     }

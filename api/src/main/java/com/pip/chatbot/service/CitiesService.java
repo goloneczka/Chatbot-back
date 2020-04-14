@@ -12,6 +12,7 @@ import java.util.List;
 
 @Service
 public class CitiesService {
+
     private final CitiesRepository citiesRepository;
 
     public CitiesService(CitiesRepository citiesRepository) {
@@ -28,7 +29,6 @@ public class CitiesService {
     }
 
     public List<City> getCities(String country) {
-
         return citiesRepository.getCitiesForCountry(country);
     }
 

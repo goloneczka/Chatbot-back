@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 
 @Service
 public class ForecastsService {
+    
     private final ForecastRepository forecastRepository;
 
     public ForecastsService(ForecastRepository forecastRepository) {
