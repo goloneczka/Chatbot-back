@@ -12,7 +12,7 @@ Feature: Admin Controller
 
 
   Scenario: Testing unCorrect Authorization Endpoint
-    * header Authorization = call read('basic-auth.js') {user: #(user), password: #(unCorrectPassword)}
+    * header Authorization = call read('basic-auth.js') {user: #(user), password: #(uncorrectPassword)}
     Given path '/admin/login'
     When method GET
     Then status 401
