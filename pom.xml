@@ -19,9 +19,15 @@
         <java.version>13</java.version>
         <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
         <spring-framework-bom.version>5.2.4.RELEASE</spring-framework-bom.version>
+        <karate-apache.version>0.9.5</karate-apache.version>
+        <karate-junit.version>0.9.5</karate-junit.version>
         <org.postgresql.version>9.4.1212</org.postgresql.version>
         <jooq.version>3.13.1</jooq.version>
-        <karate.version>0.9.5</karate.version>
+        <lombok.version>1.18.10</lombok.version>
+        <spring-boot-jooq.version>2.2.5.RELEASE</spring-boot-jooq.version>
+        <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+        <maven-flyway-plugin.version>6.3.2</maven-flyway-plugin.version>
+        <modelmapper-jooq.version>2.3.0</modelmapper-jooq.version>
     </properties>
 
     <modules>
@@ -43,7 +49,6 @@
                 <artifactId>jooq-meta</artifactId>
                 <version>${jooq.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-framework-bom</artifactId>
@@ -65,6 +70,17 @@
                 <artifactId>spring-boot-starter</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jooq</artifactId>
+                <version>${spring-boot-jooq.version}</version>
+            </dependency>
             <!-- Tests dependencies !-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -81,14 +97,17 @@
             <dependency>
                 <groupId>com.intuit.karate</groupId>
                 <artifactId>karate-apache</artifactId>
-                <version>${karate.version}</version>
-                <scope>test</scope>
+                <version>${karate-apache.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.intuit.karate</groupId>
                 <artifactId>karate-junit5</artifactId>
-                <version>${karate.version}</version>
-                <scope>test</scope>
+                <version>${karate-junit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.modelmapper.extensions</groupId>
+                <artifactId>modelmapper-jooq</artifactId>
+                <version>${modelmapper-jooq.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
