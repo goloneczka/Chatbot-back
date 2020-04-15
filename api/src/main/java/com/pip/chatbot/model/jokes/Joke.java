@@ -1,4 +1,4 @@
-package com.pip.chatbot.model;
+package com.pip.chatbot.model.jokes;
 
 import lombok.Data;
 

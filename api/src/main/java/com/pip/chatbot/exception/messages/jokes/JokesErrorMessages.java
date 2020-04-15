@@ -1,4 +1,4 @@
-package com.pip.chatbot.exception.messages;
+package com.pip.chatbot.exception.messages.jokes;
 
 public class JokesErrorMessages {
     public final static String NOT_FOUND = "Joke not found";

@@ -1,9 +1,9 @@
-package com.pip.chatbot.service;
+package com.pip.chatbot.service.jokes;
 
-import com.pip.chatbot.model.Joke;
+import com.pip.chatbot.model.jokes.Joke;
 import com.pip.chatbot.exception.ChatbotExceptionBuilder;
-import com.pip.chatbot.exception.messages.JokesErrorMessages;
-import com.pip.chatbot.repository.JokesRepository;
+import com.pip.chatbot.exception.messages.jokes.JokesErrorMessages;
+import com.pip.chatbot.repository.jokes.JokesRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,8 +40,8 @@ public class JokesService {
         return result.get();
     }
 
-    public Joke update(int id, Joke joke) {
-        var result = jokesRepository.update(id, joke);
+    public Joke update(Joke joke) {
+        var result = jokesRepository.update(joke);
 
         if (result.isEmpty()) {
             throw new ChatbotExceptionBuilder().addError(JokesErrorMessages.UPDATE_FAILURE).build();

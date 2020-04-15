@@ -1,6 +1,6 @@
-package com.pip.chatbot.repository;
+package com.pip.chatbot.repository.jokes;
 
-import com.pip.chatbot.model.Joke;
+import com.pip.chatbot.model.jokes.Joke;
 import com.pip.chatbot.jooq.jokes.tables.records.JokeRecord;
 import lombok.AllArgsConstructor;
 import org.jooq.*;
@@ -50,12 +50,12 @@ public class JokesRepository {
         return Optional.ofNullable(record.get().into(Joke.class));
     }
 
-    public Optional<Joke> update(int id, Joke joke) {
+    public Optional<Joke> update(Joke joke) {
         Optional<JokeRecord> record = dslContext
                 .update(JOKE)
                 .set(JOKE.CATEGORY, joke.getCategory())
                 .set(JOKE.JOKE_, joke.getJoke())
-                .where(JOKE.ID.eq(id))
+                .where(JOKE.ID.eq(joke.getId()))
                 .returning(JOKE.ID, JOKE.CATEGORY, JOKE.JOKE_)
                 .fetchOptional();
 
