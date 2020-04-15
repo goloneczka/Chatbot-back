@@ -1,17 +1,11 @@
-package com.pip.chatbot.integration.weather;
+package com.pip.chatbot;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pip.chatbot.integration.model.ForecastApi;
-import com.pip.chatbot.model.Forecast;
 import com.pip.chatbot.repository.CitiesRepository;
 import com.pip.chatbot.repository.CountriesRepository;
 import com.pip.chatbot.repository.ForecastRepository;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.*;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
@@ -57,31 +51,4 @@ public class ApplicationConfiguration {
 
         return jooqConfiguration;
     }
-
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper()
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                .configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
-    }
-
-    @Bean
-    public PropertyMap<ForecastApi, Forecast> propertyMap() {
-        return new PropertyMap<ForecastApi, Forecast>() {
-            @Override
-            public void configure() {
-                map().setTemperature(source.getTemperatureHigh());
-                map().setPerceivedTemperature(source.getApparentTemperatureHigh());
-            }
-        };
-    }
-
-    @Bean
-    public ModelMapper modelMapper(PropertyMap<ForecastApi, Forecast> propertyMap) {
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.addMappings(propertyMap);
-        return modelMapper;
-    }
-
-
 }

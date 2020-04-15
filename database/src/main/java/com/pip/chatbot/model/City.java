@@ -6,8 +6,8 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 public class City {
-    public String city;
-    public float latitude;
-    public float longitude;
-    public String country;
+    private String city;
+    private float latitude;
+    private float longitude;
+    private String country;
 }

@@ -2,8 +2,8 @@ package com.pip.chatbot.integration.weather;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pip.chatbot.integration.model.ForecastApi;
 import com.pip.chatbot.model.City;
-import com.pip.chatbot.model.Forecast;
 import org.springframework.stereotype.Component;
 
 import java.net.URI;
@@ -23,7 +23,7 @@ public class DarkSkyApi {
         this.objectMapper = objectMapper;
     }
 
-    public List<Forecast> getWeatherForecast(City city) throws Exception {
+    public List<ForecastApi> getWeatherForecast(City city) throws Exception {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI("https://api.darksky.net/forecast/" + darkSkyConfig.getKey() + "/" + city.getLatitude() + ',' + city.getLongitude() + "?lang=" + darkSkyConfig.getLanguage() + "&units=" + darkSkyConfig.getUnitsType() + "&exclude=currently,minutely,hourly,alerts,flags"))
                 .GET()
@@ -32,7 +32,7 @@ public class DarkSkyApi {
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
         String forecastsJson = objectMapper.readTree(response.body()).get("daily").get("data").toString();
-        List<Forecast> forecasts = objectMapper.readValue(forecastsJson, new TypeReference<List<Forecast>>() {
+        List<ForecastApi> forecasts = objectMapper.readValue(forecastsJson, new TypeReference<List<ForecastApi>>() {
         });
 
         for (int i = 0; i < forecasts.size(); i++) {

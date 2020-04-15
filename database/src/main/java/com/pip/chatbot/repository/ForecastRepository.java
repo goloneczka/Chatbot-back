@@ -9,6 +9,7 @@ import org.jooq.impl.DSL;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public class ForecastRepository {
     private final DSLContext dsl;
@@ -25,13 +26,13 @@ public class ForecastRepository {
         ForecastRecord forecastRecord = dsl.selectFrom(Tables.FORECAST).where(dayCondition).and(yearCondition).and(cityCondition).fetchOptional().orElse(dsl.newRecord(Tables.FORECAST));
         forecastRecord.setCreatedOn(LocalDateTime.now());
         forecastRecord.setDate(forecast.getDate());
-        forecastRecord.setPerceivedTemperature(forecast.getApparentTemperatureHigh());
-        forecastRecord.setTemperature(forecast.temperatureHigh);
-        forecastRecord.setWindPower(forecast.getWindSpeed());
-        forecastRecord.setAtmosphericPressure(forecast.getPressure());
-        forecastRecord.setAirHumidity(forecast.humidity);
+        forecastRecord.setPerceivedTemperature(forecast.getPerceivedTemperature());
+        forecastRecord.setTemperature(forecast.getTemperature());
+        forecastRecord.setWindSpeed(forecast.getWindSpeed());
+        forecastRecord.setPressure(forecast.getPressure());
+        forecastRecord.setHumidity(forecast.getHumidity());
         forecastRecord.setSummary(forecast.getSummary());
-        forecastRecord.setPreciptype(forecast.getPrecipType());
+        forecastRecord.setPrecipType(forecast.getPrecipType());
         forecastRecord.setCity(forecast.getCity());
         forecastRecord.store();
     }
@@ -42,5 +43,24 @@ public class ForecastRepository {
                 createForecast(forecast);
             }
         });
+    }
+
+    public List<Forecast> getForecastsForCity(String city) {
+        return dsl.selectFrom(Tables.FORECAST)
+                .where(Tables.FORECAST.CITY.eq(city))
+                .orderBy(Tables.FORECAST.DATE.asc())
+                .fetchInto(Forecast.class);
+    }
+
+    public Optional<Forecast> getForecastsForCityAndDate(String city, LocalDateTime date) {
+        Condition dayCondition = (DSL.dayOfYear(Tables.FORECAST.DATE)).eq(date.getDayOfYear());
+        Condition yearCondition = DSL.year(Tables.FORECAST.DATE).eq(date.getYear());
+        Condition cityCondition = Tables.FORECAST.CITY.equal(city);
+
+        return Optional.ofNullable(dsl.selectFrom(Tables.FORECAST)
+                .where(cityCondition)
+                .and(dayCondition)
+                .and(yearCondition)
+                .fetchAnyInto(Forecast.class));
     }
 }
