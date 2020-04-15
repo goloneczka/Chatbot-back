@@ -26,6 +26,7 @@
         <lombok.version>1.18.10</lombok.version>
         <spring-boot-jooq.version>2.2.5.RELEASE</spring-boot-jooq.version>
         <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+        <model-mapper.version>2.3.7</model-mapper.version>
     </properties>
 
     <modules>
@@ -78,6 +79,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-jooq</artifactId>
                 <version>${spring-boot-jooq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.modelmapper.extensions</groupId>
+                <artifactId>modelmapper-jooq</artifactId>
+                <version>${model-mapper.version}</version>
             </dependency>
             <!-- Tests dependencies !-->
             <dependency>
