@@ -6,6 +6,6 @@ public class AdminAuthorizationTest {
 
     @Karate.Test
     Karate test(){
-        return Karate.run("./tests/adminController").relativeTo(getClass());
+        return Karate.run("./tests/adminAuthorization").relativeTo(getClass());
     }
 }
