@@ -44,6 +44,11 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.modelmapper.extensions</groupId>
+            <artifactId>modelmapper-jooq</artifactId>
+            <version>2.3.7</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

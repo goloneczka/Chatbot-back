@@ -26,8 +26,8 @@ public class ForecastRepository {
         ForecastRecord forecastRecord = dsl.selectFrom(Tables.FORECAST).where(dayCondition).and(yearCondition).and(cityCondition).fetchOptional().orElse(dsl.newRecord(Tables.FORECAST));
         forecastRecord.setCreatedOn(LocalDateTime.now());
         forecastRecord.setDate(forecast.getDate());
-        forecastRecord.setApparentTemperatureHigh(forecast.getApparentTemperatureHigh());
-        forecastRecord.setTemperatureHigh(forecast.getTemperatureHigh());
+        forecastRecord.setPerceivedTemperature(forecast.getPerceivedTemperature());
+        forecastRecord.setTemperature(forecast.getTemperature());
         forecastRecord.setWindSpeed(forecast.getWindSpeed());
         forecastRecord.setPressure(forecast.getPressure());
         forecastRecord.setHumidity(forecast.getHumidity());

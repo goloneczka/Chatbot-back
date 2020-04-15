@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Forecast extends TableImpl<ForecastRecord> {
 
-    private static final long serialVersionUID = -612117030;
+    private static final long serialVersionUID = -423625328;
 
     /**
      * The reference instance of <code>weather.forecast</code>
@@ -64,14 +64,14 @@ public class Forecast extends TableImpl<ForecastRecord> {
     public final TableField<ForecastRecord, LocalDateTime> DATE = createField(DSL.name("date"), org.jooq.impl.SQLDataType.LOCALDATETIME.nullable(false), this, "");
 
     /**
-     * The column <code>weather.forecast.temperature_high</code>.
+     * The column <code>weather.forecast.temperature</code>.
      */
-    public final TableField<ForecastRecord, Float> TEMPERATURE_HIGH = createField(DSL.name("temperature_high"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
+    public final TableField<ForecastRecord, Float> TEMPERATURE = createField(DSL.name("temperature"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
 
     /**
-     * The column <code>weather.forecast.apparent_temperature_high</code>.
+     * The column <code>weather.forecast.perceived_temperature</code>.
      */
-    public final TableField<ForecastRecord, Float> APPARENT_TEMPERATURE_HIGH = createField(DSL.name("apparent_temperature_high"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
+    public final TableField<ForecastRecord, Float> PERCEIVED_TEMPERATURE = createField(DSL.name("perceived_temperature"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
 
     /**
      * The column <code>weather.forecast.wind_speed</code>.

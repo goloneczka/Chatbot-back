@@ -21,7 +21,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implements Record11<Integer, LocalDateTime, LocalDateTime, Float, Float, Float, Float, Float, String, String, String> {
 
-    private static final long serialVersionUID = 658782750;
+    private static final long serialVersionUID = 953313368;
 
     /**
      * Setter for <code>weather.forecast.id</code>.
@@ -66,30 +66,30 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
     }
 
     /**
-     * Setter for <code>weather.forecast.temperature_high</code>.
+     * Setter for <code>weather.forecast.temperature</code>.
      */
-    public void setTemperatureHigh(Float value) {
+    public void setTemperature(Float value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>weather.forecast.temperature_high</code>.
+     * Getter for <code>weather.forecast.temperature</code>.
      */
-    public Float getTemperatureHigh() {
+    public Float getTemperature() {
         return (Float) get(3);
     }
 
     /**
-     * Setter for <code>weather.forecast.apparent_temperature_high</code>.
+     * Setter for <code>weather.forecast.perceived_temperature</code>.
      */
-    public void setApparentTemperatureHigh(Float value) {
+    public void setPerceivedTemperature(Float value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>weather.forecast.apparent_temperature_high</code>.
+     * Getter for <code>weather.forecast.perceived_temperature</code>.
      */
-    public Float getApparentTemperatureHigh() {
+    public Float getPerceivedTemperature() {
         return (Float) get(4);
     }
 
@@ -217,12 +217,12 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
 
     @Override
     public Field<Float> field4() {
-        return Forecast.FORECAST.TEMPERATURE_HIGH;
+        return Forecast.FORECAST.TEMPERATURE;
     }
 
     @Override
     public Field<Float> field5() {
-        return Forecast.FORECAST.APPARENT_TEMPERATURE_HIGH;
+        return Forecast.FORECAST.PERCEIVED_TEMPERATURE;
     }
 
     @Override
@@ -272,12 +272,12 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
 
     @Override
     public Float component4() {
-        return getTemperatureHigh();
+        return getTemperature();
     }
 
     @Override
     public Float component5() {
-        return getApparentTemperatureHigh();
+        return getPerceivedTemperature();
     }
 
     @Override
@@ -327,12 +327,12 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
 
     @Override
     public Float value4() {
-        return getTemperatureHigh();
+        return getTemperature();
     }
 
     @Override
     public Float value5() {
-        return getApparentTemperatureHigh();
+        return getPerceivedTemperature();
     }
 
     @Override
@@ -385,13 +385,13 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
 
     @Override
     public ForecastRecord value4(Float value) {
-        setTemperatureHigh(value);
+        setTemperature(value);
         return this;
     }
 
     @Override
     public ForecastRecord value5(Float value) {
-        setApparentTemperatureHigh(value);
+        setPerceivedTemperature(value);
         return this;
     }
 
@@ -461,14 +461,14 @@ public class ForecastRecord extends UpdatableRecordImpl<ForecastRecord> implemen
     /**
      * Create a detached, initialised ForecastRecord
      */
-    public ForecastRecord(Integer id, LocalDateTime createdOn, LocalDateTime date, Float temperatureHigh, Float apparentTemperatureHigh, Float windSpeed, Float pressure, Float humidity, String summary, String precipType, String city) {
+    public ForecastRecord(Integer id, LocalDateTime createdOn, LocalDateTime date, Float temperature, Float perceivedTemperature, Float windSpeed, Float pressure, Float humidity, String summary, String precipType, String city) {
         super(Forecast.FORECAST);
 
         set(0, id);
         set(1, createdOn);
         set(2, date);
-        set(3, temperatureHigh);
-        set(4, apparentTemperatureHigh);
+        set(3, temperature);
+        set(4, perceivedTemperature);
         set(5, windSpeed);
         set(6, pressure);
         set(7, humidity);
