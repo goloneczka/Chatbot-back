@@ -75,6 +75,20 @@
                     </generator>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>${maven-flyway-plugin.version}</version>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${org.postgresql.version}</version>
+                    </dependency>
+                </dependencies>
+
+            </plugin>
         </plugins>
     </build>
 </project>

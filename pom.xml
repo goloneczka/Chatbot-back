@@ -19,14 +19,14 @@
         <java.version>13</java.version>
         <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
         <spring-framework-bom.version>5.2.4.RELEASE</spring-framework-bom.version>
-        <karate-apache.version>0.9.5</karate-apache.version>
-        <karate-junit.version>0.9.5</karate-junit.version>
+        <karate.version>0.9.5</karate.version>
         <org.postgresql.version>9.4.1212</org.postgresql.version>
         <jooq.version>3.13.1</jooq.version>
         <lombok.version>1.18.10</lombok.version>
         <spring-boot-jooq.version>2.2.5.RELEASE</spring-boot-jooq.version>
         <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
         <model-mapper.version>2.3.7</model-mapper.version>
+        <maven-flyway-plugin.version>6.3.2</maven-flyway-plugin.version>
     </properties>
 
     <modules>
@@ -101,13 +101,19 @@
             <dependency>
                 <groupId>com.intuit.karate</groupId>
                 <artifactId>karate-apache</artifactId>
-                <version>${karate-apache.version}</version>
+                <version>${karate.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.intuit.karate</groupId>
                 <artifactId>karate-junit5</artifactId>
-                <version>${karate-junit.version}</version>
+                <version>${karate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.modelmapper.extensions</groupId>
+                <artifactId>modelmapper-jooq</artifactId>
+                <version>${modelmapper-jooq.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
 </project>
