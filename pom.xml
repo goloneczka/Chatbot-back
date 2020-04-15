@@ -19,8 +19,7 @@
         <java.version>13</java.version>
         <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
         <spring-framework-bom.version>5.2.4.RELEASE</spring-framework-bom.version>
-        <karate-apache.version>0.9.5</karate-apache.version>
-        <karate-junit.version>0.9.5</karate-junit.version>
+        <karate.version>0.9.5</karate.version>
         <org.postgresql.version>9.4.1212</org.postgresql.version>
         <jooq.version>3.13.1</jooq.version>
         <lombok.version>1.18.10</lombok.version>
@@ -97,12 +96,12 @@
             <dependency>
                 <groupId>com.intuit.karate</groupId>
                 <artifactId>karate-apache</artifactId>
-                <version>${karate-apache.version}</version>
+                <version>${karate.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.intuit.karate</groupId>
                 <artifactId>karate-junit5</artifactId>
-                <version>${karate-junit.version}</version>
+                <version>${karate.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.modelmapper.extensions</groupId>
@@ -111,4 +110,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
 </project>
