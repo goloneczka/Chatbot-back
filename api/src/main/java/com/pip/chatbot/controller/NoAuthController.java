@@ -1,13 +1,12 @@
 package com.pip.chatbot.controller;
 
 
+import com.pip.chatbot.model.Category;
 import com.pip.chatbot.model.Joke;
 import com.pip.chatbot.service.JokeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,13 +23,31 @@ public class NoAuthController {
     }
 
     @GetMapping
-    public List<Joke> getAll(){
-        return jokeService.getAll().orElseThrow(NullPointerException::new);
+    public ResponseEntity<List<Joke>> getAllJoke(){
+        return ResponseEntity
+                .ok()
+                .body(jokeService.getAllJoke().orElseThrow(NullPointerException::new));
     }
 
-    @RequestMapping(value = "/random", method = RequestMethod.GET )
-    public Joke getRandomJoke(){
-        return jokeService.getRandomJoke().orElseThrow(NullPointerException::new);
+    @GetMapping(value = "/categories" )
+    public ResponseEntity<List<Category>> getAllCategory(){
+        return ResponseEntity
+                .ok()
+                .body(jokeService.getAllCategory().orElseThrow(NullPointerException::new));
+    }
+
+    @GetMapping(value = "/random" )
+    public ResponseEntity<Joke> getRandomJoke(){
+        return ResponseEntity
+                .ok()
+                .body(jokeService.getRandomJoke().orElseThrow(NullPointerException::new));
+    }
+
+    @GetMapping(value = "/random/{category}" )
+    public ResponseEntity<Joke> getRandomJokeByCategory(@PathVariable String category){
+        return ResponseEntity
+                .ok()
+                .body(jokeService.getRandomJokeByCategory(category).orElseThrow(NullPointerException::new));
     }
 
 
