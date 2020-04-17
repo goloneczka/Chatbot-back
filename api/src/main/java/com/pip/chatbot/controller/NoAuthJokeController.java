@@ -7,6 +7,7 @@ import com.pip.chatbot.exception.messages.JokesErrorMessages;
 import com.pip.chatbot.model.forecast.Country;
 import com.pip.chatbot.model.joke.Category;
 import com.pip.chatbot.model.joke.Joke;
+import com.pip.chatbot.model.joke.Mark;
 import com.pip.chatbot.payload.response.ResponseStatus;
 import com.pip.chatbot.service.joke.NoAuthJokeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,10 +52,10 @@ public class NoAuthJokeController {
     }
 
     @PostMapping("/{id}/{mark}")
-    public ResponseEntity<Joke> createJoke(@PathVariable String id, @PathVariable Double mark) {
+    public ResponseEntity<Mark> rateJoke(@PathVariable String id, @PathVariable Double mark) {
         return ResponseEntity
                 .ok()
-                .body(noAuthJokeService.getRandomJokeByCategory(category)
+                .body(noAuthJokeService.rateJoke(id, mark)
                         .orElseThrow(() -> new ChatbotExceptionBuilder().addError(JokesErrorMessages.CREATE_FAILURE).build()));
     }
 

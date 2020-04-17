@@ -1,6 +1,8 @@
 package com.pip.chatbot.service.joke;
 
 
+import com.pip.chatbot.model.joke.Mark;
+import com.pip.chatbot.repository.joke.MarkRepository;
 import com.pip.chatbot.repository.joke.NoAuthJokeRepository;
 import com.pip.chatbot.model.joke.Category;
 import com.pip.chatbot.model.joke.Joke;
@@ -15,9 +17,11 @@ import java.util.Random;
 public class NoAuthJokeService {
 
     private NoAuthJokeRepository noAuthJokeRepository;
+    private MarkRepository markRepository;
 
-    public NoAuthJokeService(NoAuthJokeRepository noAuthJokeRepository) {
+    public NoAuthJokeService(NoAuthJokeRepository noAuthJokeRepository, MarkRepository markRepository) {
         this.noAuthJokeRepository = noAuthJokeRepository;
+        this.markRepository = markRepository;
     }
 
     public Optional<List<Category>> getAllCategory() {
@@ -32,4 +36,7 @@ public class NoAuthJokeService {
       return noAuthJokeRepository.getRandomOneByCategory(category);
     }
 
+    public Optional<Mark> rateJoke(String id, Double mark) {
+        return markRepository.createMark(id, mark);
+    }
 }
