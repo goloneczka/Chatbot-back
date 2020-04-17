@@ -16,7 +16,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row3;
+import org.jooq.Row4;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -32,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Joke extends TableImpl<JokeRecord> {
 
-    private static final long serialVersionUID = -660697974;
+    private static final long serialVersionUID = 812373261;
 
     /**
      * The reference instance of <code>jokes.joke</code>
@@ -61,6 +61,11 @@ public class Joke extends TableImpl<JokeRecord> {
      * The column <code>jokes.joke.joke</code>.
      */
     public final TableField<JokeRecord, String> JOKE_ = createField(DSL.name("joke"), org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
+
+    /**
+     * The column <code>jokes.joke.is_confirmed</code>.
+     */
+    public final TableField<JokeRecord, Boolean> IS_CONFIRMED = createField(DSL.name("is_confirmed"), org.jooq.impl.SQLDataType.BOOLEAN.nullable(false).defaultValue(org.jooq.impl.DSL.field("true", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
 
     /**
      * Create a <code>jokes.joke</code> table reference
@@ -151,11 +156,11 @@ public class Joke extends TableImpl<JokeRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row3 type methods
+    // Row4 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<Integer, String, String> fieldsRow() {
-        return (Row3) super.fieldsRow();
+    public Row4<Integer, String, String, Boolean> fieldsRow() {
+        return (Row4) super.fieldsRow();
     }
 }

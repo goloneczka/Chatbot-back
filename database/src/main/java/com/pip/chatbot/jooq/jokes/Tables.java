@@ -6,6 +6,7 @@ package com.pip.chatbot.jooq.jokes;
 
 import com.pip.chatbot.jooq.jokes.tables.Category;
 import com.pip.chatbot.jooq.jokes.tables.Joke;
+import com.pip.chatbot.jooq.jokes.tables.Mark;
 
 
 /**
@@ -23,4 +24,9 @@ public class Tables {
      * The table <code>jokes.joke</code>.
      */
     public static final Joke JOKE = Joke.JOKE;
+
+    /**
+     * The table <code>jokes.mark</code>.
+     */
+    public static final Mark MARK = Mark.MARK;
 }

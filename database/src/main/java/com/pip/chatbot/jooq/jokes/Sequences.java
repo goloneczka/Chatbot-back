@@ -18,4 +18,9 @@ public class Sequences {
      * The sequence <code>jokes.joke_id_seq</code>
      */
     public static final Sequence<Integer> JOKE_ID_SEQ = Internal.createSequence("joke_id_seq", Jokes.JOKES, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
+
+    /**
+     * The sequence <code>jokes.mark_id_seq</code>
+     */
+    public static final Sequence<Integer> MARK_ID_SEQ = Internal.createSequence("mark_id_seq", Jokes.JOKES, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
 }
