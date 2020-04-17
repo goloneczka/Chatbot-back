@@ -4,9 +4,14 @@
 package com.pip.chatbot.jooq.weather;
 
 
+import com.pip.chatbot.jooq.weather.tables.City;
+import com.pip.chatbot.jooq.weather.tables.Country;
 import com.pip.chatbot.jooq.weather.tables.Forecast;
+import com.pip.chatbot.jooq.weather.tables.records.CityRecord;
+import com.pip.chatbot.jooq.weather.tables.records.CountryRecord;
 import com.pip.chatbot.jooq.weather.tables.records.ForecastRecord;
 
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.TableField;
 import org.jooq.UniqueKey;
@@ -30,12 +35,16 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<CityRecord> CITY_PKEY = UniqueKeys0.CITY_PKEY;
+    public static final UniqueKey<CountryRecord> COUNTRY_PKEY = UniqueKeys0.COUNTRY_PKEY;
     public static final UniqueKey<ForecastRecord> FORECAST_PKEY = UniqueKeys0.FORECAST_PKEY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<CityRecord, CountryRecord> CITY__CITY_COUNTRY_FKEY = ForeignKeys0.CITY__CITY_COUNTRY_FKEY;
+    public static final ForeignKey<ForecastRecord, CityRecord> FORECAST__FORECAST_CITY_FKEY = ForeignKeys0.FORECAST__FORECAST_CITY_FKEY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -46,6 +55,13 @@ public class Keys {
     }
 
     private static class UniqueKeys0 {
+        public static final UniqueKey<CityRecord> CITY_PKEY = Internal.createUniqueKey(City.CITY, "city_pkey", new TableField[] { City.CITY.CITY_ }, true);
+        public static final UniqueKey<CountryRecord> COUNTRY_PKEY = Internal.createUniqueKey(Country.COUNTRY, "country_pkey", new TableField[] { Country.COUNTRY.COUNTRY_ }, true);
         public static final UniqueKey<ForecastRecord> FORECAST_PKEY = Internal.createUniqueKey(Forecast.FORECAST, "forecast_pkey", new TableField[] { Forecast.FORECAST.ID }, true);
+    }
+
+    private static class ForeignKeys0 {
+        public static final ForeignKey<CityRecord, CountryRecord> CITY__CITY_COUNTRY_FKEY = Internal.createForeignKey(Keys.COUNTRY_PKEY, City.CITY, "city_country_fkey", new TableField[] { City.CITY.COUNTRY }, true);
+        public static final ForeignKey<ForecastRecord, CityRecord> FORECAST__FORECAST_CITY_FKEY = Internal.createForeignKey(Keys.CITY_PKEY, Forecast.FORECAST, "forecast_city_fkey", new TableField[] { Forecast.FORECAST.CITY }, true);
     }
 }

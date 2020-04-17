@@ -1,5 +1,9 @@
 CREATE SCHEMA IF NOT EXISTS jokes;
 SET search_path TO jokes;
+CREATE TABLE IF NOT EXISTS category
+(
+    category              VARCHAR(127) PRIMARY KEY not null
+);
 CREATE TABLE IF NOT EXISTS joke
 (
     id                    SERIAL PRIMARY KEY,
@@ -7,7 +11,3 @@ CREATE TABLE IF NOT EXISTS joke
     joke                  TEXT not null
 );
 
-CREATE TABLE IF NOT EXISTS category
-(
-    category              VARCHAR(127) PRIMARY KEY not null
-)

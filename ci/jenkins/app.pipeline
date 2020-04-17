@@ -24,6 +24,16 @@ pipeline {
                 cp -r ./api/target/api.jar /app
                 cp -r ./integration/target/integration.jar /app
 
+                PREVIOUS_PID=$(pgrep -f 'java -jar -Dspring.profiles.active=prod /app/api.jar')
+                if [ ! -z "${PREVIOUS_PID}" ]; then
+                  kill -9 "${PREVIOUS_PID}"
+                fi
+
+                PREVIOUS_PID=$(pgrep -f 'java -jar -Dspring.profiles.active=prod /app/integration.jar')
+                if [ ! -z "${PREVIOUS_PID}" ]; then
+                  kill -9 "${PREVIOUS_PID}"
+                fi
+
                 #Needed for jenkins no to kill processes that it starts
                 #https://wiki.jenkins.io/display/JENKINS/Spawning+processes+from+build
                 export BUILD_ID=dontKillMe
