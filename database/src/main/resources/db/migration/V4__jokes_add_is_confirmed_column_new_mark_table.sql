@@ -1,6 +1,6 @@
 SET search_path TO jokes;
 
-ALTER TABLE JOKE
+ALTER TABLE joke
     add column is_confirmed boolean DEFAULT true not null;
 
 CREATE TABLE IF NOT EXISTS mark
