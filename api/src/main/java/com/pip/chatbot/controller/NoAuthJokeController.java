@@ -2,14 +2,11 @@ package com.pip.chatbot.controller;
 
 
 import com.pip.chatbot.exception.ChatbotExceptionBuilder;
-import com.pip.chatbot.exception.messages.ForecastsErrorMessages;
 import com.pip.chatbot.exception.messages.JokesErrorMessages;
 import com.pip.chatbot.exception.messages.MarksErrorMessages;
-import com.pip.chatbot.model.forecast.Country;
 import com.pip.chatbot.model.joke.Category;
 import com.pip.chatbot.model.joke.Joke;
 import com.pip.chatbot.model.joke.Mark;
-import com.pip.chatbot.payload.response.ResponseStatus;
 import com.pip.chatbot.service.joke.MarkService;
 import com.pip.chatbot.service.joke.NoAuthJokeService;
 import org.springframework.beans.factory.annotation.Autowired;
