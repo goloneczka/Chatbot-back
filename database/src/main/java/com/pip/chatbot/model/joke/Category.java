@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class Category {
 
     private String category;
-
+    private boolean isConfirmed;
 }

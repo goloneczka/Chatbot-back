@@ -4,11 +4,13 @@ package com.pip.chatbot.controller;
 import com.pip.chatbot.exception.ChatbotExceptionBuilder;
 import com.pip.chatbot.exception.messages.ForecastsErrorMessages;
 import com.pip.chatbot.exception.messages.JokesErrorMessages;
+import com.pip.chatbot.exception.messages.MarksErrorMessages;
 import com.pip.chatbot.model.forecast.Country;
 import com.pip.chatbot.model.joke.Category;
 import com.pip.chatbot.model.joke.Joke;
 import com.pip.chatbot.model.joke.Mark;
 import com.pip.chatbot.payload.response.ResponseStatus;
+import com.pip.chatbot.service.joke.MarkService;
 import com.pip.chatbot.service.joke.NoAuthJokeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,17 +24,19 @@ import java.util.List;
 public class NoAuthJokeController {
 
     private NoAuthJokeService noAuthJokeService;
+    private MarkService markService;
 
     @Autowired
-    public NoAuthJokeController(NoAuthJokeService noAuthJokeService) {
+    public NoAuthJokeController(NoAuthJokeService noAuthJokeService, MarkService markService) {
         this.noAuthJokeService = noAuthJokeService;
+        this.markService = markService;
     }
 
     @GetMapping(value = "/categories" )
-    public ResponseEntity<List<Category>> getAllCategory(){
+    public ResponseEntity<List<Category>> getAllConfirmedCategory(){
         return ResponseEntity
                 .ok()
-                .body(noAuthJokeService.getAllCategory().orElseThrow(NullPointerException::new));
+                .body(noAuthJokeService.getAllConfirmedCategory());
     }
 
     @GetMapping(value = "/random" )
@@ -51,12 +55,20 @@ public class NoAuthJokeController {
                         .orElseThrow(() -> new ChatbotExceptionBuilder().addError(JokesErrorMessages.NOT_FOUND).build()));
     }
 
-    @PostMapping("/{id}/{mark}")
-    public ResponseEntity<Mark> rateJoke(@PathVariable String id, @PathVariable Double mark) {
+    @PostMapping()
+    public ResponseEntity<Joke> createJoke(@RequestBody Joke joke) {
         return ResponseEntity
                 .ok()
-                .body(noAuthJokeService.rateJoke(id, mark)
+                .body(noAuthJokeService.createJoke(joke)
                         .orElseThrow(() -> new ChatbotExceptionBuilder().addError(JokesErrorMessages.CREATE_FAILURE).build()));
+    }
+
+    @PostMapping("/rate")
+    public ResponseEntity<Mark> rateJoke(@RequestBody Mark mark) {
+        return ResponseEntity
+                .ok()
+                .body(markService.rateJoke(mark)
+                        .orElseThrow(() -> new ChatbotExceptionBuilder().addError(MarksErrorMessages.CREATE_FAILURE).build()));
     }
 
 

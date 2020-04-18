@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Joke {
 
-    private Long id;
+    private Integer id;
     private String joke;
     private String category;
+    private boolean isConfirmed;
 
 }

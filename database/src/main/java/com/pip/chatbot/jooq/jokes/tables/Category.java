@@ -15,7 +15,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row1;
+import org.jooq.Row2;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Category extends TableImpl<CategoryRecord> {
 
-    private static final long serialVersionUID = 1984345361;
+    private static final long serialVersionUID = -700221234;
 
     /**
      * The reference instance of <code>jokes.category</code>
@@ -50,6 +50,11 @@ public class Category extends TableImpl<CategoryRecord> {
      * The column <code>jokes.category.category</code>.
      */
     public final TableField<CategoryRecord, String> CATEGORY_ = createField(DSL.name("category"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
+
+    /**
+     * The column <code>jokes.category.is_confirmed</code>.
+     */
+    public final TableField<CategoryRecord, Boolean> IS_CONFIRMED = createField(DSL.name("is_confirmed"), org.jooq.impl.SQLDataType.BOOLEAN.nullable(false).defaultValue(org.jooq.impl.DSL.field("true", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
 
     /**
      * Create a <code>jokes.category</code> table reference
@@ -126,11 +131,11 @@ public class Category extends TableImpl<CategoryRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row1 type methods
+    // Row2 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row1<String> fieldsRow() {
-        return (Row1) super.fieldsRow();
+    public Row2<String, Boolean> fieldsRow() {
+        return (Row2) super.fieldsRow();
     }
 }

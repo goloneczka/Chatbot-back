@@ -8,7 +8,6 @@ import com.pip.chatbot.jooq.jokes.Jokes;
 import com.pip.chatbot.jooq.jokes.Keys;
 import com.pip.chatbot.jooq.jokes.tables.records.MarkRecord;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Mark extends TableImpl<MarkRecord> {
 
-    private static final long serialVersionUID = -1760872860;
+    private static final long serialVersionUID = 921772459;
 
     /**
      * The reference instance of <code>jokes.mark</code>
@@ -61,7 +60,7 @@ public class Mark extends TableImpl<MarkRecord> {
     /**
      * The column <code>jokes.mark.mark</code>.
      */
-    public final TableField<MarkRecord, BigDecimal> MARK_ = createField(DSL.name("mark"), org.jooq.impl.SQLDataType.NUMERIC.nullable(false), this, "");
+    public final TableField<MarkRecord, Double> MARK_ = createField(DSL.name("mark"), org.jooq.impl.SQLDataType.DOUBLE.nullable(false), this, "");
 
     /**
      * Create a <code>jokes.mark</code> table reference
@@ -156,7 +155,7 @@ public class Mark extends TableImpl<MarkRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<Integer, Integer, BigDecimal> fieldsRow() {
+    public Row3<Integer, Integer, Double> fieldsRow() {
         return (Row3) super.fieldsRow();
     }
 }

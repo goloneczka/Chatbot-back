@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Mark {
 
-    private Long id;
-    private Long joke_id;
+    private Integer id;
+    private Integer joke_id;
     private Double mark;
 }
