@@ -1,10 +1,10 @@
 package com.pip.chatbot.repository.joke;
 
 
-import com.pip.chatbot.jooq.jokes.tables.records.CategoryRecord;
 import com.pip.chatbot.jooq.jokes.tables.records.JokeRecord;
 import com.pip.chatbot.model.joke.Category;
 import com.pip.chatbot.model.joke.Joke;
+import com.pip.chatbot.model.joke.Mark;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
@@ -13,14 +13,15 @@ import java.util.Optional;
 
 import static com.pip.chatbot.jooq.jokes.tables.Category.CATEGORY;
 import static com.pip.chatbot.jooq.jokes.tables.Joke.JOKE;
+import static com.pip.chatbot.jooq.jokes.tables.Mark.MARK;
 
 
-public class NoAuthJokeRepository {
+public class JokesRepository {
 
     private DSLContext dsl;
     private static final boolean CONFIRMED = true;
 
-    public NoAuthJokeRepository(DSLContext dsl) {
+    public JokesRepository(DSLContext dsl) {
         this.dsl = dsl;
     }
 
@@ -58,11 +59,10 @@ public class NoAuthJokeRepository {
                 .where(CATEGORY.IS_CONFIRMED.eq(CONFIRMED))
                 .fetch()
                 .into(Category.class);
-
     }
 
-    public Optional<Joke> addTemporaryJoke(Joke joke) {
-        JokeRecord result = dsl.insertInto(JOKE)
+    public Optional<Joke> createTemporaryJoke(Joke joke) {
+        var result = dsl.insertInto(JOKE)
                 .set(JOKE.CATEGORY, joke.getCategory())
                 .set(JOKE.IS_CONFIRMED, !CONFIRMED)
                 .set(JOKE.JOKE_, joke.getJoke())
@@ -72,13 +72,24 @@ public class NoAuthJokeRepository {
         return Optional.ofNullable(result.into(Joke.class));
     }
 
-    public Optional<Category> addTemporaryCategory(String category) {
-        CategoryRecord result = dsl.insertInto(CATEGORY)
+    public Optional<Category> createTemporaryCategory(String category) {
+        var result = dsl.insertInto(CATEGORY)
                 .set(JOKE.CATEGORY, category)
                 .set(JOKE.IS_CONFIRMED, !CONFIRMED)
                 .returning()
                 .fetchOne();
 
         return Optional.ofNullable(result.into(Category.class));
+    }
+
+    public Optional<Mark> createMark(Mark mark) {
+
+        var result = dsl.insertInto(MARK)
+                .set(MARK.JOKE_ID, mark.getJokeId())
+                .set(MARK.MARK_, mark.getMark())
+                .returning()
+                .fetchOne();
+
+        return Optional.ofNullable(result.into(Mark.class));
     }
 }

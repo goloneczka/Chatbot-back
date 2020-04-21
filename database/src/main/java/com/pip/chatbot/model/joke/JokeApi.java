@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Mark {
+public class JokeApi {
 
-    private Integer id;
-    private Integer jokeId;
-    private Double mark;
+    private String joke;
+    private String category;
 }

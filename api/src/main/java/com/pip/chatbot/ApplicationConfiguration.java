@@ -1,13 +1,16 @@
 package com.pip.chatbot;
 
+import com.pip.chatbot.model.joke.*;
 import com.pip.chatbot.repository.forecast.CitiesRepository;
 import com.pip.chatbot.repository.forecast.CountriesRepository;
 import com.pip.chatbot.repository.forecast.ForecastRepository;
-import com.pip.chatbot.repository.joke.MarkRepository;
-import com.pip.chatbot.repository.joke.NoAuthJokeRepository;
+import com.pip.chatbot.repository.joke.JokesRepository;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.*;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
@@ -43,14 +46,40 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public NoAuthJokeRepository noAuthJokeRepository(DSLContext dsl) {
-        return new NoAuthJokeRepository(dsl);
+    public JokesRepository noAuthJokeRepository(DSLContext dsl) {
+        return new JokesRepository(dsl);
     }
 
     @Bean
-    public MarkRepository markRepository(DSLContext dsl) {
-        return new MarkRepository(dsl);
+    @Qualifier("Joke")
+    public ModelMapper modelMapperJoke() {
+        PropertyMap<JokeApi, Joke> propertyMap = new PropertyMap<JokeApi, Joke>() {
+            @Override
+            public void configure() {
+                map().setJoke(source.getJoke());
+                map().setCategory(source.getCategory());
+            }
+        };
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.addMappings(propertyMap);
+        return modelMapper;
     }
+
+    @Bean
+    @Qualifier("Mark")
+    public ModelMapper modelMapperMark() {
+        PropertyMap<MarkApi, Mark> propertyMap = new PropertyMap<MarkApi, Mark>() {
+            @Override
+            public void configure() {
+                map().setMark(source.getMark());
+                map().setJokeId(source.getJokeId());
+            }
+        };
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.addMappings(propertyMap);
+        return modelMapper;
+    }
+
 
     @Bean
     public DefaultConfiguration configuration(DataSourceConnectionProvider connectionProvider) {
