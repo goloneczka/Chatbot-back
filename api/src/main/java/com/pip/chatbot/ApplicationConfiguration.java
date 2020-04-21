@@ -80,7 +80,6 @@ public class ApplicationConfiguration {
         return modelMapper;
     }
 
-
     @Bean
     public DefaultConfiguration configuration(DataSourceConnectionProvider connectionProvider) {
         DefaultConfiguration jooqConfiguration = new DefaultConfiguration();
