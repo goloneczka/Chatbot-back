@@ -94,14 +94,13 @@ public class JokesRepository {
         return Optional.ofNullable(result.into(Mark.class));
     }
 
-    public Optional<MarkApi> getAvgJoke(String id) {
+    public Optional<MarkApi> getAvgJokeMark(String id) {
         var result = dsl.select(MARK.JOKE_ID, avg(MARK.MARK_).as("mark"))
                 .from(MARK)
                 .where(MARK.JOKE_ID.eq(Integer.parseInt(id)))
                 .groupBy(MARK.JOKE_ID)
                 .fetchOne();
 
-        System.out.println(result.toString());
         return Optional.ofNullable(result.into(MarkApi.class));
     }
 }

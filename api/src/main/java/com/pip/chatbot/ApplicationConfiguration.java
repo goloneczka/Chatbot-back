@@ -1,6 +1,5 @@
 package com.pip.chatbot;
 
-import com.pip.chatbot.model.joke.*;
 import com.pip.chatbot.repository.forecast.CitiesRepository;
 import com.pip.chatbot.repository.forecast.CountriesRepository;
 import com.pip.chatbot.repository.forecast.ForecastRepository;
@@ -9,7 +8,6 @@ import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.*;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,21 +52,6 @@ public class ApplicationConfiguration {
     public ModelMapper modelMapper() {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
-        mapper.addMappings(new PropertyMap<JokeApi, Joke>() {
-            @Override
-            protected void configure() {
-                map().setJoke(source.getJoke());
-                map().setCategory(source.getCategory());
-            }
-        });
-        mapper.addMappings(new PropertyMap<MarkApi, Mark>() {
-            @Override
-            protected void configure() {
-                map().setMark(source.getMark());
-                map().setJokeId(source.getJokeId());
-            }
-        });
         return mapper;
     }
 

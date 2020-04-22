@@ -60,8 +60,8 @@ public class JokesService {
                 .orElseThrow(() -> new ChatbotExceptionBuilder().addError(MarksErrorMessages.CREATE_FAILURE).build());
     }
 
-    public MarkApi getRateJoke(String id) {
-        return jokesRepository.getAvgJoke(id)
+    public MarkApi getJokeMark(String id) {
+        return jokesRepository.getAvgJokeMark(id)
                 .orElseThrow(() -> new ChatbotExceptionBuilder().addError(MarksErrorMessages.NOT_FOUND).build());
 
     }
