@@ -19,18 +19,19 @@ import java.util.List;
 public class JokesController {
 
     private final JokesService jokesService;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public JokesController(JokesService jokesService) {
+    public JokesController(JokesService jokesService, ModelMapper modelMapper) {
         this.jokesService = jokesService;
-
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping(value = "/categories" )
-    public ResponseEntity<List<Category>> getAllCategory(){
+    public ResponseEntity<List<Category>> getAllCategories(){
         return ResponseEntity
                 .ok()
-                .body(jokesService.getAllCategory());
+                .body(jokesService.getAllCategories());
     }
 
     @GetMapping(value = "/random" )
@@ -48,19 +49,26 @@ public class JokesController {
     }
 
     @PostMapping()
-    public ResponseEntity<Joke> createJoke(@RequestBody JokeApi jokeApi, @Qualifier("Joke") ModelMapper modelMapper) {
-        Joke joke = modelMapper.map(jokeApi, new TypeToken<Joke>() {}.getType());
+    public ResponseEntity<Joke> createJoke(@RequestBody JokeApi jokeApi) {
+        Joke joke = modelMapper.map(jokeApi, Joke.class);
         return ResponseEntity
                 .ok()
                 .body(jokesService.createJoke(joke));
     }
 
     @PostMapping("/rate")
-    public ResponseEntity<Mark> rateJoke(@RequestBody MarkApi markApi, @Qualifier("Joke") ModelMapper modelMapper) {
-        Mark mark = modelMapper.map(markApi, new TypeToken<Mark>() {}.getType());
+    public ResponseEntity<Mark> rateJoke(@RequestBody MarkApi markApi) {
+        Mark mark = modelMapper.map(markApi, Mark.class);
         return ResponseEntity
                 .ok()
                 .body(jokesService.rateJoke(mark));
+    }
+
+    @GetMapping("/rate/{id}")
+    public ResponseEntity<MarkApi> getRateJoke(@PathVariable String id) {
+        return ResponseEntity
+                .ok()
+                .body(jokesService.getRateJoke(id));
     }
 
 

@@ -10,7 +10,7 @@ import org.jooq.SQLDialect;
 import org.jooq.impl.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
@@ -46,39 +46,33 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public JokesRepository noAuthJokeRepository(DSLContext dsl) {
+    public JokesRepository jokesRepository(DSLContext dsl) {
         return new JokesRepository(dsl);
     }
 
     @Bean
-    @Qualifier("Joke")
-    public ModelMapper modelMapperJoke() {
-        PropertyMap<JokeApi, Joke> propertyMap = new PropertyMap<JokeApi, Joke>() {
+    public ModelMapper modelMapper() {
+        ModelMapper mapper = new ModelMapper();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        mapper.addMappings(new PropertyMap<JokeApi, Joke>() {
             @Override
-            public void configure() {
+            protected void configure() {
                 map().setJoke(source.getJoke());
                 map().setCategory(source.getCategory());
             }
-        };
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.addMappings(propertyMap);
-        return modelMapper;
-    }
-
-    @Bean
-    @Qualifier("Mark")
-    public ModelMapper modelMapperMark() {
-        PropertyMap<MarkApi, Mark> propertyMap = new PropertyMap<MarkApi, Mark>() {
+        });
+        mapper.addMappings(new PropertyMap<MarkApi, Mark>() {
             @Override
-            public void configure() {
+            protected void configure() {
                 map().setMark(source.getMark());
                 map().setJokeId(source.getJokeId());
             }
-        };
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.addMappings(propertyMap);
-        return modelMapper;
+        });
+        return mapper;
     }
+
+
 
     @Bean
     public DefaultConfiguration configuration(DataSourceConnectionProvider connectionProvider) {

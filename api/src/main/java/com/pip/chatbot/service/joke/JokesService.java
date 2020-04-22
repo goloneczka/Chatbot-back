@@ -5,6 +5,7 @@ import com.pip.chatbot.exception.ChatbotExceptionBuilder;
 import com.pip.chatbot.exception.messages.JokesErrorMessages;
 import com.pip.chatbot.exception.messages.MarksErrorMessages;
 import com.pip.chatbot.model.joke.Mark;
+import com.pip.chatbot.model.joke.MarkApi;
 import com.pip.chatbot.repository.joke.JokesRepository;
 import com.pip.chatbot.model.joke.Category;
 import com.pip.chatbot.model.joke.Joke;
@@ -25,13 +26,13 @@ public class JokesService {
     }
 
     private boolean doesCategoryExists(String category){
-        return jokesRepository.getAllCategory().stream()
+        return jokesRepository.getAllCategories().stream()
                 .map(Category::getCategory)
                 .anyMatch(category::equals);
     }
 
-    public List<Category> getAllCategory() {
-        return jokesRepository.getAllConfirmedCategory();
+    public List<Category> getAllCategories() {
+        return jokesRepository.getAllConfirmedCategories();
     }
 
     public Joke getRandomJoke() {
@@ -57,5 +58,11 @@ public class JokesService {
     public Mark rateJoke(Mark mark) {
         return jokesRepository.createMark(mark)
                 .orElseThrow(() -> new ChatbotExceptionBuilder().addError(MarksErrorMessages.CREATE_FAILURE).build());
+    }
+
+    public MarkApi getRateJoke(String id) {
+        return jokesRepository.getAvgJoke(id)
+                .orElseThrow(() -> new ChatbotExceptionBuilder().addError(MarksErrorMessages.NOT_FOUND).build());
+
     }
 }

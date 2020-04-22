@@ -7,7 +7,6 @@ import com.pip.chatbot.model.forecast.Forecast;
 import com.pip.chatbot.repository.forecast.CitiesRepository;
 import com.pip.chatbot.repository.forecast.CountriesRepository;
 import com.pip.chatbot.repository.forecast.ForecastRepository;
-import com.pip.chatbot.repository.joke.JokesRepository;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.*;
@@ -46,12 +45,6 @@ public class ApplicationConfiguration {
     public CountriesRepository countriesRepository(DSLContext dsl) {
         return new CountriesRepository(dsl);
     }
-
-    @Bean
-    public JokesRepository noAuthJokeRepository(DSLContext dsl) {
-        return new JokesRepository(dsl);
-    }
-
 
     @Bean
     public DefaultConfiguration configuration(DataSourceConnectionProvider connectionProvider) {
