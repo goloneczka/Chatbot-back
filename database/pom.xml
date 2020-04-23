@@ -65,6 +65,9 @@
                                 <schema>
                                     <inputSchema>weather</inputSchema>
                                 </schema>
+                                <schema>
+                                    <inputSchema>food</inputSchema>
+                                </schema>
                             </schemata>
 
                         </database>
