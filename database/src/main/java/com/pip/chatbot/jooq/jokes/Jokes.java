@@ -7,6 +7,7 @@ package com.pip.chatbot.jooq.jokes;
 import com.pip.chatbot.jooq.DefaultCatalog;
 import com.pip.chatbot.jooq.jokes.tables.Category;
 import com.pip.chatbot.jooq.jokes.tables.Joke;
+import com.pip.chatbot.jooq.jokes.tables.Mark;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +24,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Jokes extends SchemaImpl {
 
-    private static final long serialVersionUID = -1224553085;
+    private static final long serialVersionUID = 728009000;
 
     /**
      * The reference instance of <code>jokes</code>
@@ -41,6 +42,11 @@ public class Jokes extends SchemaImpl {
     public final Joke JOKE = Joke.JOKE;
 
     /**
+     * The table <code>jokes.mark</code>.
+     */
+    public final Mark MARK = Mark.MARK;
+
+    /**
      * No further instances allowed
      */
     private Jokes() {
@@ -56,13 +62,15 @@ public class Jokes extends SchemaImpl {
     @Override
     public final List<Sequence<?>> getSequences() {
         return Arrays.<Sequence<?>>asList(
-            Sequences.JOKE_ID_SEQ);
+            Sequences.JOKE_ID_SEQ,
+            Sequences.MARK_ID_SEQ);
     }
 
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.<Table<?>>asList(
             Category.CATEGORY,
-            Joke.JOKE);
+            Joke.JOKE,
+            Mark.MARK);
     }
 }
