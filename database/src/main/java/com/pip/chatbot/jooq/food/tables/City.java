@@ -13,9 +13,10 @@ import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row2;
+import org.jooq.Row3;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -31,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class City extends TableImpl<CityRecord> {
 
-    private static final long serialVersionUID = 116200518;
+    private static final long serialVersionUID = -1230915636;
 
     /**
      * The reference instance of <code>food.city</code>
@@ -45,6 +46,11 @@ public class City extends TableImpl<CityRecord> {
     public Class<CityRecord> getRecordType() {
         return CityRecord.class;
     }
+
+    /**
+     * The column <code>food.city.id</code>.
+     */
+    public final TableField<CityRecord, Integer> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('food.city_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>food.city.city</code>.
@@ -95,13 +101,18 @@ public class City extends TableImpl<CityRecord> {
     }
 
     @Override
+    public Identity<CityRecord, Integer> getIdentity() {
+        return Keys.IDENTITY_CITY;
+    }
+
+    @Override
     public UniqueKey<CityRecord> getPrimaryKey() {
         return Keys.CITY_PKEY;
     }
 
     @Override
     public List<UniqueKey<CityRecord>> getKeys() {
-        return Arrays.<UniqueKey<CityRecord>>asList(Keys.CITY_PKEY);
+        return Arrays.<UniqueKey<CityRecord>>asList(Keys.CITY_PKEY, Keys.CITY_CITY_COUNTRY_KEY);
     }
 
     @Override
@@ -140,11 +151,11 @@ public class City extends TableImpl<CityRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row2 type methods
+    // Row3 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row2<String, String> fieldsRow() {
-        return (Row2) super.fieldsRow();
+    public Row3<Integer, String, String> fieldsRow() {
+        return (Row3) super.fieldsRow();
     }
 }

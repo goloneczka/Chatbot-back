@@ -17,7 +17,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row11;
+import org.jooq.Row12;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Forecast extends TableImpl<ForecastRecord> {
 
-    private static final long serialVersionUID = -423625328;
+    private static final long serialVersionUID = 1863546651;
 
     /**
      * The reference instance of <code>weather.forecast</code>
@@ -102,6 +102,11 @@ public class Forecast extends TableImpl<ForecastRecord> {
      * The column <code>weather.forecast.city</code>.
      */
     public final TableField<ForecastRecord, String> CITY = createField(DSL.name("city"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
+
+    /**
+     * The column <code>weather.forecast.icon</code>.
+     */
+    public final TableField<ForecastRecord, String> ICON = createField(DSL.name("icon"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
 
     /**
      * Create a <code>weather.forecast</code> table reference
@@ -192,11 +197,11 @@ public class Forecast extends TableImpl<ForecastRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row11 type methods
+    // Row12 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<Integer, LocalDateTime, LocalDateTime, Float, Float, Float, Float, Float, String, String, String> fieldsRow() {
-        return (Row11) super.fieldsRow();
+    public Row12<Integer, LocalDateTime, LocalDateTime, Float, Float, Float, Float, Float, String, String, String, String> fieldsRow() {
+        return (Row12) super.fieldsRow();
     }
 }

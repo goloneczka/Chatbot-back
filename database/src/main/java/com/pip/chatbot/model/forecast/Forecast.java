@@ -19,4 +19,5 @@ public class Forecast {
     private String summary;
     private String precipType;
     private String city;
+    private String icon;
 }
