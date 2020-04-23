@@ -13,7 +13,9 @@ import java.util.List;
 @RestControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ChatbotException.class)
-    public ResponseEntity<ErrorResponse> handleChatboxException(ChatbotException e, WebRequest webRequest) {
+    public ResponseEntity<ErrorResponse> handleChatbotException(ChatbotException e, WebRequest webRequest) {
+        e.printStackTrace();
+
         return ResponseEntity
                 .status(ResponseStatus.BAD_REQUEST)
                 .body(new ErrorResponse(e.getErrors()));

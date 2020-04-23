@@ -18,13 +18,9 @@ public class AdminJokesRepository {
     private final ModelMapper modelMapper;
 
     public List<Joke> getAll() {
-        List<JokeRecord> result = dslContext
+        return dslContext
                 .selectFrom(JOKE)
-                .fetchInto(JokeRecord.class);
-
-        List<Joke> jokes = new ArrayList<>();
-        result.forEach(v -> jokes.add(modelMapper.map(v, Joke.class)));
-        return jokes;
+                .fetchInto(Joke.class);
     }
 
     public Optional<Joke> get(int id) {
@@ -47,7 +43,6 @@ public class AdminJokesRepository {
     public Joke update(Joke joke) {
         JokeRecord record = dslContext
                 .update(JOKE)
-                .set(JOKE.CATEGORY, joke.getCategory())
                 .set(JOKE.JOKE_, joke.getJoke())
                 .where(JOKE.ID.eq(joke.getId()))
                 .returning(JOKE.ID, JOKE.CATEGORY, JOKE.JOKE_)

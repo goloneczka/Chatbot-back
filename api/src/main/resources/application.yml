@@ -10,3 +10,9 @@ spring:
     url: jdbc:postgresql://trainings:5432/appdb
     username: app
     password: Ao4eiT2w
+
+logging:
+  level:
+    org:
+      springframework:
+        web: "DEBUG"
