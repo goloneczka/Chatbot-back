@@ -16,7 +16,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row3;
+import org.jooq.Row2;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -32,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MenuDish extends TableImpl<MenuDishRecord> {
 
-    private static final long serialVersionUID = -1994190499;
+    private static final long serialVersionUID = 208839541;
 
     /**
      * The reference instance of <code>food.menu_dish</code>
@@ -56,11 +56,6 @@ public class MenuDish extends TableImpl<MenuDishRecord> {
      * The column <code>food.menu_dish.dish_id</code>.
      */
     public final TableField<MenuDishRecord, Integer> DISH_ID = createField(DSL.name("dish_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('food.menu_dish_dish_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
-
-    /**
-     * The column <code>food.menu_dish.price</code>.
-     */
-    public final TableField<MenuDishRecord, Float> PRICE = createField(DSL.name("price"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
 
     /**
      * Create a <code>food.menu_dish</code> table reference
@@ -107,12 +102,12 @@ public class MenuDish extends TableImpl<MenuDishRecord> {
 
     @Override
     public UniqueKey<MenuDishRecord> getPrimaryKey() {
-        return Keys.RESTAURANT_CUISINE_PRIMARYKEY;
+        return Keys.MENU_DISH_PKEY;
     }
 
     @Override
     public List<UniqueKey<MenuDishRecord>> getKeys() {
-        return Arrays.<UniqueKey<MenuDishRecord>>asList(Keys.RESTAURANT_CUISINE_PRIMARYKEY);
+        return Arrays.<UniqueKey<MenuDishRecord>>asList(Keys.MENU_DISH_PKEY);
     }
 
     @Override
@@ -155,11 +150,11 @@ public class MenuDish extends TableImpl<MenuDishRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row3 type methods
+    // Row2 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<Integer, Integer, Float> fieldsRow() {
-        return (Row3) super.fieldsRow();
+    public Row2<Integer, Integer> fieldsRow() {
+        return (Row2) super.fieldsRow();
     }
 }

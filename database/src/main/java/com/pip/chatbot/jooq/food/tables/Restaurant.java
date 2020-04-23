@@ -32,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Restaurant extends TableImpl<RestaurantRecord> {
 
-    private static final long serialVersionUID = -1416452833;
+    private static final long serialVersionUID = 210065122;
 
     /**
      * The reference instance of <code>food.restaurant</code>
@@ -48,24 +48,24 @@ public class Restaurant extends TableImpl<RestaurantRecord> {
     }
 
     /**
-     * The column <code>food.restaurant.restaurant_id</code>.
+     * The column <code>food.restaurant.id</code>.
      */
-    public final TableField<RestaurantRecord, Integer> RESTAURANT_ID = createField(DSL.name("restaurant_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('food.restaurant_restaurant_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<RestaurantRecord, Integer> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('food.restaurant_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
-     * The column <code>food.restaurant.restaurant_name</code>.
+     * The column <code>food.restaurant.name</code>.
      */
-    public final TableField<RestaurantRecord, String> RESTAURANT_NAME = createField(DSL.name("restaurant_name"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
+    public final TableField<RestaurantRecord, String> NAME = createField(DSL.name("name"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
 
     /**
-     * The column <code>food.restaurant.restaurant_address</code>.
+     * The column <code>food.restaurant.address</code>.
      */
-    public final TableField<RestaurantRecord, String> RESTAURANT_ADDRESS = createField(DSL.name("restaurant_address"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
+    public final TableField<RestaurantRecord, String> ADDRESS = createField(DSL.name("address"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
 
     /**
-     * The column <code>food.restaurant.city_id</code>.
+     * The column <code>food.restaurant.city</code>.
      */
-    public final TableField<RestaurantRecord, Integer> CITY_ID = createField(DSL.name("city_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('food.restaurant_city_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<RestaurantRecord, String> CITY = createField(DSL.name("city"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
 
     /**
      * The column <code>food.restaurant.average_users_rating</code>.
@@ -132,11 +132,11 @@ public class Restaurant extends TableImpl<RestaurantRecord> {
 
     @Override
     public List<ForeignKey<RestaurantRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<RestaurantRecord, ?>>asList(Keys.RESTAURANT__RESTAURANT_CITY_ID_FKEY);
+        return Arrays.<ForeignKey<RestaurantRecord, ?>>asList(Keys.RESTAURANT__RESTAURANT_CITY_FKEY);
     }
 
     public City city() {
-        return new City(this, Keys.RESTAURANT__RESTAURANT_CITY_ID_FKEY);
+        return new City(this, Keys.RESTAURANT__RESTAURANT_CITY_FKEY);
     }
 
     @Override
@@ -170,7 +170,7 @@ public class Restaurant extends TableImpl<RestaurantRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row6<Integer, String, String, Integer, Float, String> fieldsRow() {
+    public Row6<Integer, String, String, String, Float, String> fieldsRow() {
         return (Row6) super.fieldsRow();
     }
 }

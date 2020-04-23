@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Menu extends TableImpl<MenuRecord> {
 
-    private static final long serialVersionUID = -2124831478;
+    private static final long serialVersionUID = 1897913914;
 
     /**
      * The reference instance of <code>food.menu</code>
@@ -49,9 +49,9 @@ public class Menu extends TableImpl<MenuRecord> {
     }
 
     /**
-     * The column <code>food.menu.menu_id</code>.
+     * The column <code>food.menu.id</code>.
      */
-    public final TableField<MenuRecord, Integer> MENU_ID = createField(DSL.name("menu_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('food.menu_menu_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<MenuRecord, Integer> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('food.menu_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>food.menu.restaurant_id</code>.

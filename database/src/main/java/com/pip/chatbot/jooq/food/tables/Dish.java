@@ -16,7 +16,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row2;
+import org.jooq.Row3;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -32,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Dish extends TableImpl<DishRecord> {
 
-    private static final long serialVersionUID = -1723996411;
+    private static final long serialVersionUID = 533346775;
 
     /**
      * The reference instance of <code>food.dish</code>
@@ -48,14 +48,19 @@ public class Dish extends TableImpl<DishRecord> {
     }
 
     /**
-     * The column <code>food.dish.dish_id</code>.
+     * The column <code>food.dish.id</code>.
      */
-    public final TableField<DishRecord, Integer> DISH_ID = createField(DSL.name("dish_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('food.dish_dish_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<DishRecord, Integer> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('food.dish_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
-     * The column <code>food.dish.dish_name</code>.
+     * The column <code>food.dish.dish</code>.
      */
-    public final TableField<DishRecord, String> DISH_NAME = createField(DSL.name("dish_name"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
+    public final TableField<DishRecord, String> DISH_ = createField(DSL.name("dish"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
+
+    /**
+     * The column <code>food.dish.price</code>.
+     */
+    public final TableField<DishRecord, Float> PRICE = createField(DSL.name("price"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
 
     /**
      * Create a <code>food.dish</code> table reference
@@ -137,11 +142,11 @@ public class Dish extends TableImpl<DishRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row2 type methods
+    // Row3 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row2<Integer, String> fieldsRow() {
-        return (Row2) super.fieldsRow();
+    public Row3<Integer, String, Float> fieldsRow() {
+        return (Row3) super.fieldsRow();
     }
 }

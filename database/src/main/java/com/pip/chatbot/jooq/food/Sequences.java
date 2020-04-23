@@ -15,29 +15,9 @@ import org.jooq.impl.Internal;
 public class Sequences {
 
     /**
-     * The sequence <code>food.city_city_id_seq</code>
+     * The sequence <code>food.dish_id_seq</code>
      */
-    public static final Sequence<Integer> CITY_CITY_ID_SEQ = Internal.createSequence("city_city_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>food.city_country_id_seq</code>
-     */
-    public static final Sequence<Integer> CITY_COUNTRY_ID_SEQ = Internal.createSequence("city_country_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>food.country_country_id_seq</code>
-     */
-    public static final Sequence<Integer> COUNTRY_COUNTRY_ID_SEQ = Internal.createSequence("country_country_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>food.cuisine_cuisine_id_seq</code>
-     */
-    public static final Sequence<Integer> CUISINE_CUISINE_ID_SEQ = Internal.createSequence("cuisine_cuisine_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>food.dish_dish_id_seq</code>
-     */
-    public static final Sequence<Integer> DISH_DISH_ID_SEQ = Internal.createSequence("dish_dish_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
+    public static final Sequence<Integer> DISH_ID_SEQ = Internal.createSequence("dish_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
 
     /**
      * The sequence <code>food.menu_dish_dish_id_seq</code>
@@ -50,9 +30,9 @@ public class Sequences {
     public static final Sequence<Integer> MENU_DISH_MENU_ID_SEQ = Internal.createSequence("menu_dish_menu_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
 
     /**
-     * The sequence <code>food.menu_menu_id_seq</code>
+     * The sequence <code>food.menu_id_seq</code>
      */
-    public static final Sequence<Integer> MENU_MENU_ID_SEQ = Internal.createSequence("menu_menu_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
+    public static final Sequence<Integer> MENU_ID_SEQ = Internal.createSequence("menu_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
 
     /**
      * The sequence <code>food.menu_restaurant_id_seq</code>
@@ -60,22 +40,12 @@ public class Sequences {
     public static final Sequence<Integer> MENU_RESTAURANT_ID_SEQ = Internal.createSequence("menu_restaurant_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
 
     /**
-     * The sequence <code>food.restaurant_city_id_seq</code>
-     */
-    public static final Sequence<Integer> RESTAURANT_CITY_ID_SEQ = Internal.createSequence("restaurant_city_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>food.restaurant_cuisine_cuisine_id_seq</code>
-     */
-    public static final Sequence<Integer> RESTAURANT_CUISINE_CUISINE_ID_SEQ = Internal.createSequence("restaurant_cuisine_cuisine_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
-
-    /**
      * The sequence <code>food.restaurant_cuisine_restaurant_id_seq</code>
      */
     public static final Sequence<Integer> RESTAURANT_CUISINE_RESTAURANT_ID_SEQ = Internal.createSequence("restaurant_cuisine_restaurant_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
 
     /**
-     * The sequence <code>food.restaurant_restaurant_id_seq</code>
+     * The sequence <code>food.restaurant_id_seq</code>
      */
-    public static final Sequence<Integer> RESTAURANT_RESTAURANT_ID_SEQ = Internal.createSequence("restaurant_restaurant_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
+    public static final Sequence<Integer> RESTAURANT_ID_SEQ = Internal.createSequence("restaurant_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
 }

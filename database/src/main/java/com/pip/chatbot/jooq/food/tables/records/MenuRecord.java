@@ -21,19 +21,19 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MenuRecord extends UpdatableRecordImpl<MenuRecord> implements Record4<Integer, Integer, LocalDateTime, LocalDateTime> {
 
-    private static final long serialVersionUID = -1600607325;
+    private static final long serialVersionUID = 140728248;
 
     /**
-     * Setter for <code>food.menu.menu_id</code>.
+     * Setter for <code>food.menu.id</code>.
      */
-    public void setMenuId(Integer value) {
+    public void setId(Integer value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>food.menu.menu_id</code>.
+     * Getter for <code>food.menu.id</code>.
      */
-    public Integer getMenuId() {
+    public Integer getId() {
         return (Integer) get(0);
     }
 
@@ -104,7 +104,7 @@ public class MenuRecord extends UpdatableRecordImpl<MenuRecord> implements Recor
 
     @Override
     public Field<Integer> field1() {
-        return Menu.MENU.MENU_ID;
+        return Menu.MENU.ID;
     }
 
     @Override
@@ -124,7 +124,7 @@ public class MenuRecord extends UpdatableRecordImpl<MenuRecord> implements Recor
 
     @Override
     public Integer component1() {
-        return getMenuId();
+        return getId();
     }
 
     @Override
@@ -144,7 +144,7 @@ public class MenuRecord extends UpdatableRecordImpl<MenuRecord> implements Recor
 
     @Override
     public Integer value1() {
-        return getMenuId();
+        return getId();
     }
 
     @Override
@@ -164,7 +164,7 @@ public class MenuRecord extends UpdatableRecordImpl<MenuRecord> implements Recor
 
     @Override
     public MenuRecord value1(Integer value) {
-        setMenuId(value);
+        setId(value);
         return this;
     }
 
@@ -209,10 +209,10 @@ public class MenuRecord extends UpdatableRecordImpl<MenuRecord> implements Recor
     /**
      * Create a detached, initialised MenuRecord
      */
-    public MenuRecord(Integer menuId, Integer restaurantId, LocalDateTime startDate, LocalDateTime endDate) {
+    public MenuRecord(Integer id, Integer restaurantId, LocalDateTime startDate, LocalDateTime endDate) {
         super(Menu.MENU);
 
-        set(0, menuId);
+        set(0, id);
         set(1, restaurantId);
         set(2, startDate);
         set(3, endDate);

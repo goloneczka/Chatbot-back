@@ -32,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class RestaurantCuisine extends TableImpl<RestaurantCuisineRecord> {
 
-    private static final long serialVersionUID = 783307757;
+    private static final long serialVersionUID = -743697290;
 
     /**
      * The reference instance of <code>food.restaurant_cuisine</code>
@@ -53,9 +53,9 @@ public class RestaurantCuisine extends TableImpl<RestaurantCuisineRecord> {
     public final TableField<RestaurantCuisineRecord, Integer> RESTAURANT_ID = createField(DSL.name("restaurant_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('food.restaurant_cuisine_restaurant_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
-     * The column <code>food.restaurant_cuisine.cuisine_id</code>.
+     * The column <code>food.restaurant_cuisine.cuisine</code>.
      */
-    public final TableField<RestaurantCuisineRecord, Integer> CUISINE_ID = createField(DSL.name("cuisine_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('food.restaurant_cuisine_cuisine_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<RestaurantCuisineRecord, String> CUISINE = createField(DSL.name("cuisine"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
 
     /**
      * Create a <code>food.restaurant_cuisine</code> table reference
@@ -112,7 +112,7 @@ public class RestaurantCuisine extends TableImpl<RestaurantCuisineRecord> {
 
     @Override
     public List<ForeignKey<RestaurantCuisineRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<RestaurantCuisineRecord, ?>>asList(Keys.RESTAURANT_CUISINE__RESTAURANT_CUISINE_RESTAURANT_ID_FKEY, Keys.RESTAURANT_CUISINE__RESTAURANT_CUISINE_CUISINE_ID_FKEY);
+        return Arrays.<ForeignKey<RestaurantCuisineRecord, ?>>asList(Keys.RESTAURANT_CUISINE__RESTAURANT_CUISINE_RESTAURANT_ID_FKEY, Keys.RESTAURANT_CUISINE__RESTAURANT_CUISINE_CUISINE_FKEY);
     }
 
     public Restaurant restaurant() {
@@ -120,7 +120,7 @@ public class RestaurantCuisine extends TableImpl<RestaurantCuisineRecord> {
     }
 
     public Cuisine cuisine() {
-        return new Cuisine(this, Keys.RESTAURANT_CUISINE__RESTAURANT_CUISINE_CUISINE_ID_FKEY);
+        return new Cuisine(this, Keys.RESTAURANT_CUISINE__RESTAURANT_CUISINE_CUISINE_FKEY);
     }
 
     @Override
@@ -154,7 +154,7 @@ public class RestaurantCuisine extends TableImpl<RestaurantCuisineRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row2<Integer, Integer> fieldsRow() {
+    public Row2<Integer, String> fieldsRow() {
         return (Row2) super.fieldsRow();
     }
 }

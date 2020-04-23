@@ -13,10 +13,9 @@ import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row3;
+import org.jooq.Row2;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -32,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class City extends TableImpl<CityRecord> {
 
-    private static final long serialVersionUID = 673011755;
+    private static final long serialVersionUID = 116200518;
 
     /**
      * The reference instance of <code>food.city</code>
@@ -48,19 +47,14 @@ public class City extends TableImpl<CityRecord> {
     }
 
     /**
-     * The column <code>food.city.city_id</code>.
+     * The column <code>food.city.city</code>.
      */
-    public final TableField<CityRecord, Integer> CITY_ID = createField(DSL.name("city_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('food.city_city_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<CityRecord, String> CITY_ = createField(DSL.name("city"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
 
     /**
-     * The column <code>food.city.city_name</code>.
+     * The column <code>food.city.country</code>.
      */
-    public final TableField<CityRecord, String> CITY_NAME = createField(DSL.name("city_name"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
-
-    /**
-     * The column <code>food.city.country_id</code>.
-     */
-    public final TableField<CityRecord, Integer> COUNTRY_ID = createField(DSL.name("country_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('food.city_country_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<CityRecord, String> COUNTRY = createField(DSL.name("country"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
 
     /**
      * Create a <code>food.city</code> table reference
@@ -101,11 +95,6 @@ public class City extends TableImpl<CityRecord> {
     }
 
     @Override
-    public Identity<CityRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_CITY;
-    }
-
-    @Override
     public UniqueKey<CityRecord> getPrimaryKey() {
         return Keys.CITY_PKEY;
     }
@@ -117,11 +106,11 @@ public class City extends TableImpl<CityRecord> {
 
     @Override
     public List<ForeignKey<CityRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<CityRecord, ?>>asList(Keys.CITY__CITY_COUNTRY_ID_FKEY);
+        return Arrays.<ForeignKey<CityRecord, ?>>asList(Keys.CITY__CITY_COUNTRY_FKEY);
     }
 
     public Country country() {
-        return new Country(this, Keys.CITY__CITY_COUNTRY_ID_FKEY);
+        return new Country(this, Keys.CITY__CITY_COUNTRY_FKEY);
     }
 
     @Override
@@ -151,11 +140,11 @@ public class City extends TableImpl<CityRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row3 type methods
+    // Row2 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<Integer, String, Integer> fieldsRow() {
-        return (Row3) super.fieldsRow();
+    public Row2<String, String> fieldsRow() {
+        return (Row2) super.fieldsRow();
     }
 }

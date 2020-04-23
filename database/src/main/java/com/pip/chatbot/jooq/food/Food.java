@@ -29,7 +29,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Food extends SchemaImpl {
 
-    private static final long serialVersionUID = 1590658086;
+    private static final long serialVersionUID = 859148468;
 
     /**
      * The reference instance of <code>food</code>
@@ -92,19 +92,13 @@ public class Food extends SchemaImpl {
     @Override
     public final List<Sequence<?>> getSequences() {
         return Arrays.<Sequence<?>>asList(
-            Sequences.CITY_CITY_ID_SEQ,
-            Sequences.CITY_COUNTRY_ID_SEQ,
-            Sequences.COUNTRY_COUNTRY_ID_SEQ,
-            Sequences.CUISINE_CUISINE_ID_SEQ,
-            Sequences.DISH_DISH_ID_SEQ,
+            Sequences.DISH_ID_SEQ,
             Sequences.MENU_DISH_DISH_ID_SEQ,
             Sequences.MENU_DISH_MENU_ID_SEQ,
-            Sequences.MENU_MENU_ID_SEQ,
+            Sequences.MENU_ID_SEQ,
             Sequences.MENU_RESTAURANT_ID_SEQ,
-            Sequences.RESTAURANT_CITY_ID_SEQ,
-            Sequences.RESTAURANT_CUISINE_CUISINE_ID_SEQ,
             Sequences.RESTAURANT_CUISINE_RESTAURANT_ID_SEQ,
-            Sequences.RESTAURANT_RESTAURANT_ID_SEQ);
+            Sequences.RESTAURANT_ID_SEQ);
     }
 
     @Override

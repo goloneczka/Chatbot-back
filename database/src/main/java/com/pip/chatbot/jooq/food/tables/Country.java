@@ -13,10 +13,9 @@ import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row2;
+import org.jooq.Row1;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -32,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Country extends TableImpl<CountryRecord> {
 
-    private static final long serialVersionUID = 1935906377;
+    private static final long serialVersionUID = 1711844303;
 
     /**
      * The reference instance of <code>food.country</code>
@@ -48,14 +47,9 @@ public class Country extends TableImpl<CountryRecord> {
     }
 
     /**
-     * The column <code>food.country.country_id</code>.
+     * The column <code>food.country.country</code>.
      */
-    public final TableField<CountryRecord, Integer> COUNTRY_ID = createField(DSL.name("country_id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('food.country_country_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
-
-    /**
-     * The column <code>food.country.country_name</code>.
-     */
-    public final TableField<CountryRecord, String> COUNTRY_NAME = createField(DSL.name("country_name"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
+    public final TableField<CountryRecord, String> COUNTRY_ = createField(DSL.name("country"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
 
     /**
      * Create a <code>food.country</code> table reference
@@ -96,11 +90,6 @@ public class Country extends TableImpl<CountryRecord> {
     }
 
     @Override
-    public Identity<CountryRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_COUNTRY;
-    }
-
-    @Override
     public UniqueKey<CountryRecord> getPrimaryKey() {
         return Keys.COUNTRY_PKEY;
     }
@@ -137,11 +126,11 @@ public class Country extends TableImpl<CountryRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row2 type methods
+    // Row1 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row2<Integer, String> fieldsRow() {
-        return (Row2) super.fieldsRow();
+    public Row1<String> fieldsRow() {
+        return (Row1) super.fieldsRow();
     }
 }
