@@ -5,7 +5,8 @@ application:
 server:
   port: 9090
 
-db:
-  url: "jdbc:postgresql://localhost:5432/test"
-  username: "postgres"
-  password: "admin"
+spring:
+  datasource:
+    url: jdbc:postgresql://trainings:5432/appdb
+    username: app
+    password: Ao4eiT2w

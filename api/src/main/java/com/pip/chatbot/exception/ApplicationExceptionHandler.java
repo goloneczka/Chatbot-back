@@ -20,7 +20,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleOtherExceptions(Exception e, WebRequest webRequest) {
+    public ResponseEntity<ErrorResponse> handleOtherException(Exception e, WebRequest webRequest) {
         return ResponseEntity
                 .status(ResponseStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorResponse(List.of(e.getMessage())));

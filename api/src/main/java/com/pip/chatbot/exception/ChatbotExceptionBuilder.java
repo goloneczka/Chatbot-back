@@ -1,7 +1,5 @@
 package com.pip.chatbot.exception;
 
-import lombok.NoArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +15,9 @@ public class ChatbotExceptionBuilder {
         return this;
     }
 
-    public ChatbotException build() {
-        var chatboxException = new ChatbotException();
-        chatboxException.setErrors(errors);
-        return chatboxException;
+    public ChatbotException build(){
+        ChatbotException chatbotException = new ChatbotException();
+        chatbotException.setErrors(errors);
+        return chatbotException;
     }
 }

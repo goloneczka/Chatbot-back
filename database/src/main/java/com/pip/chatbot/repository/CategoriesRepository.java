@@ -21,34 +21,37 @@ public class CategoriesRepository {
     private final ModelMapper modelMapper;
 
     public List<Category> getAll() {
-        List<CategoryRecord> result = dslContext
+        return dslContext
                 .selectFrom(CATEGORY)
-                .fetchInto(CategoryRecord.class);
-
-        List<Category> categories = new ArrayList<>();
-        result.forEach(v -> categories.add(modelMapper.map(v, Category.class)));
-        return categories;
+                .fetchInto(Category.class);
     }
 
     public List<Joke> getJokesForCategory(String category) {
-        List<JokeRecord> result = dslContext
+        return dslContext
                 .selectFrom(JOKE)
                 .where(JOKE.CATEGORY.eq(category))
-                .fetchInto(JokeRecord.class);
-
-        List<Joke> jokes = new ArrayList<>();
-        result.forEach(v -> jokes.add(modelMapper.map(v, Joke.class)));
-        return jokes;
+                .fetchInto(Joke.class);
     }
 
-    public Optional<Category> create(Category category) {
-        Optional<CategoryRecord> record = dslContext
+    public Category create(Category category) {
+        CategoryRecord record = dslContext
                 .insertInto(CATEGORY)
                 .values(category.getCategory())
                 .returning(CATEGORY.CATEGORY_)
-                .fetchOptional();
+                .fetchOne();
 
-        return Optional.ofNullable(record.get().into(Category.class));
+        return modelMapper.map(record, Category.class);
+    }
+
+    public Category update(String category, String value) {
+        CategoryRecord record = dslContext
+                .update(CATEGORY)
+                .set(CATEGORY.CATEGORY_, value)
+                .where(CATEGORY.CATEGORY_.eq(category))
+                .returning(CATEGORY.CATEGORY_)
+                .fetchOne();
+
+        return modelMapper.map(record, Category.class);
     }
 
     public boolean delete(String category) {

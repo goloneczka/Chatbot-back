@@ -29,23 +29,11 @@ public class AdminJokesService {
     }
 
     public Joke create(Joke joke) {
-        var result = jokesRepository.create(joke);
-
-        if (result.isEmpty()) {
-            throw new ChatbotExceptionBuilder().addError(JokesErrorMessages.CREATE_FAILURE).build();
-        }
-
-        return result.get();
+        return jokesRepository.create(joke);
     }
 
     public Joke update(Joke joke) {
-        var result = jokesRepository.update(joke);
-
-        if (result.isEmpty()) {
-            throw new ChatbotExceptionBuilder().addError(JokesErrorMessages.UPDATE_FAILURE).build();
-        }
-
-        return result.get();
+        return jokesRepository.update(joke);
     }
 
     public void delete(int id) {

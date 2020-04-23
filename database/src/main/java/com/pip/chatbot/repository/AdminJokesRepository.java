@@ -34,26 +34,26 @@ public class AdminJokesRepository {
         return Optional.ofNullable(record.get().into(Joke.class));
     }
 
-    public Optional<Joke> create(Joke joke) {
-        Optional<JokeRecord> record = dslContext
+    public Joke create(Joke joke) {
+        JokeRecord record = dslContext
                 .insertInto(JOKE, JOKE.CATEGORY, JOKE.JOKE_)
                 .values(joke.getCategory(), joke.getJoke())
                 .returning(JOKE.ID, JOKE.CATEGORY, JOKE.JOKE_)
-                .fetchOptional();
+                .fetchOne();
 
-        return Optional.ofNullable(record.get().into(Joke.class));
+        return modelMapper.map(record, Joke.class);
     }
 
-    public Optional<Joke> update(Joke joke) {
-        Optional<JokeRecord> record = dslContext
+    public Joke update(Joke joke) {
+        JokeRecord record = dslContext
                 .update(JOKE)
                 .set(JOKE.CATEGORY, joke.getCategory())
                 .set(JOKE.JOKE_, joke.getJoke())
                 .where(JOKE.ID.eq(joke.getId()))
                 .returning(JOKE.ID, JOKE.CATEGORY, JOKE.JOKE_)
-                .fetchOptional();
+                .fetchOne();
 
-        return Optional.ofNullable(record.get().into(Joke.class));
+        return modelMapper.map(record, Joke.class);
     }
 
     public boolean delete(int id) {

@@ -24,13 +24,11 @@ public class CategoriesService {
     }
 
     public Category create(Category category) {
-        var result = categoriesRepository.create(category);
+        return categoriesRepository.create(category);
+    }
 
-        if (result.isEmpty()) {
-            throw new ChatbotExceptionBuilder().addError(CategoriesErrorMessages.CREATE_FAILURE).build();
-        }
-
-        return result.get();
+    public Category update(String category, Category body) {
+        return categoriesRepository.update(category, body.getCategory());
     }
 
     public void delete(String category) {

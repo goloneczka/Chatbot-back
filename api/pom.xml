@@ -10,7 +10,6 @@
         <version>0.0.1</version>
     </parent>
 
-
     <artifactId>api</artifactId>
     <version>0.0.1</version>
     <dependencies>
@@ -48,7 +47,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jooq</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+        </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -58,5 +62,4 @@
         </plugins>
         <finalName>api</finalName>
     </build>
-
 </project>

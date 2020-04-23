@@ -38,12 +38,12 @@ public class CategoriesController {
                 .body(categoriesService.create(body));
     }
 
-//    @PutMapping("/{category}")
-//    public ResponseEntity<Category> update(@PathVariable String category, @RequestBody Category body) {
-//        return ResponseEntity
-//                .status(ResponseStatus.OK)
-//                .body(categoriesService.update(category, body));
-//    }
+    @PutMapping("/{category}")
+    public ResponseEntity<Category> update(@PathVariable String category, @RequestBody Category body) {
+        return ResponseEntity
+                .status(ResponseStatus.OK)
+                .body(categoriesService.update(category, body));
+    }
 
     @DeleteMapping("/{category}")
     public ResponseEntity<?> delete(@PathVariable String category) {
