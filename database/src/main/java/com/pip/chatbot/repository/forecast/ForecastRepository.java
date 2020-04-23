@@ -1,8 +1,8 @@
-package com.pip.chatbot.repository;
+package com.pip.chatbot.repository.forecast;
 
 import com.pip.chatbot.jooq.weather.Tables;
 import com.pip.chatbot.jooq.weather.tables.records.ForecastRecord;
-import com.pip.chatbot.model.Forecast;
+import com.pip.chatbot.model.forecast.Forecast;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;

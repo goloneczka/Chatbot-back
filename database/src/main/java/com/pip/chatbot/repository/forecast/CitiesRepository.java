@@ -1,7 +1,7 @@
-package com.pip.chatbot.repository;
+package com.pip.chatbot.repository.forecast;
 
 import com.pip.chatbot.jooq.weather.Tables;
-import com.pip.chatbot.model.City;
+import com.pip.chatbot.model.forecast.City;
 import org.jooq.DSLContext;
 
 import java.util.List;

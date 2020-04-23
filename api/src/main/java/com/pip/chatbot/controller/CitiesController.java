@@ -1,9 +1,9 @@
 package com.pip.chatbot.controller;
 
-import com.pip.chatbot.model.City;
+import com.pip.chatbot.model.forecast.City;
 import com.pip.chatbot.payload.response.Response;
 import com.pip.chatbot.payload.response.ResponseStatus;
-import com.pip.chatbot.service.CitiesService;
+import com.pip.chatbot.service.forecast.CitiesService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

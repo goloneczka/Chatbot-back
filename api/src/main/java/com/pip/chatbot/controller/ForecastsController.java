@@ -1,8 +1,8 @@
 package com.pip.chatbot.controller;
 
-import com.pip.chatbot.model.Forecast;
+import com.pip.chatbot.model.forecast.Forecast;
 import com.pip.chatbot.payload.response.ResponseStatus;
-import com.pip.chatbot.service.ForecastsService;
+import com.pip.chatbot.service.forecast.ForecastsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

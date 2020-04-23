@@ -1,9 +1,9 @@
 package com.pip.chatbot.integration.weather;
 
-import com.pip.chatbot.model.Forecast;
-import com.pip.chatbot.repository.CitiesRepository;
-import com.pip.chatbot.repository.ForecastRepository;
-import com.pip.chatbot.model.City;
+import com.pip.chatbot.model.forecast.Forecast;
+import com.pip.chatbot.repository.forecast.CitiesRepository;
+import com.pip.chatbot.repository.forecast.ForecastRepository;
+import com.pip.chatbot.model.forecast.City;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.scheduling.annotation.EnableScheduling;

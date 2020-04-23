@@ -1,11 +1,9 @@
-package com.pip.chatbot.service;
+package com.pip.chatbot.service.forecast;
 
 import com.pip.chatbot.exception.ChatbotExceptionBuilder;
-import com.pip.chatbot.exception.messages.CitiesErrorMessages;
 import com.pip.chatbot.exception.messages.ForecastsErrorMessages;
-import com.pip.chatbot.model.Forecast;
-import com.pip.chatbot.repository.CitiesRepository;
-import com.pip.chatbot.repository.ForecastRepository;
+import com.pip.chatbot.model.forecast.Forecast;
+import com.pip.chatbot.repository.forecast.ForecastRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

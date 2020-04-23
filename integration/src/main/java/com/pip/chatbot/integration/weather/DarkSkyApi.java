@@ -3,7 +3,7 @@ package com.pip.chatbot.integration.weather;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pip.chatbot.integration.model.ForecastApi;
-import com.pip.chatbot.model.City;
+import com.pip.chatbot.model.forecast.City;
 import org.springframework.stereotype.Component;
 
 import java.net.URI;

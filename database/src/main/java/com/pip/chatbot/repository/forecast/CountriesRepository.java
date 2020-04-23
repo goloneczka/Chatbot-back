@@ -1,11 +1,10 @@
-package com.pip.chatbot.repository;
+package com.pip.chatbot.repository.forecast;
 
 import com.pip.chatbot.jooq.weather.Tables;
-import com.pip.chatbot.model.Country;
+import com.pip.chatbot.model.forecast.Country;
 import org.jooq.DSLContext;
 
 import java.util.List;
-import java.util.Optional;
 
 public class CountriesRepository {
     private final DSLContext dsl;

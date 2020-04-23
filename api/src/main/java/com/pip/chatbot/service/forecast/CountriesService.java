@@ -1,13 +1,12 @@
-package com.pip.chatbot.service;
+package com.pip.chatbot.service.forecast;
 
 import com.pip.chatbot.exception.ChatbotExceptionBuilder;
 import com.pip.chatbot.exception.messages.CountriesErrorMessages;
-import com.pip.chatbot.model.Country;
-import com.pip.chatbot.repository.CountriesRepository;
+import com.pip.chatbot.model.forecast.Country;
+import com.pip.chatbot.repository.forecast.CountriesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CountriesService {
