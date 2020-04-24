@@ -39,6 +39,7 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<CityRecord, Integer> IDENTITY_CITY = Identities0.IDENTITY_CITY;
     public static final Identity<DishRecord, Integer> IDENTITY_DISH = Identities0.IDENTITY_DISH;
     public static final Identity<MenuRecord, Integer> IDENTITY_MENU = Identities0.IDENTITY_MENU;
     public static final Identity<MenuDishRecord, Integer> IDENTITY_MENU_DISH = Identities0.IDENTITY_MENU_DISH;
@@ -50,6 +51,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<CityRecord> CITY_PKEY = UniqueKeys0.CITY_PKEY;
+    public static final UniqueKey<CityRecord> CITY_CITY_COUNTRY_KEY = UniqueKeys0.CITY_CITY_COUNTRY_KEY;
     public static final UniqueKey<CountryRecord> COUNTRY_PKEY = UniqueKeys0.COUNTRY_PKEY;
     public static final UniqueKey<CuisineRecord> CUISINE_PKEY = UniqueKeys0.CUISINE_PKEY;
     public static final UniqueKey<DishRecord> DISH_PKEY = UniqueKeys0.DISH_PKEY;
@@ -66,7 +68,7 @@ public class Keys {
     public static final ForeignKey<MenuRecord, RestaurantRecord> MENU__MENU_RESTAURANT_ID_FKEY = ForeignKeys0.MENU__MENU_RESTAURANT_ID_FKEY;
     public static final ForeignKey<MenuDishRecord, MenuRecord> MENU_DISH__MENU_DISH_MENU_ID_FKEY = ForeignKeys0.MENU_DISH__MENU_DISH_MENU_ID_FKEY;
     public static final ForeignKey<MenuDishRecord, DishRecord> MENU_DISH__MENU_DISH_DISH_ID_FKEY = ForeignKeys0.MENU_DISH__MENU_DISH_DISH_ID_FKEY;
-    public static final ForeignKey<RestaurantRecord, CityRecord> RESTAURANT__RESTAURANT_CITY_FKEY = ForeignKeys0.RESTAURANT__RESTAURANT_CITY_FKEY;
+    public static final ForeignKey<RestaurantRecord, CityRecord> RESTAURANT__RESTAURANT_CITY_ID_FKEY = ForeignKeys0.RESTAURANT__RESTAURANT_CITY_ID_FKEY;
     public static final ForeignKey<RestaurantCuisineRecord, RestaurantRecord> RESTAURANT_CUISINE__RESTAURANT_CUISINE_RESTAURANT_ID_FKEY = ForeignKeys0.RESTAURANT_CUISINE__RESTAURANT_CUISINE_RESTAURANT_ID_FKEY;
     public static final ForeignKey<RestaurantCuisineRecord, CuisineRecord> RESTAURANT_CUISINE__RESTAURANT_CUISINE_CUISINE_FKEY = ForeignKeys0.RESTAURANT_CUISINE__RESTAURANT_CUISINE_CUISINE_FKEY;
 
@@ -75,6 +77,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     private static class Identities0 {
+        public static Identity<CityRecord, Integer> IDENTITY_CITY = Internal.createIdentity(City.CITY, City.CITY.ID);
         public static Identity<DishRecord, Integer> IDENTITY_DISH = Internal.createIdentity(Dish.DISH, Dish.DISH.ID);
         public static Identity<MenuRecord, Integer> IDENTITY_MENU = Internal.createIdentity(Menu.MENU, Menu.MENU.ID);
         public static Identity<MenuDishRecord, Integer> IDENTITY_MENU_DISH = Internal.createIdentity(MenuDish.MENU_DISH, MenuDish.MENU_DISH.MENU_ID);
@@ -83,7 +86,8 @@ public class Keys {
     }
 
     private static class UniqueKeys0 {
-        public static final UniqueKey<CityRecord> CITY_PKEY = Internal.createUniqueKey(City.CITY, "city_pkey", new TableField[] { City.CITY.CITY_ }, true);
+        public static final UniqueKey<CityRecord> CITY_PKEY = Internal.createUniqueKey(City.CITY, "city_pkey", new TableField[] { City.CITY.ID }, true);
+        public static final UniqueKey<CityRecord> CITY_CITY_COUNTRY_KEY = Internal.createUniqueKey(City.CITY, "city_city_country_key", new TableField[] { City.CITY.CITY_, City.CITY.COUNTRY }, true);
         public static final UniqueKey<CountryRecord> COUNTRY_PKEY = Internal.createUniqueKey(Country.COUNTRY, "country_pkey", new TableField[] { Country.COUNTRY.COUNTRY_ }, true);
         public static final UniqueKey<CuisineRecord> CUISINE_PKEY = Internal.createUniqueKey(Cuisine.CUISINE, "cuisine_pkey", new TableField[] { Cuisine.CUISINE.CUISINE_ }, true);
         public static final UniqueKey<DishRecord> DISH_PKEY = Internal.createUniqueKey(Dish.DISH, "dish_pkey", new TableField[] { Dish.DISH.ID }, true);
@@ -98,7 +102,7 @@ public class Keys {
         public static final ForeignKey<MenuRecord, RestaurantRecord> MENU__MENU_RESTAURANT_ID_FKEY = Internal.createForeignKey(Keys.RESTAURANT_PKEY, Menu.MENU, "menu_restaurant_id_fkey", new TableField[] { Menu.MENU.RESTAURANT_ID }, true);
         public static final ForeignKey<MenuDishRecord, MenuRecord> MENU_DISH__MENU_DISH_MENU_ID_FKEY = Internal.createForeignKey(Keys.MENU_PKEY, MenuDish.MENU_DISH, "menu_dish_menu_id_fkey", new TableField[] { MenuDish.MENU_DISH.MENU_ID }, true);
         public static final ForeignKey<MenuDishRecord, DishRecord> MENU_DISH__MENU_DISH_DISH_ID_FKEY = Internal.createForeignKey(Keys.DISH_PKEY, MenuDish.MENU_DISH, "menu_dish_dish_id_fkey", new TableField[] { MenuDish.MENU_DISH.DISH_ID }, true);
-        public static final ForeignKey<RestaurantRecord, CityRecord> RESTAURANT__RESTAURANT_CITY_FKEY = Internal.createForeignKey(Keys.CITY_PKEY, Restaurant.RESTAURANT, "restaurant_city_fkey", new TableField[] { Restaurant.RESTAURANT.CITY }, true);
+        public static final ForeignKey<RestaurantRecord, CityRecord> RESTAURANT__RESTAURANT_CITY_ID_FKEY = Internal.createForeignKey(Keys.CITY_PKEY, Restaurant.RESTAURANT, "restaurant_city_id_fkey", new TableField[] { Restaurant.RESTAURANT.CITY_ID }, true);
         public static final ForeignKey<RestaurantCuisineRecord, RestaurantRecord> RESTAURANT_CUISINE__RESTAURANT_CUISINE_RESTAURANT_ID_FKEY = Internal.createForeignKey(Keys.RESTAURANT_PKEY, RestaurantCuisine.RESTAURANT_CUISINE, "restaurant_cuisine_restaurant_id_fkey", new TableField[] { RestaurantCuisine.RESTAURANT_CUISINE.RESTAURANT_ID }, true);
         public static final ForeignKey<RestaurantCuisineRecord, CuisineRecord> RESTAURANT_CUISINE__RESTAURANT_CUISINE_CUISINE_FKEY = Internal.createForeignKey(Keys.CUISINE_PKEY, RestaurantCuisine.RESTAURANT_CUISINE, "restaurant_cuisine_cuisine_fkey", new TableField[] { RestaurantCuisine.RESTAURANT_CUISINE.CUISINE }, true);
     }

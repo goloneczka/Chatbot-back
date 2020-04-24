@@ -15,6 +15,11 @@ import org.jooq.impl.Internal;
 public class Sequences {
 
     /**
+     * The sequence <code>food.city_id_seq</code>
+     */
+    public static final Sequence<Integer> CITY_ID_SEQ = Internal.createSequence("city_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
+
+    /**
      * The sequence <code>food.dish_id_seq</code>
      */
     public static final Sequence<Integer> DISH_ID_SEQ = Internal.createSequence("dish_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
@@ -38,6 +43,11 @@ public class Sequences {
      * The sequence <code>food.menu_restaurant_id_seq</code>
      */
     public static final Sequence<Integer> MENU_RESTAURANT_ID_SEQ = Internal.createSequence("menu_restaurant_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
+
+    /**
+     * The sequence <code>food.restaurant_city_id_seq</code>
+     */
+    public static final Sequence<Integer> RESTAURANT_CITY_ID_SEQ = Internal.createSequence("restaurant_city_id_seq", Food.FOOD, org.jooq.impl.SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
 
     /**
      * The sequence <code>food.restaurant_cuisine_restaurant_id_seq</code>
