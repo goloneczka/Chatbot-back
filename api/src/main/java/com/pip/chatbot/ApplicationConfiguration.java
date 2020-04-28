@@ -3,6 +3,8 @@ package com.pip.chatbot;
 import com.pip.chatbot.repository.forecast.CitiesRepository;
 import com.pip.chatbot.repository.forecast.CountriesRepository;
 import com.pip.chatbot.repository.forecast.ForecastRepository;
+import com.pip.chatbot.repository.joke.AdminJokesRepository;
+import com.pip.chatbot.repository.joke.CategoriesRepository;
 import com.pip.chatbot.repository.joke.JokesRepository;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -55,7 +57,15 @@ public class ApplicationConfiguration {
         return mapper;
     }
 
+    @Bean
+    public CategoriesRepository categoriesRepository(DSLContext dsl, ModelMapper modelMapper) {
+        return new CategoriesRepository(dsl, modelMapper);
+    }
 
+    @Bean
+    public AdminJokesRepository adminJokesRepository(DSLContext dsl, ModelMapper modelMapper) {
+        return new AdminJokesRepository(dsl, modelMapper);
+    }
 
     @Bean
     public DefaultConfiguration configuration(DataSourceConnectionProvider connectionProvider) {
