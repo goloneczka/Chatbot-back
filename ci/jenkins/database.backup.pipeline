@@ -7,8 +7,8 @@ pipeline {
         stage('Backup') {
             steps {
                 sh '''#!/bin/bash
-                    pg_dump -h trainings -p 5432 appdb@trainings > backup/{$(date +'%d/%m/%Y')}.sql
-                    cp backup/{$(date +'%d/%m/%Y')}.sql /home/app/backup
+                    pg_dump -h trainings -p 5432 appdb@trainings > backup_$(date +'%d/%m/%Y').sql
+                    cp backup_$(date +'%d/%m/%Y').sql /home/app/backup
                 '''
             }
         }
