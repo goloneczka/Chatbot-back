@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    parameters {
+        booleanParam(name: 'BACKUP', defaultValue: false, description: 'If you want to backup data')
+    }
+    stages {
+        stage('Backup') {
+            steps {
+                sh '''#!/bin/bash
+                    pg_dump -h trainings -p 5432 appdb@trainings > backup/{$(date +'%d/%m/%Y')}.sql
+                    cp backup.sql /home/app/backup
+                '''
+            }
+        }
+    }
+}
