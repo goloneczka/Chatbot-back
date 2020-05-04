@@ -20,9 +20,6 @@ pipeline {
             }
             steps {
                 sh '''#!/bin/bash
-                mkdir -p /app
-                cp -r ./api/target/api.jar /app
-                cp -r ./integration/target/integration.jar /app
 
                 PREVIOUS_PID=$(pgrep -f 'docker-compose up')
                 if [ ! -z "${PREVIOUS_PID}" ]; then
