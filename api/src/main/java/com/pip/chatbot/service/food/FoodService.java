@@ -25,11 +25,11 @@ public class FoodService {
         return foodRepository.getCuisineForCity(cityId);
     }
 
-    public Restaurant getRestaurantForCusine(Integer cityId, String cuisine) {
-        return foodRepository.getRestaurantForCusine(cityId, cuisine).orElseThrow(() -> new ChatbotExceptionBuilder().addError(FoodErrorMessages.RESTAURANT_NOT_FOUND).build());
+    public Restaurant getRandomRestaurantForCusine(Integer cityId, String cuisine) {
+        return foodRepository.getRandomRestaurantForCusine(cityId, cuisine).orElseThrow(() -> new ChatbotExceptionBuilder().addError(FoodErrorMessages.RESTAURANT_NOT_FOUND).build());
     }
 
-    public List<Dish> getDishForRestaurant(Integer restaurantId) {
+    public List<Dish> getMenuForRestaurant(Integer restaurantId) {
         return foodRepository.getDishForRestaurant(restaurantId);
     }
 

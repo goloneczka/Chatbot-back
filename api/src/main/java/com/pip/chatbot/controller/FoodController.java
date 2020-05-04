@@ -28,24 +28,24 @@ public class FoodController {
                 .body(foodService.getCities());
     }
 
-    @GetMapping(value = "/city/{cityId}")
+    @GetMapping(value = "/city/{cityId}/cuisine")
     public ResponseEntity<List<Cuisine>> getCuisineForCity(@PathVariable Integer cityId) {
         return ResponseEntity
                 .ok()
                 .body(foodService.getCuisineForCity(cityId));
     }
 
-    @GetMapping(value = "/city/{cityId}/cuisine/{cuisine}")
+    @GetMapping(value = "/city/{cityId}/cuisine/{cuisine}/restaurant")
     public ResponseEntity<Restaurant> getRestaurantForCusine(@PathVariable Integer cityId, @PathVariable String cuisine) {
         return ResponseEntity
                 .ok()
-                .body(foodService.getRestaurantForCusine(cityId, cuisine));
+                .body(foodService.getRandomRestaurantForCusine(cityId, cuisine));
     }
 
-    @GetMapping(value = "/restaurant/{restaurantId}/dish")
+    @GetMapping(value = "/restaurant/{restaurantId}/menu")
     public ResponseEntity<List<Dish>> getMenuForRestaurant(@PathVariable Integer restaurantId) {
         return ResponseEntity
                 .ok()
-                .body(foodService.getDishForRestaurant(restaurantId));
+                .body(foodService.getMenuForRestaurant(restaurantId));
     }
 }

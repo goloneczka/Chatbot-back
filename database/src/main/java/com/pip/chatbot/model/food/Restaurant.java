@@ -11,7 +11,7 @@ public class Restaurant {
     private Integer id;
     private String name;
     private String address;
-    private Integer city_id;
-    private Double average_users_rating;
-    private String phone_numbers;
+    private Integer cityId;
+    private Double averageUsersRating;
+    private String phoneNumbers;
 }
