@@ -25,8 +25,8 @@ public class FoodService {
         return foodRepository.getCuisineForCity(cityId);
     }
 
-    public Restaurant getRandomRestaurantForCusine(Integer cityId, String cuisine) {
-        return foodRepository.getRandomRestaurantForCusine(cityId, cuisine).orElseThrow(() -> new ChatbotExceptionBuilder().addError(FoodErrorMessages.RESTAURANT_NOT_FOUND).build());
+    public Restaurant getRandomRestaurantForCuisine(Integer cityId, String cuisine) {
+        return foodRepository.getRandomRestaurantForCuisine(cityId, cuisine).orElseThrow(() -> new ChatbotExceptionBuilder().addError(FoodErrorMessages.RESTAURANT_NOT_FOUND).build());
     }
 
     public List<Dish> getMenuForRestaurant(Integer restaurantId) {

@@ -36,10 +36,10 @@ public class FoodController {
     }
 
     @GetMapping(value = "/city/{cityId}/cuisine/{cuisine}/restaurant")
-    public ResponseEntity<Restaurant> getRestaurantForCusine(@PathVariable Integer cityId, @PathVariable String cuisine) {
+    public ResponseEntity<Restaurant> getRestaurantForCuisine(@PathVariable Integer cityId, @PathVariable String cuisine) {
         return ResponseEntity
                 .ok()
-                .body(foodService.getRandomRestaurantForCusine(cityId, cuisine));
+                .body(foodService.getRandomRestaurantForCuisine(cityId, cuisine));
     }
 
     @GetMapping(value = "/restaurant/{restaurantId}/menu")

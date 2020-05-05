@@ -37,7 +37,7 @@ public class FoodRepository {
 
     }
 
-    public Optional<Restaurant> getRandomRestaurantForCusine(Integer cityId, String cuisine) {
+    public Optional<Restaurant> getRandomRestaurantForCuisine(Integer cityId, String cuisine) {
         return Optional.ofNullable(dsl
                 .select()
                 .from(FOOD.RESTAURANT)
