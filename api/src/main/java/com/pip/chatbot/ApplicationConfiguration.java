@@ -1,5 +1,6 @@
 package com.pip.chatbot;
 
+import com.pip.chatbot.repository.food.FoodRepository;
 import com.pip.chatbot.repository.forecast.CitiesRepository;
 import com.pip.chatbot.repository.forecast.CountriesRepository;
 import com.pip.chatbot.repository.forecast.ForecastRepository;
@@ -38,6 +39,11 @@ public class ApplicationConfiguration {
     @Bean
     public CitiesRepository citiesRepository(DSLContext dsl) {
         return new CitiesRepository(dsl);
+    }
+
+    @Bean
+    public FoodRepository foodRepository(DSLContext dsl) {
+        return new FoodRepository(dsl);
     }
 
     @Bean
