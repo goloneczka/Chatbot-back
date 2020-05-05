@@ -1,12 +1,12 @@
 pipeline {
     agent any
     parameters {
-        booleanParam(name: 'BACKUP', defaultValue: false, description: 'If you want to backup data')
+        booleanParam(name: 'MODIFICATION', defaultValue: false, description: 'If you want to backup data')
     }
     stages {
         stage('Backup') {
             when {
-                expression {params.BACKUP}
+                expression {params.MODIFICATION}
             }
             steps {
                 sh '''
