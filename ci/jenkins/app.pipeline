@@ -26,8 +26,7 @@ pipeline {
                 export BUILD_ID=dontKillMe
                 export JENKINS_NODE_COOKIE=dontKillMe
 
-                docker-compose build
-                docker-compose up -d --build --force-recreate
+                docker-compose up -d --build --force-recreate &
                 '''
             }
         }
