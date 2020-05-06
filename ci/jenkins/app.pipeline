@@ -32,7 +32,7 @@ pipeline {
                 export JENKINS_NODE_COOKIE=dontKillMe
 
                 docker-compose build
-                docker-compose up &
+                docker-compose up
                 '''
             }
         }
