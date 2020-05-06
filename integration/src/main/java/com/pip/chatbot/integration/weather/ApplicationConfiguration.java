@@ -2,8 +2,12 @@ package com.pip.chatbot.integration.weather;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.pip.chatbot.integration.food.RestaurantDeserializer;
 import com.pip.chatbot.integration.model.ForecastApi;
+import com.pip.chatbot.model.food.Restaurant;
 import com.pip.chatbot.model.forecast.Forecast;
+import com.pip.chatbot.repository.food.*;
 import com.pip.chatbot.repository.forecast.CitiesRepository;
 import com.pip.chatbot.repository.forecast.CountriesRepository;
 import com.pip.chatbot.repository.forecast.ForecastRepository;
@@ -47,6 +51,36 @@ public class ApplicationConfiguration {
     }
 
     @Bean
+    public FoodCountriesRepository foodCountriesRepository(DSLContext dsl) {
+        return new FoodCountriesRepository(dsl);
+    }
+
+    @Bean
+    public FoodCitiesRepository foodCitiesRepository(DSLContext dsl) {
+        return new FoodCitiesRepository(dsl);
+    }
+
+    @Bean
+    public DishesRepository dishesRepository(DSLContext dsl) {
+        return new DishesRepository(dsl);
+    }
+
+    @Bean
+    public CuisinesRepository cuisinesRepository(DSLContext dsl) {
+        return new CuisinesRepository(dsl);
+    }
+
+    @Bean
+    public MenuRepository menuRepository(DSLContext dsl) {
+        return new MenuRepository(dsl);
+    }
+
+    @Bean
+    public RestaurantRepository restaurantRepository(DSLContext dsl) {
+        return new RestaurantRepository(dsl);
+    }
+
+    @Bean
     public DefaultConfiguration configuration(DataSourceConnectionProvider connectionProvider) {
         DefaultConfiguration jooqConfiguration = new DefaultConfiguration();
         jooqConfiguration.set(connectionProvider);
@@ -59,10 +93,11 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public ObjectMapper objectMapper() {
+    public ObjectMapper objectMapper(SimpleModule restaurantModule) {
         return new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                .configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
+                .configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false)
+                .registerModule(restaurantModule);
     }
 
     @Bean
@@ -74,6 +109,16 @@ public class ApplicationConfiguration {
                 map().setPerceivedTemperature(source.getApparentTemperatureHigh());
             }
         };
+    }
+
+    @Bean
+    public SimpleModule restaurantModule(RestaurantDeserializer restaurantDeserializer) {
+        return new SimpleModule().addDeserializer(Restaurant.class, restaurantDeserializer);
+    }
+
+    @Bean
+    public RestaurantDeserializer restaurantDeserializer() {
+        return new RestaurantDeserializer();
     }
 
     @Bean
