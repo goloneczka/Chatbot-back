@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh '''#!/bin/bash
 
-                PREVIOUS_PID=$(pgrep -f 'docker-compose up')
+                PREVIOUS_PID=$(pgrep -f 'docker-compose up &')
                 if [ ! -z "${PREVIOUS_PID}" ]; then
                   kill -9 "${PREVIOUS_PID}"
                 fi
@@ -32,7 +32,7 @@ pipeline {
                 export JENKINS_NODE_COOKIE=dontKillMe
 
                 docker-compose build
-                docker-compose up
+                docker-compose up &
                 '''
             }
         }
