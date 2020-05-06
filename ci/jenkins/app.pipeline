@@ -21,18 +21,13 @@ pipeline {
             steps {
                 sh '''#!/bin/bash
 
-                PREVIOUS_PID=$(pgrep -f 'docker-compose up &')
-                if [ ! -z "${PREVIOUS_PID}" ]; then
-                  kill -9 "${PREVIOUS_PID}"
-                fi
-
                 #Needed for jenkins no to kill processes that it starts
                 #https://wiki.jenkins.io/display/JENKINS/Spawning+processes+from+build
                 export BUILD_ID=dontKillMe
                 export JENKINS_NODE_COOKIE=dontKillMe
 
                 docker-compose build
-                docker-compose up &
+                docker-compose up -d --build --force-recreate
                 '''
             }
         }
