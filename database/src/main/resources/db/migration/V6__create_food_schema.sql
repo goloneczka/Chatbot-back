@@ -37,3 +37,13 @@ CREATE TABLE IF NOT EXISTS dish(
     price REAL NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS mark_food
+(
+    id                    SERIAL PRIMARY KEY,
+    restaurant_id         INTEGER not null references restaurant(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    mark                  DECIMAL not null
+);
+
+ALTER TABLE mark_food
+    ALTER COLUMN mark TYPE FLOAT USING (mark::float);
+

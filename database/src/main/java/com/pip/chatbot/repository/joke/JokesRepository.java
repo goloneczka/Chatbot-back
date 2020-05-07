@@ -4,7 +4,6 @@ package com.pip.chatbot.repository.joke;
 import com.pip.chatbot.model.joke.Category;
 import com.pip.chatbot.model.joke.Joke;
 import com.pip.chatbot.model.joke.Mark;
-import com.pip.chatbot.model.joke.MarkApi;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 

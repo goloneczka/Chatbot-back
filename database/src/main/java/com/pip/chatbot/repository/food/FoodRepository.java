@@ -1,9 +1,6 @@
 package com.pip.chatbot.repository.food;
 
-import com.pip.chatbot.model.food.City;
-import com.pip.chatbot.model.food.Cuisine;
-import com.pip.chatbot.model.food.Dish;
-import com.pip.chatbot.model.food.Restaurant;
+import com.pip.chatbot.model.food.*;
 import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
@@ -12,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.pip.chatbot.jooq.food.Food.FOOD;
+import static com.pip.chatbot.jooq.food.tables.MarkFood.MARK_FOOD;
+import static org.jooq.impl.DSL.avg;
 
 @AllArgsConstructor
 public class FoodRepository {
@@ -48,6 +47,26 @@ public class FoodRepository {
                 .limit(1)
                 .fetchOne()
                 .into(Restaurant.class));
+    }
+
+    public Optional<Mark> createMark(Mark mark){
+        var result = dsl.insertInto(MARK_FOOD)
+                .set(MARK_FOOD.RESTAURANT_ID, mark.getRestaurantId())
+                .set(MARK_FOOD.MARK, mark.getMark())
+                .returning()
+                .fetchOne();
+
+        return Optional.ofNullable(result.into(Mark.class));
+    }
+
+    public Optional<Mark> getAvgRestaurantMark(String id) {
+        var result = dsl.select(MARK_FOOD.RESTAURANT_ID, avg(MARK_FOOD.MARK).as("mark"))
+                .from(MARK_FOOD)
+                .where(MARK_FOOD.RESTAURANT_ID.eq(Integer.parseInt(id)))
+                .groupBy(MARK_FOOD.RESTAURANT_ID)
+                .fetchOne();
+
+        return Optional.ofNullable(result.into(Mark.class));
     }
 
 }
