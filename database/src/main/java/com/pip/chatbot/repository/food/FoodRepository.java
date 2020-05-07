@@ -50,17 +50,4 @@ public class FoodRepository {
                 .into(Restaurant.class));
     }
 
-    public List<Dish> getDishForRestaurant(Integer restaurantId) {
-        return dsl
-                .select(FOOD.DISH.ID, FOOD.DISH.DISH_, FOOD.DISH.PRICE)
-                .from(FOOD.MENU)
-                .join(FOOD.MENU_DISH)
-                .on(FOOD.MENU.ID.eq(FOOD.MENU_DISH.MENU_ID))
-                .join(FOOD.DISH)
-                .on(FOOD.MENU_DISH.DISH_ID.eq(FOOD.DISH.ID))
-                .where(FOOD.MENU.RESTAURANT_ID.eq(restaurantId))
-                .fetchInto(Dish.class);
-    }
-
-
 }

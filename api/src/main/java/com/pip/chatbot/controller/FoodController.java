@@ -41,11 +41,4 @@ public class FoodController {
                 .ok()
                 .body(foodService.getRandomRestaurantForCuisine(cityId, cuisine));
     }
-
-    @GetMapping(value = "/restaurant/{restaurantId}/menu")
-    public ResponseEntity<List<Dish>> getMenuForRestaurant(@PathVariable Integer restaurantId) {
-        return ResponseEntity
-                .ok()
-                .body(foodService.getMenuForRestaurant(restaurantId));
-    }
 }

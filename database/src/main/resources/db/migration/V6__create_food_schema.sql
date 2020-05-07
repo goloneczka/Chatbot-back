@@ -31,22 +31,9 @@ CREATE TABLE IF NOT EXISTS restaurant_cuisine(
     PRIMARY KEY (restaurant_id, cuisine)
 );
 
-CREATE TABLE IF NOT EXISTS menu(
-    id SERIAL PRIMARY KEY,
-    restaurant_id SERIAL NOT NULL REFERENCES restaurant(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    start_date TIMESTAMP NOT NULL,
-    end_date TIMESTAMP
-);
-
 CREATE TABLE IF NOT EXISTS dish(
     id SERIAL PRIMARY KEY,
     dish VARCHAR(127) NOT NULL,
     price REAL NOT NULL
 );
-
-CREATE TABLE IF NOT EXISTS menu_dish(
-    menu_id SERIAL NOT NULL REFERENCES menu(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    dish_id SERIAL NOT NULL REFERENCES dish(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    PRIMARY KEY (menu_id, dish_id)
-)
 
