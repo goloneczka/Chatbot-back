@@ -2,6 +2,7 @@ package com.pip.chatbot.repository.forecast;
 
 import com.pip.chatbot.jooq.weather.Tables;
 import com.pip.chatbot.model.forecast.City;
+import com.pip.chatbot.model.forecast.Country;
 import org.jooq.DSLContext;
 
 import java.util.List;
@@ -34,7 +35,19 @@ public class CitiesRepository {
                 .set(Tables.CITY.COUNTRY, city.getCountry())
                 .set(Tables.CITY.LATITUDE, city.getLatitude())
                 .set(Tables.CITY.LONGITUDE, city.getLongitude())
-                .returningResult()
+                .returning()
+                .fetchOne()
+                .into(City.class);
+    }
+
+    public City updateCity(City city, String cityId) {
+        return dsl.update(Tables.CITY)
+                .set(Tables.CITY.CITY_, city.getCity())
+                .set(Tables.CITY.COUNTRY, city.getCountry())
+                .set(Tables.CITY.LATITUDE, city.getLatitude())
+                .set(Tables.CITY.LONGITUDE, city.getLongitude())
+                .where(Tables.CITY.CITY_.eq(cityId))
+                .returning()
                 .fetchOne()
                 .into(City.class);
     }

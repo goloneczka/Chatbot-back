@@ -33,15 +33,4 @@ public class CitiesController {
     public ResponseEntity<City> getCity(@PathVariable String city) {
         return ResponseEntity.status(ResponseStatus.OK).body(citiesService.getCity(city));
     }
-
-    @PostMapping("/admin/cities")
-    public ResponseEntity<City> createCity(@RequestBody City city) {
-        return ResponseEntity.status(ResponseStatus.OK).body(citiesService.createCity(city));
-    }
-
-    @DeleteMapping("/admin/cities/{city}")
-    public ResponseEntity<HashMap.SimpleEntry<String,Boolean>> deleteCity(@PathVariable String city) {
-        citiesService.deleteCity(city);
-        return Response.SUCCESS;
-    }
 }

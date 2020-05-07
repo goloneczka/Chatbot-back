@@ -21,6 +21,15 @@ public class CountriesRepository {
                 .into(Country.class);
     }
 
+    public Country updateCountry(Country country, String countryId) {
+        return dsl.update(Tables.COUNTRY)
+                .set(Tables.COUNTRY.COUNTRY_, country.getCountry())
+                .where(Tables.COUNTRY.COUNTRY_.eq(countryId))
+                .returning()
+                .fetchOne()
+                .into(Country.class);
+    }
+
     public boolean doesCountryExist(String country) {
         return dsl.fetchExists(dsl.selectFrom(Tables.COUNTRY).where(Tables.COUNTRY.COUNTRY_.eq(country)));
     }

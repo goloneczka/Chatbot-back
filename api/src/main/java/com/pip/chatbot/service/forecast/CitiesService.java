@@ -34,6 +34,10 @@ public class CitiesService {
         return citiesRepository.createCity(city);
     }
 
+    public City updateCity(City city, String cityId) {
+        return citiesRepository.updateCity(city, cityId);
+    }
+
     public void deleteCity(String city) {
         if (!citiesRepository.deleteCity(city)) {
             throw new ChatbotExceptionBuilder().addError(CitiesErrorMessages.NOT_FOUND).build();

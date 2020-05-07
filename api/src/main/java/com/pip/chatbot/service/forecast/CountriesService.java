@@ -25,6 +25,10 @@ public class CountriesService {
         return countriesRepository.createCountry(country);
     }
 
+    public Country updateCountry(Country country, String countryId) {
+        return countriesRepository.updateCountry(country, countryId);
+    }
+
     public void deleteCountry(String country) {
         if (!countriesRepository.deleteCountry(country)) {
             throw new ChatbotExceptionBuilder().addError(CountriesErrorMessages.NOT_FOUND).build();
