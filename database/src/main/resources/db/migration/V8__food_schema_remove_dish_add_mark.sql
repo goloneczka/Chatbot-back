@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS mark_restaurant
 (
     id                    SERIAL PRIMARY KEY,
     restaurant_id         INTEGER not null references restaurant(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    mark                  FLOAT not null
+    mark                  REAL not null
 );

@@ -32,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MarkRestaurant extends TableImpl<MarkRestaurantRecord> {
 
-    private static final long serialVersionUID = -1786370145;
+    private static final long serialVersionUID = 1063612276;
 
     /**
      * The reference instance of <code>food.mark_restaurant</code>
@@ -60,7 +60,7 @@ public class MarkRestaurant extends TableImpl<MarkRestaurantRecord> {
     /**
      * The column <code>food.mark_restaurant.mark</code>.
      */
-    public final TableField<MarkRestaurantRecord, Double> MARK = createField(DSL.name("mark"), org.jooq.impl.SQLDataType.DOUBLE.nullable(false), this, "");
+    public final TableField<MarkRestaurantRecord, Float> MARK = createField(DSL.name("mark"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
 
     /**
      * Create a <code>food.mark_restaurant</code> table reference
@@ -155,7 +155,7 @@ public class MarkRestaurant extends TableImpl<MarkRestaurantRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<Integer, Integer, Double> fieldsRow() {
+    public Row3<Integer, Integer, Float> fieldsRow() {
         return (Row3) super.fieldsRow();
     }
 }

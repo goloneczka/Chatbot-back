@@ -11,5 +11,5 @@ public class Mark {
 
     private Integer id;
     private Integer restaurantId;
-    private Double mark;
+    private Float mark;
 }
