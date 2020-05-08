@@ -8,8 +8,7 @@ import com.pip.chatbot.jooq.DefaultCatalog;
 import com.pip.chatbot.jooq.food.tables.City;
 import com.pip.chatbot.jooq.food.tables.Country;
 import com.pip.chatbot.jooq.food.tables.Cuisine;
-import com.pip.chatbot.jooq.food.tables.Dish;
-import com.pip.chatbot.jooq.food.tables.MarkFood;
+import com.pip.chatbot.jooq.food.tables.MarkRestaurant;
 import com.pip.chatbot.jooq.food.tables.Restaurant;
 import com.pip.chatbot.jooq.food.tables.RestaurantCuisine;
 
@@ -28,7 +27,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Food extends SchemaImpl {
 
-    private static final long serialVersionUID = 1131438303;
+    private static final long serialVersionUID = 2098278504;
 
     /**
      * The reference instance of <code>food</code>
@@ -51,14 +50,9 @@ public class Food extends SchemaImpl {
     public final Cuisine CUISINE = Cuisine.CUISINE;
 
     /**
-     * The table <code>food.dish</code>.
+     * The table <code>food.mark_restaurant</code>.
      */
-    public final Dish DISH = Dish.DISH;
-
-    /**
-     * The table <code>food.mark_food</code>.
-     */
-    public final MarkFood MARK_FOOD = MarkFood.MARK_FOOD;
+    public final MarkRestaurant MARK_RESTAURANT = MarkRestaurant.MARK_RESTAURANT;
 
     /**
      * The table <code>food.restaurant</code>.
@@ -87,8 +81,7 @@ public class Food extends SchemaImpl {
     public final List<Sequence<?>> getSequences() {
         return Arrays.<Sequence<?>>asList(
             Sequences.CITY_ID_SEQ,
-            Sequences.DISH_ID_SEQ,
-            Sequences.MARK_FOOD_ID_SEQ,
+            Sequences.MARK_RESTAURANT_ID_SEQ,
             Sequences.RESTAURANT_CITY_ID_SEQ,
             Sequences.RESTAURANT_CUISINE_RESTAURANT_ID_SEQ,
             Sequences.RESTAURANT_ID_SEQ);
@@ -100,8 +93,7 @@ public class Food extends SchemaImpl {
             City.CITY,
             Country.COUNTRY,
             Cuisine.CUISINE,
-            Dish.DISH,
-            MarkFood.MARK_FOOD,
+            MarkRestaurant.MARK_RESTAURANT,
             Restaurant.RESTAURANT,
             RestaurantCuisine.RESTAURANT_CUISINE);
     }

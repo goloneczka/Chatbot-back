@@ -31,19 +31,21 @@ CREATE TABLE IF NOT EXISTS restaurant_cuisine(
     PRIMARY KEY (restaurant_id, cuisine)
 );
 
+CREATE TABLE IF NOT EXISTS menu(
+    id SERIAL PRIMARY KEY,
+    restaurant_id SERIAL NOT NULL REFERENCES restaurant(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    start_date TIMESTAMP NOT NULL,
+    end_date TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS dish(
     id SERIAL PRIMARY KEY,
     dish VARCHAR(127) NOT NULL,
     price REAL NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS mark_food
-(
-    id                    SERIAL PRIMARY KEY,
-    restaurant_id         INTEGER not null references restaurant(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    mark                  DECIMAL not null
-);
-
-ALTER TABLE mark_food
-    ALTER COLUMN mark TYPE FLOAT USING (mark::float);
-
+CREATE TABLE IF NOT EXISTS menu_dish(
+    menu_id SERIAL NOT NULL REFERENCES menu(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    dish_id SERIAL NOT NULL REFERENCES dish(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    PRIMARY KEY (menu_id, dish_id)
+)
