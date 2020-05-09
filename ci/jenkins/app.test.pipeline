@@ -14,13 +14,8 @@ pipeline {
                 dir('integration-tests') {
                     sh 'mvn test -PfullTests'
                 }
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/integration-tests/target/cucumber-html-reports/', reportFiles: 'overview-tahs.html', reportName: 'HTML Report', reportTitles: ''])
             }
-        }
-    }
-    post {
-        success {
-            echo "Test succeeded"
-            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: '/home/reports', reportFiles: '/integration-tests/target/cucumber-html-reports/overview-tags.html', reportName: 'Performance Test Report', reportTitles: ''])
         }
     }
 }
