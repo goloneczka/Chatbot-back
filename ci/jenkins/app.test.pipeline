@@ -14,7 +14,7 @@ pipeline {
                 dir('integration-tests') {
                     sh 'mvn test -PfullTests'
                 }
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/home/app/jenkins/workspace/ntegration-tests_feature_PIP-383/integration-tests/target/cucumber-html-reports', reportFiles: 'overview-tahs.html', reportName: 'HTML Report', reportTitles: ''])
+                cucumber failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: '**/*.json', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
             }
         }
     }
