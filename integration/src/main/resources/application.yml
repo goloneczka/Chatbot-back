@@ -6,7 +6,6 @@ application:
     forecastDelay: 86400000
   zomato:
     restaurantDelay: 86400000
-    menuDelay: 86400000
     key: "b419f3c3cc482853d5e4cca826bd47e8"
 spring:
   datasource:
