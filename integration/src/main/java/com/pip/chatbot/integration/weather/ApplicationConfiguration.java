@@ -61,18 +61,8 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public DishesRepository dishesRepository(DSLContext dsl) {
-        return new DishesRepository(dsl);
-    }
-
-    @Bean
     public CuisinesRepository cuisinesRepository(DSLContext dsl) {
         return new CuisinesRepository(dsl);
-    }
-
-    @Bean
-    public MenuRepository menuRepository(DSLContext dsl) {
-        return new MenuRepository(dsl);
     }
 
     @Bean
