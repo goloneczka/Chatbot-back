@@ -1,6 +1,5 @@
 package com.pip.chatbot.integration.tests;
 
-import com.intuit.karate.KarateOptions;
 import com.intuit.karate.Results;
 import com.intuit.karate.Runner;
 import net.masterthought.cucumber.Configuration;
@@ -15,14 +14,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@KarateOptions(tags = {"~@ignore"})
-class TestParallel {
+class ReportGenerator {
 
     @Test
-    public void testParallel() {
+    public void generate() {
         System.setProperty("mock.env", "karateTesting"); // ensure reset if other tests (e.g. mock) had set env in CI
         Results results = Runner.parallel(getClass(), 5);
-        TestParallel.generateReport(results.getReportDir());
+        ReportGenerator.generateReport(results.getReportDir());
         assertEquals(0, results.getFailCount(), results.getErrorMessages());
     }
 
