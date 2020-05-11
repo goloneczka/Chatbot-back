@@ -40,7 +40,7 @@ public class CitiesRepository {
                 .into(City.class);
     }
 
-    public City updateCity(City city, String cityId) {
+    public City updateCity(String cityId, City city) {
         return dsl.update(Tables.CITY)
                 .set(Tables.CITY.CITY_, city.getCity())
                 .set(Tables.CITY.COUNTRY, city.getCountry())

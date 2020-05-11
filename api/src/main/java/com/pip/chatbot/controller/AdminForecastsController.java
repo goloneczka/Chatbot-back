@@ -31,8 +31,8 @@ public class AdminForecastsController {
         return ResponseEntity.status(ResponseStatus.OK).body(countriesService.createCountry(country));
     }
     @PutMapping("/countries/{countryId}")
-    public ResponseEntity<Country> updateCountry(@RequestBody Country country, @PathVariable String countryId) {
-        return ResponseEntity.status(ResponseStatus.OK).body(countriesService.updateCountry(country, countryId));
+    public ResponseEntity<Country> updateCountry( @PathVariable String countryId, @RequestBody Country country) {
+        return ResponseEntity.status(ResponseStatus.OK).body(countriesService.updateCountry(countryId, country));
     }
 
     @DeleteMapping("/countries/{country}")
@@ -52,8 +52,8 @@ public class AdminForecastsController {
     }
 
     @PutMapping("/cities/{cityId}")
-    public ResponseEntity<City> updateCity(@RequestBody City city, @PathVariable String cityId) {
-        return ResponseEntity.status(ResponseStatus.OK).body(citiesService.updateCity(city, cityId));
+    public ResponseEntity<City> updateCity(@PathVariable String cityId,@RequestBody City city) {
+        return ResponseEntity.status(ResponseStatus.OK).body(citiesService.updateCity(cityId,city));
     }
 
     @DeleteMapping("/cities/{cityId}")

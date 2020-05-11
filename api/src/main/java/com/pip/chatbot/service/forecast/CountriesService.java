@@ -25,8 +25,8 @@ public class CountriesService {
         return countriesRepository.createCountry(country);
     }
 
-    public Country updateCountry(Country country, String countryId) {
-        return countriesRepository.updateCountry(country, countryId);
+    public Country updateCountry(String countryId,Country country) {
+        return countriesRepository.updateCountry(countryId, country);
     }
 
     public void deleteCountry(String country) {

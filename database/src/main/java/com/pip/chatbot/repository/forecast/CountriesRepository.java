@@ -21,7 +21,7 @@ public class CountriesRepository {
                 .into(Country.class);
     }
 
-    public Country updateCountry(Country country, String countryId) {
+    public Country updateCountry(String countryId, Country country) {
         return dsl.update(Tables.COUNTRY)
                 .set(Tables.COUNTRY.COUNTRY_, country.getCountry())
                 .where(Tables.COUNTRY.COUNTRY_.eq(countryId))

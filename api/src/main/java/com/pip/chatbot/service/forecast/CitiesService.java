@@ -34,8 +34,8 @@ public class CitiesService {
         return citiesRepository.createCity(city);
     }
 
-    public City updateCity(City city, String cityId) {
-        return citiesRepository.updateCity(city, cityId);
+    public City updateCity(String cityId,City city) {
+        return citiesRepository.updateCity(cityId, city);
     }
 
     public void deleteCity(String city) {
