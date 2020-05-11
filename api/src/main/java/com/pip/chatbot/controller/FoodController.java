@@ -1,17 +1,12 @@
 package com.pip.chatbot.controller;
 
 import com.pip.chatbot.jooq.food.Food;
-import com.pip.chatbot.model.food.City;
-import com.pip.chatbot.model.food.Cuisine;
-import com.pip.chatbot.model.food.Dish;
-import com.pip.chatbot.model.food.Restaurant;
+import com.pip.chatbot.model.food.*;
 import com.pip.chatbot.service.food.FoodService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +15,7 @@ import java.util.List;
 @RequestMapping("/food")
 public class FoodController {
     private final FoodService foodService;
+    private final ModelMapper modelMapper;
 
     @GetMapping(value = "/city")
     public ResponseEntity<List<City>> getCities() {
@@ -40,5 +36,13 @@ public class FoodController {
         return ResponseEntity
                 .ok()
                 .body(foodService.getRandomRestaurantForCuisine(cityId, cuisine));
+    }
+
+    @PostMapping("/rate")
+    public ResponseEntity<Mark> rateRestaurant(@RequestBody MarkApi markApi) {
+        Mark mark = modelMapper.map(markApi, Mark.class);
+        return ResponseEntity
+                .ok()
+                .body(foodService.rateRestaurant(mark));
     }
 }

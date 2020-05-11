@@ -51,9 +51,7 @@ public class FoodRepository {
                 .fetchOne()
                 .into(Restaurant.class);
 
-        result.setAverageUsersRating(getAvgRestaurantMark(result.getId(), result.getAverageUsersRating()).get());
-
-        return Optional.of(result);
+        return Optional.ofNullable(result);
     }
 
     public Optional<Mark> createMark(Mark mark) {
@@ -66,14 +64,14 @@ public class FoodRepository {
         return Optional.ofNullable(result.into(Mark.class));
     }
 
-    public Optional<Double> getAvgRestaurantMark(int id, Double zomatoMark) {
+    public Optional<Double> getAvgRestaurantMark(int id) {
         var avgMark = dsl.select(avg(MARK_RESTAURANT.MARK).as("mark"))
                 .from(MARK_RESTAURANT)
                 .where(MARK_RESTAURANT.RESTAURANT_ID.eq(id))
                 .groupBy(MARK_RESTAURANT.RESTAURANT_ID)
                 .fetchOne();
 
-        return Optional.of(avgMark.value1().doubleValue() + zomatoMark / 2);
+        return Optional.of(avgMark.value1().doubleValue());
     }
 
 }
