@@ -31,7 +31,7 @@ public class RestaurantDeserializer extends StdDeserializer<Restaurant> {
         restaurant.setName(node.get("name").asText());
         restaurant.setAddress(node.get("location").get("address").asText());
         restaurant.setCityId(node.get("location").get("city_id").asInt());
-        restaurant.setAverageUsersRating((float) node.get("user_rating").get("aggregate_rating").asDouble());
+        restaurant.setAverageUsersRating(node.get("user_rating").get("aggregate_rating").asDouble());
         restaurant.setPhoneNumbers(node.get("phone_numbers").asText());
         restaurant.setCuisines(Arrays.stream(node.get("cuisines").asText().split(", ")).map(Cuisine::new).collect(Collectors.toList()));
 

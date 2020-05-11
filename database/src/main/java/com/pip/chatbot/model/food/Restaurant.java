@@ -16,5 +16,5 @@ public class Restaurant {
     private Integer cityId;
     private Double averageUsersRating;
     private String phoneNumbers;
-
+    private List<Cuisine> cuisines;
 }

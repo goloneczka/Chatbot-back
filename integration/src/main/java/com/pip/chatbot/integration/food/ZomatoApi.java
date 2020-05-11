@@ -39,6 +39,7 @@ public class ZomatoApi {
                     .header("user-key", zomatoConfig.getKey())
                     .GET()
                     .build();
+
             HttpResponse<String> response = HttpClient.newHttpClient()
                     .send(request, HttpResponse.BodyHandlers.ofString());
 

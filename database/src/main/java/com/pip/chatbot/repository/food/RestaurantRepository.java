@@ -70,11 +70,11 @@ public class RestaurantRepository {
     public Restaurant createRestaurant(Restaurant restaurant) {
         Restaurant result = dsl.insertInto(Tables.RESTAURANT)
                 .columns(Tables.RESTAURANT.ID, Tables.RESTAURANT.ADDRESS, Tables.RESTAURANT.AVERAGE_USERS_RATING, Tables.RESTAURANT.CITY_ID, Tables.RESTAURANT.NAME, Tables.RESTAURANT.PHONE_NUMBERS)
-                .values(restaurant.getId(), restaurant.getAddress(), restaurant.getAverageUsersRating(), restaurant.getCityId(), restaurant.getName(), restaurant.getPhoneNumbers())
+                .values(restaurant.getId(), restaurant.getAddress(), restaurant.getAverageUsersRating().floatValue(), restaurant.getCityId(), restaurant.getName(), restaurant.getPhoneNumbers())
                 .onDuplicateKeyUpdate()
                 .set(Tables.RESTAURANT.CITY_ID, restaurant.getCityId())
                 .set(Tables.RESTAURANT.ADDRESS, restaurant.getAddress())
-                .set(Tables.RESTAURANT.AVERAGE_USERS_RATING, restaurant.getAverageUsersRating())
+                .set(Tables.RESTAURANT.AVERAGE_USERS_RATING, restaurant.getAverageUsersRating().floatValue())
                 .set(Tables.RESTAURANT.NAME, restaurant.getName())
                 .set(Tables.RESTAURANT.PHONE_NUMBERS, restaurant.getPhoneNumbers())
                 .returning()
