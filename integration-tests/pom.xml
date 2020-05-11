@@ -36,6 +36,10 @@
             <groupId>com.intuit.karate</groupId>
             <artifactId>karate-junit5</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>cucumber-reporting</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
