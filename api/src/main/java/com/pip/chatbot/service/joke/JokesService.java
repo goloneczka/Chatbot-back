@@ -55,7 +55,7 @@ public class JokesService {
                 .orElseThrow(() -> new ChatbotExceptionBuilder().addError(JokesErrorMessages.CREATE_FAILURE).build());
     }
 
-    public Mark rateJoke(Mark mark) {
+    public MarkApi rateJoke(Mark mark) {
         return jokesRepository.createMark(mark)
                 .orElseThrow(() -> new ChatbotExceptionBuilder().addError(MarksErrorMessages.CREATE_FAILURE).build());
     }

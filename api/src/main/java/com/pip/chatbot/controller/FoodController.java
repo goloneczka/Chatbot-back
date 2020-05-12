@@ -39,7 +39,7 @@ public class FoodController {
     }
 
     @PostMapping("/rate")
-    public ResponseEntity<Mark> rateRestaurant(@RequestBody MarkApi markApi) {
+    public ResponseEntity<MarkApi> rateRestaurant(@RequestBody MarkApi markApi) {
         Mark mark = modelMapper.map(markApi, Mark.class);
         return ResponseEntity
                 .ok()

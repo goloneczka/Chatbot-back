@@ -25,13 +25,13 @@ public class FoodService {
     public Restaurant getRandomRestaurantForCuisine(Integer cityId, String cuisine) {
         return foodRepository.getRandomRestaurantForCuisine(cityId, cuisine)
                 .map(restaurant -> {
-                    restaurant.setAverageUsersRating((restaurant.getAverageUsersRating() + foodRepository.getAvgRestaurantMark(restaurant.getId()).get()) / 2);
+                    restaurant.setAverageUsersRating((restaurant.getAverageUsersRating() + foodRepository.getAvgRestaurantMark(restaurant.getId()).orElse(0.0) / 2));
                     return restaurant;
                 })
                 .orElseThrow(() -> new ChatbotExceptionBuilder().addError(FoodErrorMessages.RESTAURANT_NOT_FOUND).build());
     }
 
-    public Mark rateRestaurant(Mark mark) {
+    public MarkApi rateRestaurant(Mark mark) {
         return foodRepository.createMark(mark).orElseThrow(() -> new ChatbotExceptionBuilder().addError(FoodErrorMessages.RESTAURANT_NOT_FOUND).build());
     }
 

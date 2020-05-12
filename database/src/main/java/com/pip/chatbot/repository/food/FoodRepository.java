@@ -1,9 +1,6 @@
 package com.pip.chatbot.repository.food;
 
-import com.pip.chatbot.model.food.City;
-import com.pip.chatbot.model.food.Cuisine;
-import com.pip.chatbot.model.food.Mark;
-import com.pip.chatbot.model.food.Restaurant;
+import com.pip.chatbot.model.food.*;
 import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
@@ -54,14 +51,14 @@ public class FoodRepository {
         return Optional.ofNullable(result);
     }
 
-    public Optional<Mark> createMark(Mark mark) {
+    public Optional<MarkApi> createMark(Mark mark) {
         var result = dsl.insertInto(MARK_RESTAURANT)
                 .set(MARK_RESTAURANT.RESTAURANT_ID, mark.getRestaurantId())
                 .set(MARK_RESTAURANT.MARK, mark.getMark())
                 .returning()
                 .fetchOne();
 
-        return Optional.ofNullable(result.into(Mark.class));
+        return Optional.ofNullable(result.into(MarkApi.class));
     }
 
     public Optional<Double> getAvgRestaurantMark(int id) {
@@ -69,9 +66,10 @@ public class FoodRepository {
                 .from(MARK_RESTAURANT)
                 .where(MARK_RESTAURANT.RESTAURANT_ID.eq(id))
                 .groupBy(MARK_RESTAURANT.RESTAURANT_ID)
-                .fetchOne();
+                .fetchOne()
+                .into(Double.class);
 
-        return Optional.of(avgMark.value1().doubleValue());
+        return Optional.ofNullable(avgMark);
     }
 
 }

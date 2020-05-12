@@ -4,6 +4,7 @@ package com.pip.chatbot.repository.joke;
 import com.pip.chatbot.model.joke.Category;
 import com.pip.chatbot.model.joke.Joke;
 import com.pip.chatbot.model.joke.Mark;
+import com.pip.chatbot.model.joke.MarkApi;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
@@ -82,7 +83,7 @@ public class JokesRepository {
         return Optional.ofNullable(result.into(Category.class));
     }
 
-    public Optional<Mark> createMark(Mark mark) {
+    public Optional<MarkApi> createMark(Mark mark) {
 
         var result = dsl.insertInto(MARK)
                 .set(MARK.JOKE_ID, mark.getJokeId())
@@ -90,7 +91,7 @@ public class JokesRepository {
                 .returning()
                 .fetchOne();
 
-        return Optional.ofNullable(result.into(Mark.class));
+        return Optional.ofNullable(result.into(MarkApi.class));
     }
 
     public Optional<Mark> getAvgJokeMark(String id) {
