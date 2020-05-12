@@ -1,9 +1,6 @@
 package com.pip.chatbot.repository.food;
 
-import com.pip.chatbot.model.food.City;
-import com.pip.chatbot.model.food.Cuisine;
-import com.pip.chatbot.model.food.Dish;
-import com.pip.chatbot.model.food.Restaurant;
+import com.pip.chatbot.model.food.*;
 import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
@@ -12,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.pip.chatbot.jooq.food.Food.FOOD;
+import static com.pip.chatbot.jooq.food.tables.MarkRestaurant.MARK_RESTAURANT;
+import static org.jooq.impl.DSL.avg;
 
 @AllArgsConstructor
 public class FoodRepository {
@@ -38,7 +37,7 @@ public class FoodRepository {
     }
 
     public Optional<Restaurant> getRandomRestaurantForCuisine(Integer cityId, String cuisine) {
-        return Optional.ofNullable(dsl
+        var result = dsl
                 .select()
                 .from(FOOD.RESTAURANT)
                 .join(FOOD.RESTAURANT_CUISINE)
@@ -47,20 +46,30 @@ public class FoodRepository {
                 .orderBy(DSL.rand())
                 .limit(1)
                 .fetchOne()
-                .into(Restaurant.class));
+                .into(Restaurant.class);
+
+        return Optional.ofNullable(result);
     }
 
-    public List<Dish> getDishForRestaurant(Integer restaurantId) {
-        return dsl
-                .select(FOOD.DISH.ID, FOOD.DISH.DISH_, FOOD.DISH.PRICE)
-                .from(FOOD.MENU)
-                .join(FOOD.MENU_DISH)
-                .on(FOOD.MENU.ID.eq(FOOD.MENU_DISH.MENU_ID))
-                .join(FOOD.DISH)
-                .on(FOOD.MENU_DISH.DISH_ID.eq(FOOD.DISH.ID))
-                .where(FOOD.MENU.RESTAURANT_ID.eq(restaurantId))
-                .fetchInto(Dish.class);
+    public Optional<MarkApi> createMark(Mark mark) {
+        var result = dsl.insertInto(MARK_RESTAURANT)
+                .set(MARK_RESTAURANT.RESTAURANT_ID, mark.getRestaurantId())
+                .set(MARK_RESTAURANT.MARK, mark.getMark())
+                .returning()
+                .fetchOne();
+
+        return Optional.ofNullable(result.into(MarkApi.class));
     }
 
+    public Optional<Double> getAvgRestaurantMark(int id) {
+        var avgMark = dsl.select(avg(MARK_RESTAURANT.MARK).as("mark"))
+                .from(MARK_RESTAURANT)
+                .where(MARK_RESTAURANT.RESTAURANT_ID.eq(id))
+                .groupBy(MARK_RESTAURANT.RESTAURANT_ID)
+                .fetchOne()
+                .into(Double.class);
+
+        return Optional.ofNullable(avgMark);
+    }
 
 }
