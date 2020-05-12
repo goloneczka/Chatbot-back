@@ -1,0 +1,10 @@
+server:
+  port: 9093
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:3307/hycom
+    username: postgres
+    password: klopek1432
+
+#  java -jar -Dspring.profiles.active=MG api/target/api.jar
