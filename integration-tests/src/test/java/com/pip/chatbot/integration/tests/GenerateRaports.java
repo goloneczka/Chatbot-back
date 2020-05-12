@@ -14,13 +14,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ReportGenerator {
+class TestReportGenerator  {
 
     @Test
     public void generate() {
         System.setProperty("mock.env", "karateTesting"); // ensure reset if other tests (e.g. mock) had set env in CI
         Results results = Runner.parallel(getClass(), 5);
-        ReportGenerator.generateReport(results.getReportDir());
+        TestReportGenerator.generateReport(results.getReportDir());
         assertEquals(0, results.getFailCount(), results.getErrorMessages());
     }
 
