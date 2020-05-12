@@ -26,14 +26,11 @@ public class FoodRepository {
     public List<Cuisine> getCuisineForCity(Integer cityId) {
         return dsl
                 .select(FOOD.RESTAURANT_CUISINE.CUISINE)
-                .from(FOOD.CITY)
-                .join(FOOD.RESTAURANT)
-                .on(FOOD.RESTAURANT.ID.eq(FOOD.CITY.ID))
+                .from(FOOD.RESTAURANT)
                 .join(FOOD.RESTAURANT_CUISINE)
                 .on(FOOD.RESTAURANT_CUISINE.RESTAURANT_ID.eq(FOOD.RESTAURANT.ID))
-                .where(FOOD.CITY.ID.eq(cityId))
+                .where(FOOD.RESTAURANT.CITY_ID.eq(cityId))
                 .fetchInto(Cuisine.class);
-
     }
 
     public Optional<Restaurant> getRandomRestaurantForCuisine(Integer cityId, String cuisine) {
