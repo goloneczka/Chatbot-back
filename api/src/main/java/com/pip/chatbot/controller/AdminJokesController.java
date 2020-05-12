@@ -47,4 +47,18 @@ public class AdminJokesController {
         adminJokesService.delete(id);
         return Response.SUCCESS;
     }
+
+    @GetMapping("/unconfirmed")
+    public ResponseEntity<List<Joke>> getAllUnconfirmedJokes() {
+        return ResponseEntity
+                .status(ResponseStatus.OK)
+                .body(adminJokesService.getAllUnconfirmedJokes());
+    }
+
+    @PutMapping("/confirm/{id}")
+    public ResponseEntity<Joke> confirmJoke(@PathVariable int id) {
+        return ResponseEntity
+                .status(ResponseStatus.OK)
+                .body(adminJokesService.confirm(id));
+    }
 }
