@@ -57,7 +57,7 @@ public class JokesController {
     }
 
     @PostMapping("/rate")
-    public ResponseEntity<Mark> rateJoke(@RequestBody MarkApi markApi) {
+    public ResponseEntity<MarkApi> rateJoke(@RequestBody MarkApi markApi) {
         Mark mark = modelMapper.map(markApi, Mark.class);
         return ResponseEntity
                 .ok()

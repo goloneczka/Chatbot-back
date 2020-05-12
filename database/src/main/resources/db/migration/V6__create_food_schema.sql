@@ -49,4 +49,3 @@ CREATE TABLE IF NOT EXISTS menu_dish(
     dish_id SERIAL NOT NULL REFERENCES dish(id) ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY (menu_id, dish_id)
 )
-

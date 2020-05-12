@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -14,4 +16,5 @@ public class Restaurant {
     private Integer cityId;
     private Double averageUsersRating;
     private String phoneNumbers;
+    private List<Cuisine> cuisines;
 }
