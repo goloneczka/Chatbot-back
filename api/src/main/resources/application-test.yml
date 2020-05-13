@@ -7,6 +7,6 @@ application:
 
 spring:
   datasource:
-    url: "jdbc:postgresql://trainings/appdb_test1"
-    username: "app"
-    password: "Ao4eiT2w"
+    url: jdbc:postgresql://trainings/appdb_test1
+    username: app
+    password: Ao4eiT2w
