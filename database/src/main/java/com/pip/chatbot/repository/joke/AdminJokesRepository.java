@@ -43,6 +43,7 @@ public class AdminJokesRepository {
         JokeRecord record = dslContext
                 .update(JOKE)
                 .set(JOKE.JOKE_, joke.getJoke())
+                .set(JOKE.CATEGORY, joke.getCategory())
                 .where(JOKE.ID.eq(joke.getId()))
                 .returning(JOKE.ID, JOKE.CATEGORY, JOKE.JOKE_)
                 .fetchOne();
@@ -55,5 +56,21 @@ public class AdminJokesRepository {
                 .deleteFrom(JOKE)
                 .where(JOKE.ID.eq(id))
                 .execute();
+    }
+
+    public List<Joke> getAllUnconfirmedJokes() {
+        return dslContext
+                .selectFrom(JOKE)
+                .where(JOKE.IS_CONFIRMED.eq(false))
+                .fetchInto(Joke.class);
+    }
+
+    public Joke confirmJoke(int id) {
+        return dslContext.update(JOKE)
+                .set(JOKE.IS_CONFIRMED, true)
+                .where(JOKE.ID.eq(id))
+                .returning()
+                .fetchOne()
+                .into(Joke.class);
     }
 }

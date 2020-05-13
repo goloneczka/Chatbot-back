@@ -18,6 +18,10 @@ public class AdminJokesService {
         return adminJokesRepository.getAll();
     }
 
+    public List<Joke> getAllUnconfirmedJokes() {
+        return adminJokesRepository.getAllUnconfirmedJokes();
+    }
+
     public Joke get(int id) {
         var result = adminJokesRepository.get(id);
 
@@ -40,5 +44,9 @@ public class AdminJokesService {
         if (!adminJokesRepository.delete(id)) {
             throw new ChatbotExceptionBuilder().addError(JokesErrorMessages.DELETE_FAILURE).build();
         }
+    }
+
+    public Joke confirm(int id) {
+        return adminJokesRepository.confirmJoke(id);
     }
 }
