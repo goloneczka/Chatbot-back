@@ -1,16 +1,17 @@
 package com.pip.chatbot.service.food;
 
+import com.pip.chatbot.exception.ChatbotException;
 import com.pip.chatbot.exception.ChatbotExceptionBuilder;
 import com.pip.chatbot.exception.messages.FoodErrorMessages;
-import com.pip.chatbot.model.food.City;
-import com.pip.chatbot.model.food.Cuisine;
-import com.pip.chatbot.model.food.Dish;
-import com.pip.chatbot.model.food.Restaurant;
+import com.pip.chatbot.exception.messages.JokesErrorMessages;
+import com.pip.chatbot.exception.messages.MarksErrorMessages;
+import com.pip.chatbot.model.food.*;
 import com.pip.chatbot.repository.food.FoodRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -26,12 +27,16 @@ public class FoodService {
     }
 
     public Restaurant getRandomRestaurantForCuisine(Integer cityId, String cuisine) {
-        return foodRepository.getRandomRestaurantForCuisine(cityId, cuisine).orElseThrow(() -> new ChatbotExceptionBuilder().addError(FoodErrorMessages.RESTAURANT_NOT_FOUND).build());
+        return foodRepository.getRandomRestaurantForCuisine(cityId, cuisine)
+                .map(restaurant -> {
+                    foodRepository.getAvgRestaurantMark(restaurant.getId()).ifPresent((average -> restaurant.setAverageUsersRating((average + restaurant.getAverageUsersRating()) / 2)));
+                    return restaurant;
+                })
+                .orElseThrow(() -> new ChatbotExceptionBuilder().addError(FoodErrorMessages.RESTAURANT_NOT_FOUND).build());
     }
 
-    public List<Dish> getMenuForRestaurant(Integer restaurantId) {
-        return foodRepository.getDishForRestaurant(restaurantId);
+    public MarkApi rateRestaurant(Mark mark) {
+        return foodRepository.createMark(mark).orElseThrow(() -> new ChatbotExceptionBuilder().addError(FoodErrorMessages.RESTAURANT_NOT_FOUND).build());
     }
-
 
 }

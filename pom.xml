@@ -27,6 +27,7 @@
         <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
         <model-mapper.version>2.3.7</model-mapper.version>
         <maven-flyway-plugin.version>6.3.2</maven-flyway-plugin.version>
+        <cucumber.version>3.8.0</cucumber.version>
     </properties>
 
     <modules>
@@ -112,6 +113,12 @@
                 <groupId>com.intuit.karate</groupId>
                 <artifactId>karate-junit5</artifactId>
                 <version>${karate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.masterthought</groupId>
+                <artifactId>cucumber-reporting</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

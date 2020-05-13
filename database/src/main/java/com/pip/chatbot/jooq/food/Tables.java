@@ -7,9 +7,7 @@ package com.pip.chatbot.jooq.food;
 import com.pip.chatbot.jooq.food.tables.City;
 import com.pip.chatbot.jooq.food.tables.Country;
 import com.pip.chatbot.jooq.food.tables.Cuisine;
-import com.pip.chatbot.jooq.food.tables.Dish;
-import com.pip.chatbot.jooq.food.tables.Menu;
-import com.pip.chatbot.jooq.food.tables.MenuDish;
+import com.pip.chatbot.jooq.food.tables.MarkRestaurant;
 import com.pip.chatbot.jooq.food.tables.Restaurant;
 import com.pip.chatbot.jooq.food.tables.RestaurantCuisine;
 
@@ -36,19 +34,9 @@ public class Tables {
     public static final Cuisine CUISINE = Cuisine.CUISINE;
 
     /**
-     * The table <code>food.dish</code>.
+     * The table <code>food.mark_restaurant</code>.
      */
-    public static final Dish DISH = Dish.DISH;
-
-    /**
-     * The table <code>food.menu</code>.
-     */
-    public static final Menu MENU = Menu.MENU;
-
-    /**
-     * The table <code>food.menu_dish</code>.
-     */
-    public static final MenuDish MENU_DISH = MenuDish.MENU_DISH;
+    public static final MarkRestaurant MARK_RESTAURANT = MarkRestaurant.MARK_RESTAURANT;
 
     /**
      * The table <code>food.restaurant</code>.

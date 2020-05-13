@@ -22,15 +22,4 @@ public class CountriesController {
     public ResponseEntity<List<Country>> getCountries() {
         return ResponseEntity.status(ResponseStatus.OK).body(countriesService.getCountries());
     }
-
-    @PostMapping("/admin/countries")
-    public ResponseEntity<Country> createCountry(@RequestBody Country country) {
-        return ResponseEntity.status(ResponseStatus.OK).body(countriesService.createCountry(country));
-    }
-
-    @DeleteMapping("/admin/countries/{country}")
-    public ResponseEntity<HashMap.SimpleEntry<String,Boolean>> deleteCountry(@PathVariable String country) {
-        countriesService.deleteCountry(country);
-        return Response.SUCCESS;
-    }
 }
