@@ -29,13 +29,8 @@ public class FoodService {
     public Restaurant getRandomRestaurantForCuisine(Integer cityId, String cuisine) {
         return foodRepository.getRandomRestaurantForCuisine(cityId, cuisine)
                 .map(restaurant -> {
-                    try {
-                        Double average = foodRepository.getAvgRestaurantMark(restaurant.getId()).get();
-                        restaurant.setAverageUsersRating((average + restaurant.getAverageUsersRating()) / 2);
-                    } catch (NullPointerException e) {
-                        e.getStackTrace();
-                    }
-                return restaurant;
+                    foodRepository.getAvgRestaurantMark(restaurant.getId()).ifPresent((average -> restaurant.setAverageUsersRating((average + restaurant.getAverageUsersRating()) / 2)));
+                    return restaurant;
                 })
                 .orElseThrow(() -> new ChatbotExceptionBuilder().addError(FoodErrorMessages.RESTAURANT_NOT_FOUND).build());
     }
