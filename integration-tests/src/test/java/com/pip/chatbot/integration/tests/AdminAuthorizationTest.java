@@ -10,7 +10,7 @@ public class AdminAuthorizationTest {
     }
 
     @Karate.Test
-    Karate restaurationTests(){
-        return Karate.run("./tests/restaurations").relativeTo(getClass());
+    Karate weatherTests(){
+        return Karate.run("./tests/weather").relativeTo(getClass());
     }
 }
