@@ -27,12 +27,12 @@ Feature: Jokes Endpoints
     And match each response == {category: '#string', confirmed: '#boolean'}
 
 
-  Scenario: Create admin category test
-    Given path '/admin/jokes/categories'
-    And request createTestCategory
-    When method POST
-    Then status 200
-    And match response == {category: #(createTestCategory.category), confirmed: #(createTestCategory.isConfirmed)}
+#  Scenario: Create admin category test
+#    Given path '/admin/jokes/categories'
+#    And request createTestCategory
+#    When method POST
+#    Then status 200
+#    And match response == {category: #(createTestCategory.category), confirmed: #(createTestCategory.isConfirmed)}
 
   Scenario: Update admin category test
     Given path '/admin/jokes/categories', category.category

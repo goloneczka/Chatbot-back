@@ -54,7 +54,7 @@ Feature: Jokes Endpoints
     And request {jokeId: #(joke.id), mark: #(createMarkTest.mark)}
     When method POST
     Then status 200
-    And match response == {id: '#notnull', jokeId: #(joke.id), mark: #(createMarkTest.mark)}
+    And match response == {jokeId: #(joke.id), mark: #(createMarkTest.mark)}
 
   Scenario: Get all categories
     Given path '/jokes/categories'
