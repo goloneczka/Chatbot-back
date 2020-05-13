@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.pip.chatbot.jooq.food.Food.FOOD;
@@ -34,18 +36,14 @@ public class FoodRepository {
     }
 
     public Optional<Restaurant> getRandomRestaurantForCuisine(Integer cityId, String cuisine) {
-        var result = dsl
-                .select()
+        return dsl.select()
                 .from(FOOD.RESTAURANT)
                 .join(FOOD.RESTAURANT_CUISINE)
                 .on(FOOD.RESTAURANT_CUISINE.RESTAURANT_ID.eq(FOOD.RESTAURANT.ID))
                 .where(FOOD.RESTAURANT.CITY_ID.eq(cityId), FOOD.RESTAURANT_CUISINE.CUISINE.eq(cuisine))
                 .orderBy(DSL.rand())
                 .limit(1)
-                .fetchOne()
-                .into(Restaurant.class);
-
-        return Optional.ofNullable(result);
+                .fetchOptionalInto(Restaurant.class);
     }
 
     public Optional<MarkApi> createMark(Mark mark) {
@@ -59,14 +57,11 @@ public class FoodRepository {
     }
 
     public Optional<Double> getAvgRestaurantMark(int id) {
-        var avgMark = dsl.select(avg(MARK_RESTAURANT.MARK).as("mark"))
+        return dsl.select(avg(MARK_RESTAURANT.MARK).as("mark"))
                 .from(MARK_RESTAURANT)
                 .where(MARK_RESTAURANT.RESTAURANT_ID.eq(id))
                 .groupBy(MARK_RESTAURANT.RESTAURANT_ID)
-                .fetchOne()
-                .into(Double.class);
-
-        return Optional.ofNullable(avgMark);
+                .fetchOptionalInto(Double.class);
     }
 
 }
