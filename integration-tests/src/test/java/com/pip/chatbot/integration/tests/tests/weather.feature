@@ -6,13 +6,18 @@ Feature: Restaurants Api
   """
   function() {
     var DbUtils = Java.type('com.pip.chatbot.integration.tests.WeatherDbUtils');
-    var db = new DbUtils();
+    var db = new DbUtils(dbConfig);
     db.initWeatherData();
     return db;
   }
   """
     * def db = callonce initData
-    * configure afterFeature = function(){ karate.call('after-feature.feature'); }
+    * configure afterFeature =
+    """
+      function(){
+      db.clearWeatherData();
+      }
+    """
 
 
   Scenario: Integration test for insert country

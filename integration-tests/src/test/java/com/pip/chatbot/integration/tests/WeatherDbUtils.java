@@ -12,45 +12,35 @@ import org.jooq.SQLDialect;
 import org.jooq.impl.*;
 
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 
 
-import java.io.IOException;
-import java.io.InputStream;
+import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class WeatherDbUtils {
-
-    @Value("${spring.datasource.url}")
-    private String url;
-    @Value("${spring.datasource.username}")
-    private String username;
-    @Value("${spring.datasource.password}")
-    private String password;
 
     private final DSLContext dsl;
     private final CitiesRepository citiesRepository;
     private final CountriesRepository countriesRepository;
     private final ForecastRepository forecastRepository;
 
-    public WeatherDbUtils() throws IOException {
+    public WeatherDbUtils(Map<String, Object> config)  {
 
-        System.out.println("url: " + url);
+        DataSource dataSource = DataSourceBuilder.create()
+                .url(config.get("url").toString())
+                .username(config.get("username").toString())
+                .password(config.get("password").toString())
+                .build();
 
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.url("jdbc:postgresql://localhost:3307/hycom");
-        dataSourceBuilder.username("postgres");
-        dataSourceBuilder.password("klopek1432");
         DefaultConfiguration jooqConfiguration = new DefaultConfiguration();
-        jooqConfiguration.set(new DataSourceConnectionProvider
-                (new TransactionAwareDataSourceProxy(dataSourceBuilder.build())));
-        jooqConfiguration
-                .set(new DefaultExecuteListenerProvider(new DefaultExecuteListener()));
+        jooqConfiguration.set(new DataSourceConnectionProvider(new TransactionAwareDataSourceProxy(dataSource)));
+        jooqConfiguration.set(new DefaultExecuteListenerProvider(new DefaultExecuteListener()));
         jooqConfiguration.setSQLDialect(SQLDialect.POSTGRES);
         dsl = new DefaultDSLContext(jooqConfiguration);
 
@@ -81,9 +71,8 @@ public class WeatherDbUtils {
     public void clearWeatherData() {
         countriesRepository.deleteCountry("Polska");
         citiesRepository.deleteCity("Warszawa");
-
         dsl.deleteFrom(Tables.FORECAST)
                 .where(Tables.FORECAST.CITY.eq("Warszawa"));
-
     }
+
 }
