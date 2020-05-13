@@ -33,7 +33,7 @@ public class AdminJokesRepository {
         JokeRecord record = dslContext
                 .insertInto(JOKE, JOKE.CATEGORY, JOKE.JOKE_)
                 .values(joke.getCategory(), joke.getJoke())
-                .returning(JOKE.ID, JOKE.CATEGORY, JOKE.JOKE_)
+                .returning()
                 .fetchOne();
 
         return modelMapper.map(record, Joke.class);
@@ -45,7 +45,7 @@ public class AdminJokesRepository {
                 .set(JOKE.JOKE_, joke.getJoke())
                 .set(JOKE.CATEGORY, joke.getCategory())
                 .where(JOKE.ID.eq(joke.getId()))
-                .returning(JOKE.ID, JOKE.CATEGORY, JOKE.JOKE_)
+                .returning()
                 .fetchOne();
 
         return modelMapper.map(record, Joke.class);
