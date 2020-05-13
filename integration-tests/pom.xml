@@ -44,7 +44,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>5.2.2.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

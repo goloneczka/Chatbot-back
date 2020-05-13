@@ -28,6 +28,7 @@
         <model-mapper.version>2.3.7</model-mapper.version>
         <maven-flyway-plugin.version>6.3.2</maven-flyway-plugin.version>
         <cucumber.version>3.8.0</cucumber.version>
+        <jdbc.version>5.2.2.RELEASE</jdbc.version>
     </properties>
 
     <modules>
@@ -103,6 +104,11 @@
                         <artifactId>junit-vintage-engine</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${jdbc.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.intuit.karate</groupId>
