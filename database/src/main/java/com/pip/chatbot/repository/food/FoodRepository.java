@@ -39,18 +39,14 @@ public class FoodRepository {
     }
 
     public Optional<Restaurant> getRandomRestaurantForCuisine(Integer cityId, String cuisine) {
-        var result = dsl
-                .select()
+        return dsl.select()
                 .from(FOOD.RESTAURANT)
                 .join(FOOD.RESTAURANT_CUISINE)
                 .on(FOOD.RESTAURANT_CUISINE.RESTAURANT_ID.eq(FOOD.RESTAURANT.ID))
                 .where(FOOD.RESTAURANT.CITY_ID.eq(cityId), FOOD.RESTAURANT_CUISINE.CUISINE.eq(cuisine))
                 .orderBy(DSL.rand())
                 .limit(1)
-                .fetchOne()
-                .into(Restaurant.class);
-
-        return Optional.ofNullable(result);
+                .fetchOptionalInto(Restaurant.class);
     }
 
     public Optional<MarkApi> createMark(Mark mark) {
