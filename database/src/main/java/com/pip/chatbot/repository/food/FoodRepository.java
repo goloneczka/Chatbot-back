@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import static com.pip.chatbot.jooq.food.Food.FOOD;

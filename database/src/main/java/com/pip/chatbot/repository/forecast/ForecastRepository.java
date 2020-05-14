@@ -64,4 +64,10 @@ public class ForecastRepository {
                 .and(yearCondition)
                 .fetchAnyInto(Forecast.class));
     }
+
+    public void deleteOutdatedForecasts(LocalDateTime dateTime) {
+        dsl.delete(Tables.FORECAST)
+                .where(Tables.FORECAST.CREATED_ON.lessThan(dateTime))
+                .execute();
+    }
 }
