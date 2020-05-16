@@ -34,7 +34,7 @@ public class CitiesService {
         return citiesRepository.createCity(city);
     }
 
-    public City updateCity(String cityId,City city) {
+    public City updateCity(String cityId, City city) {
         return citiesRepository.updateCity(cityId, city);
     }
 
@@ -42,5 +42,13 @@ public class CitiesService {
         if (!citiesRepository.deleteCity(city)) {
             throw new ChatbotExceptionBuilder().addError(CitiesErrorMessages.NOT_FOUND).build();
         }
+    }
+
+    public List<City> getCitiesWithForecast() {
+        return citiesRepository.getCitiesWithForecast();
+    }
+
+    public List<City> getCitiesWithForecast(String country) {
+        return citiesRepository.getCitiesForCountryWithForecast(country);
     }
 }
