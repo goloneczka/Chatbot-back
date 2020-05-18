@@ -9,8 +9,4 @@ public class AdminAuthorizationTest {
         return Karate.run("./tests/adminAuthorization").relativeTo(getClass());
     }
 
-    @Karate.Test
-    Karate weatherTests(){
-        return Karate.run("./tests/weather").relativeTo(getClass());
-    }
 }
