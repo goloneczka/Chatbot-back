@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+    stages {
+        stage('Integration tests') {
+            build job: 'pip2020-backend-integration-tests/develop', wait: true
+        }
+        stage('Build and deploy') {
+            steps {
+                build job: 'pip2020-backend-build-deploy/develop', wait: true, modyfication:true
+            }
+        }
+    }
+}
