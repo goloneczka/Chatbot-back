@@ -6,7 +6,7 @@ pipeline {
         }
         stage('Build and deploy') {
             steps {
-                build job: 'pip2020-backend-build-deploy/develop', wait: true, modyfication:true
+                build job: 'pip2020-backend-build-deploy/develop', wait: true, MODIFICATION:true
             }
         }
     }
