@@ -8,7 +8,9 @@ pipeline {
         }
         stage('Build and deploy') {
             steps {
-                build job: 'pip2020-backend-build-deploy/develop?MODIFICATION=true', wait: true
+                build job: 'pip2020-backend-build-deploy/develop', wait: true, parameters: [
+                        booleanParam(name: 'MODIFICATION', value: true)
+                ]
             }
         }
     }
