@@ -64,4 +64,23 @@ public class CitiesRepository {
                 .where(Tables.CITY.COUNTRY.eq(country))
                 .fetchInto(City.class);
     }
+
+    public List<City> getCitiesWithForecast() {
+        return dsl.selectDistinct()
+                .from(Tables.CITY)
+                .where(Tables.CITY.CITY_.in(
+                        dsl.select(Tables.FORECAST.CITY)
+                                .from(Tables.FORECAST)))
+                .fetchInto(City.class);
+    }
+
+    public List<City> getCitiesForCountryWithForecast(String country){
+        return dsl.selectDistinct()
+                .from(Tables.CITY)
+                .where(Tables.CITY.CITY_.in(
+                        dsl.select(Tables.FORECAST.CITY)
+                                .from(Tables.FORECAST)))
+                .and(Tables.CITY.COUNTRY.eq(country))
+                .fetchInto(City.class);
+    }
 }
