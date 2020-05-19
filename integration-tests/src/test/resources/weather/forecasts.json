@@ -1,0 +1,9 @@
+{
+    "temperature": 23.4,
+    "perceivedTemperature": 22.5,
+    "windSpeed": 9.8,
+    "pressure": 1024.0,
+    "humidity": 22.0,
+    "city": "Warszawa",
+    "icon": "fakeIcon.url"
+}

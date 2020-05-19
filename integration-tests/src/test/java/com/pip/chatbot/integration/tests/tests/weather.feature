@@ -13,13 +13,8 @@ Feature: Restaurants Api
     """
     * def db = callonce initDatabase
 
-    * def initData =
-    """
-    function() {
-      return db.getWeatherJsonData();
-    }
-    """
-    * json jsonWeatherData = callonce initData
+    * json jsonCity = read('classpath:weather/cities.json')
+    * json jsonForecast = read('classpath:weather/forecasts.json')
 
     * configure afterFeature =
     """
@@ -30,7 +25,7 @@ Feature: Restaurants Api
 
   Scenario: Integration test for get forecast
     * def cityArray = []
-    * set cityArray[0] = jsonWeatherData.cityWrapper
+    * set cityArray[0] = jsonCity
     Given path 'cities'
     When method GET
     Then status 200
@@ -42,4 +37,4 @@ Feature: Restaurants Api
     And param date = db.getTomorrowDateToString()
     When method GET
     Then status 200
-    And match $ contains jsonWeatherData.forecastWrapper
+    And match $ contains jsonForecast
