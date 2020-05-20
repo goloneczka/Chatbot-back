@@ -26,6 +26,7 @@ public class FoodRepository {
     public List<Cuisine> getCuisineForCity(Integer cityId) {
         return dsl
                 .select(FOOD.RESTAURANT_CUISINE.CUISINE)
+                .distinctOn(FOOD.CITY.ID)
                 .from(FOOD.RESTAURANT)
                 .join(FOOD.RESTAURANT_CUISINE)
                 .on(FOOD.RESTAURANT_CUISINE.RESTAURANT_ID.eq(FOOD.RESTAURANT.ID))
