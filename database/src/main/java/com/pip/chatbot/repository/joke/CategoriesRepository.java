@@ -32,9 +32,9 @@ public class CategoriesRepository {
 
     public Category create(Category category) {
         CategoryRecord record = dslContext
-                .insertInto(CATEGORY)
+                .insertInto(CATEGORY, CATEGORY.CATEGORY_)
                 .values(category.getCategory())
-                .returning(CATEGORY.CATEGORY_)
+                .returning()
                 .fetchOne();
 
         return modelMapper.map(record, Category.class);
@@ -45,7 +45,7 @@ public class CategoriesRepository {
                 .update(CATEGORY)
                 .set(CATEGORY.CATEGORY_, value)
                 .where(CATEGORY.CATEGORY_.eq(category))
-                .returning(CATEGORY.CATEGORY_)
+                .returning()
                 .fetchOne();
 
         return modelMapper.map(record, Category.class);
@@ -55,6 +55,12 @@ public class CategoriesRepository {
         return 0 < dslContext
                 .deleteFrom(CATEGORY)
                 .where(CATEGORY.CATEGORY_.eq(category))
+                .execute();
+    }
+
+    public boolean deleteAll(){
+        return 0 < dslContext
+                .deleteFrom(CATEGORY)
                 .execute();
     }
 }

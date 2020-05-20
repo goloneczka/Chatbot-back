@@ -1,22 +1,19 @@
-Feature: Jokes Endpoints
+Feature:  Admin Jokes Categories Endpoints
 
   Background:
     * url baseUrl
-    * def DbUtils = Java.type('com.pip.chatbot.integration.tests.utils.DbUtils')
+    * def DbUtils = Java.type('com.pip.chatbot.integration.tests.utils.JokesDbUtils')
     * def db = new DbUtils(dbConfig)
-    * header Authorization =  call read('basic-auth.js') {user: #(user), password: #(password)}
-    * db.update("DELETE FROM jokes.category")
-
-    * db.update("INSERT INTO jokes.category(category,is_confirmed) VALUES(" + testCategory.category + "," + testCategory.isConfirmed + ")")
-    * def category = db.readRow("SELECT * FROM jokes.category WHERE category=" + testCategory.category)
-
-    * db.update("INSERT INTO jokes.joke(category,joke,is_confirmed) VALUES(" + testJoke.category + "," + testJoke.joke + "," + testJoke.isConfirmed + ")")
-    * def joke = db.readRow("SELECT * FROM jokes.joke WHERE joke=" + testJoke.joke + " AND category=" + testJoke.category)
-
+    * header Authorization =  callonce read('basic-auth.js') {user: #(user), password: #(password)}
+    * def createTestCategory = read('classpath:jokes/categoryForCreateTest.json')
+    * db.clearDb()
+    * def category = db.insertCategory()
+    * def joke = db.insertJoke()
+    * def mark = db.insertMark(joke.id)
     * configure afterScenario =
       """
       function(){
-      db.update("DELETE FROM jokes.category")
+      db.clearDb()
       }
       """
 
@@ -39,7 +36,7 @@ Feature: Jokes Endpoints
     And request createTestCategory
     When method PUT
     Then status 200
-    And match response == {category: #(createTestCategory.category), confirmed: #(createTestCategory.isConfirmed)}
+    And match response == {category: #(createTestCategory.category), confirmed: #(createTestCategory.confirmed)}
 
   Scenario: Delete category test
     Given path '/admin/jokes/categories', category.category
