@@ -1,14 +1,13 @@
 package com.pip.chatbot.integration.tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pip.chatbot.jooq.weather.Tables;
+
 import com.pip.chatbot.model.forecast.City;
 import com.pip.chatbot.model.forecast.Country;
 import com.pip.chatbot.model.forecast.Forecast;
 import com.pip.chatbot.repository.forecast.CitiesRepository;
 import com.pip.chatbot.repository.forecast.CountriesRepository;
 import com.pip.chatbot.repository.forecast.ForecastRepository;
-import lombok.Data;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.*;
@@ -52,9 +51,9 @@ public class WeatherDbUtils {
 
     public void initWeatherData() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        City city = objectMapper.readValue(City.class.getResourceAsStream("/weather/cities.json"), City.class);
-        Country country = objectMapper.readValue(Country.class.getResourceAsStream("/weather/countries.json"), Country.class);
-        Forecast forecast = objectMapper.readValue(Forecast.class.getResourceAsStream("/weather/forecasts.json"), Forecast.class);
+        City city = objectMapper.readValue(WeatherDbUtils.class.getResourceAsStream("/weather/cities.json"), City.class);
+        Country country = objectMapper.readValue(WeatherDbUtils.class.getResourceAsStream("/weather/countries.json"), Country.class);
+        Forecast forecast = objectMapper.readValue(WeatherDbUtils.class.getResourceAsStream("/weather/forecasts.json"), Forecast.class);
         forecast.setCreatedOn(LocalDateTime.now());
         forecast.setDate(LocalDateTime.now().plusDays(1));
         forecast.setSummary("Fake forecast for capital city.");
