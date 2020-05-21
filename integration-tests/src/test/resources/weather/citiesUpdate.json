@@ -1,4 +1,0 @@
-{
-    "cityForUpdate": { "city": "locationToUpdate", "country": "Polska", "latitude": 50.42, "longitude": 34.12 },
-    "cityForDelete": { "city": "locationForDelete", "country": "Polska", "latitude": 50.42, "longitude": 34.12 }
-}

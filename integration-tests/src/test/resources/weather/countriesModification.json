@@ -1,0 +1,4 @@
+{
+    "countryUpdate": {"country": "countryToUpdate"},
+    "countryDelete": {"country": "countryForDelete"}
+}

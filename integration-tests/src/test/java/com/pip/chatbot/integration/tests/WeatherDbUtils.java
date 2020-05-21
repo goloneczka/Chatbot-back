@@ -1,5 +1,6 @@
 package com.pip.chatbot.integration.tests;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.pip.chatbot.model.forecast.City;
@@ -13,6 +14,7 @@ import org.jooq.SQLDialect;
 import org.jooq.impl.*;
 
 
+
 import org.springframework.boot.jdbc.DataSourceBuilder;
 
 
@@ -20,6 +22,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 
@@ -51,16 +54,17 @@ public class WeatherDbUtils {
 
     public void initWeatherData() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        City city = objectMapper.readValue(WeatherDbUtils.class.getResourceAsStream("/weather/cities.json"), City.class);
-        Country country = objectMapper.readValue(WeatherDbUtils.class.getResourceAsStream("/weather/countries.json"), Country.class);
-        Forecast forecast = objectMapper.readValue(WeatherDbUtils.class.getResourceAsStream("/weather/forecasts.json"), Forecast.class);
-        forecast.setCreatedOn(LocalDateTime.now());
-        forecast.setDate(LocalDateTime.now().plusDays(1));
-        forecast.setSummary("Fake forecast for capital city.");
+        List<City> cities = objectMapper.readValue(WeatherDbUtils.class.getResourceAsStream("/weather/cities.json"), new TypeReference<>(){});
+        List<Country> countries = objectMapper.readValue(WeatherDbUtils.class.getResourceAsStream("/weather/countries.json"), new TypeReference<>() {});
+        List<Forecast> forecasts = objectMapper.readValue(WeatherDbUtils.class.getResourceAsStream("/weather/forecasts.json"),new TypeReference<>() {});
 
-        countriesRepository.createCountry(country);
-        citiesRepository.createCity(city);
-        forecastRepository.createForecast(forecast);
+        Forecast temp = forecasts.get(0);
+        temp.setCreatedOn(LocalDateTime.now());
+        temp.setDate(LocalDateTime.now().plusDays(1));
+
+        countries.forEach(countriesRepository::createCountry);
+        cities.forEach(citiesRepository::createCity);
+        forecastRepository.createForecast(temp);
     }
 
 
@@ -69,7 +73,8 @@ public class WeatherDbUtils {
     }
 
     public void clearWeatherData() {
-        countriesRepository.deleteCountry("Polska");
+        countriesRepository.deleteAll();
     }
+
 
 }

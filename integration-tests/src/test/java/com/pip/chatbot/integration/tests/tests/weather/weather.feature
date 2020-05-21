@@ -13,8 +13,8 @@ Feature: Restaurants Api
     """
     * def db = callonce initDatabase
 
-    * json jsonCity = read('classpath:weather/cities.json')
-    * json jsonForecast = read('classpath:weather/forecasts.json')
+    * json cities = read('classpath:weather/cities.json')
+    * json forecasts = read('classpath:weather/forecasts.json')
 
     * configure afterFeature =
     """
@@ -23,18 +23,17 @@ Feature: Restaurants Api
     }
     """
 
-  Scenario: Integration test for get forecast
-    * def cityArray = []
-    * set cityArray[0] = jsonCity
+  Scenario: get cities
     Given path 'cities'
     When method GET
     Then status 200
-    And match $ == cityArray
+    And match $ == cities
 
 
-  Scenario: Integration test for get forecast
-    Given path 'forecasts/city/Warszawa'
+  Scenario: get forecast
+    * set forecasts[0].id = '#number'
+    Given path 'forecasts/city/' + cities[0].city
     And param date = db.getTomorrowDateToString()
     When method GET
     Then status 200
-    And match $ contains jsonForecast
+    And match $ == forecasts[0]

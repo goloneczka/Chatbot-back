@@ -32,7 +32,6 @@ public class ForecastRepository {
         forecastRecord.setPressure(forecast.getPressure());
         forecastRecord.setHumidity(forecast.getHumidity());
         forecastRecord.setSummary(forecast.getSummary());
-        forecastRecord.setPrecipType(forecast.getPrecipType());
         forecastRecord.setCity(forecast.getCity());
         forecastRecord.setIcon(forecast.getIcon());
         forecastRecord.store();
