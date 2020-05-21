@@ -1,4 +1,4 @@
-package com.pip.chatbot.integration.tests.utils;
+package com.pip.chatbot.integration.tests.jokes;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,9 +43,9 @@ public class JokesDbUtils {
         ObjectMapper objectMapper = new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
 
-        category = objectMapper.readValue(new File("src/test/resources/jokes/category.json"), Category.class);
-        joke = objectMapper.readValue(new File("src/test/resources/jokes/joke.json"), Joke.class);
-        mark = objectMapper.readValue(new File("src/test/resources/jokes/mark.json"), Mark.class);
+        category = objectMapper.readValue(getClass().getResourceAsStream("/jokes/category.json"), Category.class);
+        joke = objectMapper.readValue(getClass().getResourceAsStream("/jokes/joke.json"), Joke.class);
+        mark = objectMapper.readValue(getClass().getResourceAsStream("/jokes/mark.json"), Mark.class);
 
         adminJokesRepository = new AdminJokesRepository(dsl, mapper);
         categoriesRepository = new CategoriesRepository(dsl, mapper);
@@ -66,6 +66,8 @@ public class JokesDbUtils {
     }
 
     public void clearDb() {
+        adminJokesRepository.deleteAllMarks();
+        adminJokesRepository.deleteAllJokes();
         categoriesRepository.deleteAll();
     }
 

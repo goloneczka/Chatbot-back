@@ -2,13 +2,13 @@ Feature: Admin Jokes Endpoints
 
   Background:
     * url baseUrl
-    * def correctAuthorization = callonce read('basic-auth.js') {user: #(user), password: #(password)}
-    * def wrongAuthorization = call read('basic-auth.js') {user: #(user), password: #(incorrectPassword)}
+    * def wrongAuthorization = callonce read('basic-auth.js') {user: #(user), password: #(incorrectPassword)}
+    * def correctAuthorization = call read('basic-auth.js') {user: #(user), password: #(password)}
+
     * header Authorization =  correctAuthorization
-    * def DbUtils = Java.type('com.pip.chatbot.integration.tests.utils.JokesDbUtils')
+    * def DbUtils = Java.type('com.pip.chatbot.integration.tests.jokes.JokesDbUtils')
     * def db = new DbUtils(dbConfig)
 
-    * db.clearDb()
     * db.insertCategory()
     * def joke = db.insertJoke()
     * def createTestJoke = read('classpath:jokes/jokeForCreateTest.json')
@@ -44,6 +44,7 @@ Feature: Admin Jokes Endpoints
     Given path '/admin/jokes', response.id
     When method GET
     Then status 200
+    And match response == {id: #(response.id), joke: #(createTestJoke.joke), category: #(createTestJoke.category), confirmed: true}
 
 
   Scenario: Update joke
@@ -68,7 +69,7 @@ Feature: Admin Jokes Endpoints
     * header Authorization =  correctAuthorization
     Given path '/admin/jokes', joke.id
     When method GET
-    Then status 500
+    Then status 400
 
   Scenario: Get joke by id with wrong authorization
     * header Authorization = wrongAuthorization

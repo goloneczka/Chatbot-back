@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.pip.chatbot.jooq.jokes.tables.Joke.JOKE;
+import static com.pip.chatbot.jooq.jokes.tables.Mark.MARK;
 
 @AllArgsConstructor
 public class AdminJokesRepository {
@@ -23,10 +24,9 @@ public class AdminJokesRepository {
     }
 
     public Optional<Joke> get(int id) {
-        Optional<JokeRecord> record = dslContext
-                .fetchOptional(JOKE, JOKE.ID.eq(id));
-
-        return Optional.ofNullable(record.get().into(Joke.class));
+        return dslContext
+                .fetchOptional(JOKE, JOKE.ID.eq(id))
+                .map(r -> r.into(Joke.class));
     }
 
     public Joke create(Joke joke) {
@@ -72,5 +72,17 @@ public class AdminJokesRepository {
                 .returning()
                 .fetchOne()
                 .into(Joke.class);
+    }
+
+    public boolean deleteAllJokes() {
+        return 0 < dslContext
+                .deleteFrom(JOKE)
+                .execute();
+    }
+
+    public boolean deleteAllMarks() {
+        return 0 < dslContext
+                .deleteFrom(MARK)
+                .execute();
     }
 }

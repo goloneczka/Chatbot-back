@@ -1,4 +1,4 @@
-package com.pip.chatbot.integration.tests;
+package com.pip.chatbot.integration.tests.jokes;
 
 import com.intuit.karate.junit5.Karate;
 

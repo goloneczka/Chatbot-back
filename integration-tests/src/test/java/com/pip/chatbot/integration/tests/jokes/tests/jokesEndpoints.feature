@@ -2,10 +2,10 @@ Feature: Jokes Endpoints
 
   Background:
     * url baseUrl
-    * def DbUtils = Java.type('com.pip.chatbot.integration.tests.utils.JokesDbUtils')
+    * def DbUtils = Java.type('com.pip.chatbot.integration.tests.jokes.JokesDbUtils')
     * def db = new DbUtils(dbConfig)
-    * db.clearDb()
-    * db.insertCategory()
+
+    * def category = db.insertCategory()
     * def joke = db.insertJoke()
     * def mark = db.insertMark(joke.id)
     * def createTestJoke = read('classpath:jokes/jokeForCreateTest.json')
@@ -53,4 +53,4 @@ Feature: Jokes Endpoints
     Given path '/jokes/categories'
     When method GET
     Then status 200
-    And match each response == {"category": '#string', 'confirmed': '#boolean'}
+    And match each response == {"category": #(category.category), 'confirmed': true}
