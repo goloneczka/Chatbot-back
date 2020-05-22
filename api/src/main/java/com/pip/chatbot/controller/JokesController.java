@@ -57,7 +57,7 @@ public class JokesController {
     }
 
     @PostMapping("/rate")
-    public ResponseEntity<MarkApi> rateJoke(@RequestBody MarkApi markApi) {
+    public ResponseEntity<Mark> rateJoke(@RequestBody MarkApi markApi) {
         Mark mark = modelMapper.map(markApi, Mark.class);
         return ResponseEntity
                 .ok()
@@ -66,10 +66,9 @@ public class JokesController {
 
     @GetMapping("/rate/{id}")
     public ResponseEntity<MarkApi> getJokeMark(@PathVariable String id) {
-        MarkApi markApi = modelMapper.map(jokesService.getJokeMark(id), MarkApi.class);
         return ResponseEntity
                 .ok()
-                .body(markApi);
+                .body(jokesService.getJokeMark(id));
     }
 
 

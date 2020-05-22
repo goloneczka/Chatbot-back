@@ -55,12 +55,12 @@ public class JokesService {
                 .orElseThrow(() -> new ChatbotExceptionBuilder().addError(JokesErrorMessages.CREATE_FAILURE).build());
     }
 
-    public MarkApi rateJoke(Mark mark) {
+    public Mark rateJoke(Mark mark) {
         return jokesRepository.createMark(mark)
                 .orElseThrow(() -> new ChatbotExceptionBuilder().addError(MarksErrorMessages.CREATE_FAILURE).build());
     }
 
-    public Mark getJokeMark(String id) {
+    public MarkApi getJokeMark(String id) {
         return jokesRepository.getAvgJokeMark(id)
                 .orElseThrow(() -> new ChatbotExceptionBuilder().addError(MarksErrorMessages.NOT_FOUND).build());
 

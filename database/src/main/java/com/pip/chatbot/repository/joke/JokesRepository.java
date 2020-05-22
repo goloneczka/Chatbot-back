@@ -28,25 +28,21 @@ public class JokesRepository {
 
 
     public Optional<Joke> getRandomJoke() {
-        var result = dsl
+        return dsl
                 .selectFrom(JOKE)
                 .where(JOKE.IS_CONFIRMED.eq(CONFIRMED))
                 .orderBy(DSL.rand())
                 .limit(1)
-                .fetchOne();
-
-        return Optional.ofNullable(result.into(Joke.class));
+                .fetchOptionalInto(Joke.class);
     }
 
     public Optional<Joke> getRandomJokeByCategory(String category) {
-        var result = dsl
+        return dsl
                 .selectFrom(JOKE)
                 .where(JOKE.CATEGORY.eq(category).and(JOKE.IS_CONFIRMED.eq(CONFIRMED)))
                 .orderBy(DSL.rand())
                 .limit(1)
-                .fetchOne();
-
-        return Optional.ofNullable(result.into(Joke.class));
+                .fetchOptionalInto(Joke.class);
     }
 
     public List<Category> getAllCategories() {
@@ -65,7 +61,7 @@ public class JokesRepository {
     public Optional<Joke> createTemporaryJoke(Joke joke) {
         var result = dsl.insertInto(JOKE)
                 .set(JOKE.CATEGORY, joke.getCategory())
-                .set(JOKE.IS_CONFIRMED, !CONFIRMED)
+                .set(JOKE.IS_CONFIRMED, joke.isConfirmed())
                 .set(JOKE.JOKE_, joke.getJoke())
                 .returning()
                 .fetchOne();
@@ -76,14 +72,14 @@ public class JokesRepository {
     public Optional<Category> createTemporaryCategory(String category) {
         var result = dsl.insertInto(CATEGORY)
                 .set(JOKE.CATEGORY, category)
-                .set(JOKE.IS_CONFIRMED, !CONFIRMED)
+                .set(JOKE.IS_CONFIRMED, CONFIRMED)
                 .returning()
                 .fetchOne();
 
         return Optional.ofNullable(result.into(Category.class));
     }
 
-    public Optional<MarkApi> createMark(Mark mark) {
+    public Optional<Mark> createMark(Mark mark) {
 
         var result = dsl.insertInto(MARK)
                 .set(MARK.JOKE_ID, mark.getJokeId())
@@ -91,16 +87,15 @@ public class JokesRepository {
                 .returning()
                 .fetchOne();
 
-        return Optional.ofNullable(result.into(MarkApi.class));
+        return Optional.ofNullable(result.into(Mark.class));
     }
 
-    public Optional<Mark> getAvgJokeMark(String id) {
-        var result = dsl.select(MARK.JOKE_ID, avg(MARK.MARK_).as("mark"))
+    public Optional<MarkApi> getAvgJokeMark(String id) {
+        return dsl.select(MARK.JOKE_ID, avg(MARK.MARK_).as("mark"))
                 .from(MARK)
                 .where(MARK.JOKE_ID.eq(Integer.parseInt(id)))
                 .groupBy(MARK.JOKE_ID)
-                .fetchOne();
+                .fetchOptionalInto(MarkApi.class);
 
-        return Optional.ofNullable(result.into(Mark.class));
     }
 }
