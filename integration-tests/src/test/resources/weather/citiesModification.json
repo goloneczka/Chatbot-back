@@ -1,4 +1,4 @@
 {
-    "cityUpdate": { "city": "locationToUpdate", "country": "Polska", "latitude": 50.42, "longitude": 34.12 },
-    "cityDelete": { "city": "locationForDelete", "country": "Polska", "latitude": 50.42, "longitude": 34.12 }
+    "cityInsert": { "city": "locationToUpdate", "country": "Polska", "latitude": 50.42, "longitude": 34.12 },
+    "cityUpdate": { "city": "locationForDelete", "country": "Polska", "latitude": 50.42, "longitude": 34.12 }
 }

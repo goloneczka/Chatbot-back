@@ -1,4 +1,4 @@
 {
-    "countryUpdate": {"country": "countryToUpdate"},
-    "countryDelete": {"country": "countryForDelete"}
+    "countryInsert": {"country": "countryToUpdate"},
+    "countryUpdate": {"country": "countryForDelete"}
 }

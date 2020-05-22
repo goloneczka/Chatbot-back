@@ -45,9 +45,5 @@ public class CountriesRepository {
         return numberOfRowsAffected >= 1;
     }
 
-    public boolean deleteAll(){
-        return 0 < dsl
-                .deleteFrom(Tables.COUNTRY)
-                .execute();
-    }
+
 }
