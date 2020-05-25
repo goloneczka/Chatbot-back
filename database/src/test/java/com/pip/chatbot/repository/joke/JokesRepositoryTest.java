@@ -116,7 +116,7 @@ public class JokesRepositoryTest {
         repository.createTemporaryJoke(joke);
 
         Assertions.assertThat(repository.createMark(new Mark(1, adminJokesRepository.getAll().get(0).getId(), 4.5))
-                .get().getMark())
+                .getMark())
                 .isEqualTo(4.5);
     }
 

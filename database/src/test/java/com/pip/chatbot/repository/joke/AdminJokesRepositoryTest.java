@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -24,7 +23,7 @@ public class AdminJokesRepositoryTest {
     private JokesRepository jokesRepository;
 
     @BeforeEach
-    public void init() throws ClassNotFoundException {
+    public void init() {
         ModelMapper modelMapper = new ModelMapper();
         DslContextFactory dslContextFactory = new DslContextFactory();
         dslContext = dslContextFactory.getDslContext();

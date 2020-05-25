@@ -14,12 +14,13 @@ public class DslContextFactory {
     public DSLContext getDslContext() {
         try (InputStream input = DslContextFactory.class.getClassLoader().getResourceAsStream("database.properties")) {
             Properties prop = new Properties();
-            prop.load(input);
+            if (input != null) {
+                prop.load(input);
+            }
             return DSL.using(prop.getProperty("db.url"), prop.getProperty("db.user"), prop.getProperty("db.password"));
         } catch (IOException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
-        return null;
     }
 
 }

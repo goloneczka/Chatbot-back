@@ -79,15 +79,13 @@ public class JokesRepository {
         return Optional.ofNullable(result.into(Category.class));
     }
 
-    public Optional<Mark> createMark(Mark mark) {
+    public Mark createMark(Mark mark) {
 
-        var result = dsl.insertInto(MARK)
+        return dsl.insertInto(MARK)
                 .set(MARK.JOKE_ID, mark.getJokeId())
                 .set(MARK.MARK_, mark.getMark())
                 .returning()
                 .fetchOne().into(Mark.class);
-
-        return Optional.ofNullable(result);
     }
 
     public Optional<Mark> getAvgJokeMark(String id) {

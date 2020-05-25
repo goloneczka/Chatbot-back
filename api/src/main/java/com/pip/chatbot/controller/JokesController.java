@@ -65,10 +65,11 @@ public class JokesController {
     }
 
     @GetMapping("/rate/{id}")
-    public ResponseEntity<Mark> getJokeMark(@PathVariable String id) {
+    public ResponseEntity<MarkApi> getJokeMark(@PathVariable String id) {
+        Mark mark = jokesService.getJokeMark(id);
         return ResponseEntity
                 .ok()
-                .body(jokesService.getJokeMark(id));
+                .body(modelMapper.map(mark, MarkApi.class));
     }
 
 
