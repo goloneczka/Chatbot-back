@@ -32,13 +32,12 @@ public class CategoriesRepository {
     }
 
     public Category create(Category category) {
-        CategoryRecord record = dslContext
+        return dslContext
                 .insertInto(CATEGORY, CATEGORY.CATEGORY_)
                 .values(category.getCategory())
                 .returning()
-                .fetchOne();
-
-        return modelMapper.map(record, Category.class);
+                .fetchOne()
+                .into(Category.class);
     }
 
     public Optional<Category> update(String category, String value) {

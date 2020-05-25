@@ -5,13 +5,21 @@ import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class DslContextFactory {
 
 
-    public DSLContext getDslContext() throws ClassNotFoundException, IOException {
-        Class.forName("org.postgresql.Driver");
-        return DSL.using("jdbc:postgresql://trainings/appdb_test1", "app", "Ao4eiT2w");
+    public DSLContext getDslContext() {
+        try (InputStream input = DslContextFactory.class.getClassLoader().getResourceAsStream("database.properties")) {
+            Properties prop = new Properties();
+            prop.load(input);
+            return DSL.using(prop.getProperty("db.url"), prop.getProperty("db.user"), prop.getProperty("db.password"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
 }

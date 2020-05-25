@@ -23,20 +23,18 @@ public class AdminJokesRepository {
     }
 
     public Optional<Joke> get(int id) {
-        Optional<JokeRecord> record = dslContext
-                .fetchOptional(JOKE, JOKE.ID.eq(id));
-
-        return Optional.ofNullable(record.get().into(Joke.class));
+        return dslContext
+                .fetchOptional(JOKE, JOKE.ID.eq(id))
+                .map(record -> modelMapper.map(record, Joke.class));
     }
 
     public Joke create(Joke joke) {
-        JokeRecord record = dslContext
+        return dslContext
                 .insertInto(JOKE, JOKE.CATEGORY, JOKE.JOKE_)
                 .values(joke.getCategory(), joke.getJoke())
                 .returning()
-                .fetchOne();
-
-        return modelMapper.map(record, Joke.class);
+                .fetchOne()
+                .into(Joke.class);
     }
 
     public Optional<Joke> update(Joke joke) {

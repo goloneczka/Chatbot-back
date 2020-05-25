@@ -91,6 +91,11 @@
                 <artifactId>modelmapper</artifactId>
                 <version>${model-mapper.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${org.postgresql.version}</version>
+            </dependency>
             <!-- Tests dependencies !-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>

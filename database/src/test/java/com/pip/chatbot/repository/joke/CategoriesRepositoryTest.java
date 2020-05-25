@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -23,7 +22,7 @@ public class CategoriesRepositoryTest {
     private AdminJokesRepository adminJokesRepository;
 
     @BeforeEach
-    public void init() throws ClassNotFoundException, IOException {
+    public void init() {
         ModelMapper modelMapper = new ModelMapper();
         DslContextFactory dslContextFactory = new DslContextFactory();
 
@@ -48,7 +47,7 @@ public class CategoriesRepositoryTest {
     }
 
     @Test
-    void getAllReturnsEmpty() {
+    void getAllWithEmptyDatabaseReturnsEmpty() {
         Assertions.assertThat(repository.getAll())
                 .isEmpty();
     }
@@ -69,7 +68,7 @@ public class CategoriesRepositoryTest {
     }
 
     @Test
-    void getJokesForCategoryReturnEmpty() {
+    void getJokesForCategoryWithEmptyDatabaseReturnsEmpty() {
         Category category = new Category("Category", true);
         repository.create(category);
         Assertions.assertThat(repository.getJokesForCategory("Category"))
@@ -77,13 +76,13 @@ public class CategoriesRepositoryTest {
     }
 
     @Test
-    void getJokesForCategoryNotExistsReturnEmpty() {
+    void getJokesForCategoryNotExistsReturnsEmpty() {
         Assertions.assertThat(repository.getJokesForCategory("Category"))
                 .isEmpty();
     }
 
     @Test
-    public void createReturnCategory() {
+    public void createReturnsCategory() {
         Category category = new Category("Category", true);
 
         Assertions.assertThat(repository.create(category))
@@ -103,16 +102,20 @@ public class CategoriesRepositoryTest {
     }
 
     @Test
-    void updateReturnEmpty() {
+    void updateGivenNonExistingCategoryReturnsEmpty() {
         Assertions.assertThat(repository.update("Category", "Category1"))
                 .isEmpty();
     }
 
     @Test
-    public void deleteReturnBoolean() {
+    public void deleteReturnsTrue() {
         Category category = new Category("Category", true);
         repository.create(category);
-
         Assertions.assertThat(repository.delete(category.getCategory())).isTrue();
+    }
+
+    @Test
+    void deleteGivenNonExistingCategoryReturnsFalse() {
+        Assertions.assertThat(repository.delete("Category1")).isFalse();
     }
 }

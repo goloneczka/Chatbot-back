@@ -4,9 +4,9 @@ package com.pip.chatbot.repository.joke;
 import com.pip.chatbot.model.joke.Category;
 import com.pip.chatbot.model.joke.Joke;
 import com.pip.chatbot.model.joke.Mark;
-import com.pip.chatbot.model.joke.MarkApi;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +20,7 @@ import static org.jooq.impl.DSL.avg;
 public class JokesRepository {
 
     private DSLContext dsl;
+    private ModelMapper modelMapper;
     private static final boolean CONFIRMED = true;
 
     public JokesRepository(DSLContext dsl) {
@@ -64,9 +65,8 @@ public class JokesRepository {
                 .set(JOKE.IS_CONFIRMED, joke.isConfirmed())
                 .set(JOKE.JOKE_, joke.getJoke())
                 .returning()
-                .fetchOne();
-
-        return Optional.ofNullable(result.into(Joke.class));
+                .fetchOne().into(Joke.class);
+        return Optional.ofNullable(result);
     }
 
     public Optional<Category> createTemporaryCategory(String category) {
@@ -85,17 +85,17 @@ public class JokesRepository {
                 .set(MARK.JOKE_ID, mark.getJokeId())
                 .set(MARK.MARK_, mark.getMark())
                 .returning()
-                .fetchOne();
+                .fetchOne().into(Mark.class);
 
-        return Optional.ofNullable(result.into(Mark.class));
+        return Optional.ofNullable(result);
     }
 
-    public Optional<MarkApi> getAvgJokeMark(String id) {
+    public Optional<Mark> getAvgJokeMark(String id) {
         return dsl.select(MARK.JOKE_ID, avg(MARK.MARK_).as("mark"))
                 .from(MARK)
                 .where(MARK.JOKE_ID.eq(Integer.parseInt(id)))
                 .groupBy(MARK.JOKE_ID)
-                .fetchOptionalInto(MarkApi.class);
+                .fetchOptionalInto(Mark.class);
 
     }
 }

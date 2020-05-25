@@ -24,7 +24,7 @@ public class AdminJokesRepositoryTest {
     private JokesRepository jokesRepository;
 
     @BeforeEach
-    public void init() throws ClassNotFoundException, IOException {
+    public void init() throws ClassNotFoundException {
         ModelMapper modelMapper = new ModelMapper();
         DslContextFactory dslContextFactory = new DslContextFactory();
         dslContext = dslContextFactory.getDslContext();
@@ -44,12 +44,11 @@ public class AdminJokesRepositoryTest {
 
 
     @Test
-    void getAllReturnListJokes() {
+    void getAllReturnsListJokes() {
         jokesRepository.createTemporaryJoke(new Joke(1, "Joke", "Category", false));
 
         Assertions.assertThat(repository.getAll())
                 .isNotEmpty()
-                .hasSize(1)
                 .isEqualTo(
                         Collections.singletonList(
                                 new Joke(repository.getAll().get(0).getId(), "Joke", "Category", false)
@@ -58,75 +57,72 @@ public class AdminJokesRepositoryTest {
     }
 
     @Test
-    void getAllReturnEmptyList() {
+    void getAllWithEmptyDatabaseReturnsEmptyList() {
         Assertions.assertThat(repository.getAll())
-                .hasSize(0)
                 .isEmpty();
     }
 
     @Test
-    void getReturnJoke() {
+    void getReturnsJoke() {
         Assertions.assertThat(repository.create(new Joke(1, "Joke", "Category", true)))
-                .isInstanceOf(Joke.class)
                 .isEqualTo(repository.getAll().get(0));
     }
 
 
     @Test
-    void updateReturnJoke() {
+    void updateReturnsJoke() {
         jokesRepository.createTemporaryJoke(new Joke(1, "Joke", "Category", false));
 
         Assertions.assertThat(
                 repository.update(new Joke(repository.getAll().get(0).getId(), "Joke1", "Category", false)))
-                .isNotNull()
-                .isEqualTo(Optional.of(new Joke(repository.getAll().get(0).getId(), "Joke1", "Category", false)));
+                .isPresent().get()
+                .isEqualTo(new Joke(repository.getAll().get(0).getId(), "Joke1", "Category", false));
     }
 
     @Test
-    void updateReturnEmpty() {
+    void updateGivenNonExistingJokeReturnsEmpty() {
         Assertions.assertThat(
                 repository.update(new Joke(1, "Joke", "Category", false)))
                 .isEmpty();
     }
 
     @Test
-    void deleteReturnBooleanTrue() {
+    void deleteGivenExistingJokeReturnsTrue() {
         jokesRepository.createTemporaryJoke(new Joke(1, "Joke", "Category", false));
 
         Assertions.assertThat(repository.delete(repository.getAll().get(0).getId())).isTrue();
     }
 
     @Test
-    void deleteReturnBooleanFalse() {
+    void deleteGivenNonExistingJokeReturnsFalse() {
         Assertions.assertThat(repository.delete(1)).isFalse();
     }
 
     @Test
-    void getAllUnconfirmedJokesReturnListJokes() {
+    void getAllUnconfirmedJokesReturnsListJokes() {
         jokesRepository.createTemporaryJoke(new Joke(1, "Joke", "Category", false));
 
         Assertions.assertThat(repository.getAllUnconfirmedJokes())
-                .hasSize(1);
+                .hasSize(1)
+                .contains(new Joke(repository.getAll().get(0).getId(), "Joke", "Category", false));
     }
 
     @Test
-    void getAllUnconfirmedJokesReturnEmpty() {
+    void getAllUnconfirmedWithEmptyDatabaseJokesReturnsEmpty() {
         Assertions.assertThat(repository.getAllUnconfirmedJokes())
-                .hasSize(0)
                 .isEmpty();
     }
 
     @Test
-    void confirmJokeReturnJoke() {
+    void confirmJokeReturnsJoke() {
         jokesRepository.createTemporaryJoke(new Joke(1, "Joke", "Category", false));
 
-        Assertions.assertThat(repository.confirmJoke(repository.getAll().get(0).getId()).get().isConfirmed())
-                .isTrue();
+        Assertions.assertThat(repository.confirmJoke(repository.getAll().get(0).getId()))
+                .isEqualTo(Optional.of(new Joke(repository.getAll().get(0).getId(), "Joke", "Category", true)));
     }
 
     @Test
-    void confirmJokeReturnEmpty() {
-        Assertions.assertThat(repository.confirmJoke(1))
-                .isEmpty();
+    void confirmGivenNonExistingJokeReturnsEmpty() {
+        Assertions.assertThat(repository.confirmJoke(1)).isEmpty();
     }
 }

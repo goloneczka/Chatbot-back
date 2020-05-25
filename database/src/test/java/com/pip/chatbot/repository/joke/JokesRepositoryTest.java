@@ -3,7 +3,6 @@ package com.pip.chatbot.repository.joke;
 import com.pip.chatbot.model.joke.Category;
 import com.pip.chatbot.model.joke.Joke;
 import com.pip.chatbot.model.joke.Mark;
-import com.pip.chatbot.model.joke.MarkApi;
 import com.pip.chatbot.repository.DslContextFactory;
 import org.assertj.core.api.Assertions;
 import org.jooq.DSLContext;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import static com.pip.chatbot.jooq.jokes.tables.Category.CATEGORY;
@@ -25,16 +23,16 @@ public class JokesRepositoryTest {
     private AdminJokesRepository adminJokesRepository;
 
     @BeforeEach
-    public void init() throws ClassNotFoundException, IOException {
+    public void init() {
         ModelMapper modelMapper = new ModelMapper();
         DslContextFactory dslContextFactory = new DslContextFactory();
+
         dslContext = dslContextFactory.getDslContext();
         CategoriesRepository categoriesRepository = new CategoriesRepository(dslContext, modelMapper);
-        adminJokesRepository = new AdminJokesRepository(dslContext, modelMapper);
+
         Category category = new Category("Category", true);
+        adminJokesRepository = new AdminJokesRepository(dslContext, modelMapper);
         categoriesRepository.create(category);
-
-
         repository = new JokesRepository(dslContext);
     }
 
@@ -45,7 +43,7 @@ public class JokesRepositoryTest {
     }
 
     @Test
-    public void getRandomJokeReturnJoke() {
+    public void getRandomJokeReturnsJoke() {
         Joke joke = new Joke(1, "Joke", "Category", true);
         repository.createTemporaryJoke(joke);
 
@@ -56,13 +54,13 @@ public class JokesRepositoryTest {
     }
 
     @Test
-    void getRandomJokeReturnEmpty() {
+    void getRandomJokeWihEmptyDatabaseReturnsEmpty() {
         Assertions.assertThat(repository.getRandomJoke())
                 .isEmpty();
     }
 
     @Test
-    void getRandomJokeByCategoryReturnJoke() {
+    void getRandomJokeByCategoryReturnsJoke() {
         Joke joke = new Joke(1, "Joke", "Category", true);
         repository.createTemporaryJoke(joke);
 
@@ -73,20 +71,20 @@ public class JokesRepositoryTest {
     }
 
     @Test
-    void getRandomJokeByCategoryReturnEmpty() {
+    void getRandomJokeByNonExistingCategoryReturnsEmpty() {
         Assertions.assertThat(repository.getRandomJokeByCategory("Category1"))
                 .isEmpty();
     }
 
     @Test
-    void getAllCategoriesReturnListCategories() {
+    void getAllCategoriesReturnsListCategories() {
         Assertions.assertThat(repository.getAllCategories())
                 .isNotEmpty()
                 .contains(new Category("Category", true));
     }
 
     @Test
-    void getAllConfirmedCategoriesReturnListCategory() {
+    void getAllConfirmedCategoriesReturnsListCategory() {
         Assertions.assertThat(repository.getAllConfirmedCategories())
                 .isNotEmpty()
                 .hasSize(1)
@@ -94,11 +92,10 @@ public class JokesRepositoryTest {
     }
 
     @Test
-    void createTemporaryJokeReturnJoke() {
+    void createTemporaryJokeReturnsJoke() {
         Joke joke = new Joke(1, "Joke", "Category", false);
 
         Assertions.assertThat(repository.createTemporaryJoke(joke))
-                .isNotEmpty()
                 .isEqualTo(
                         Optional.of(new Joke(adminJokesRepository.getAll().get(0).getId(),
                                 joke.getJoke(),
@@ -107,23 +104,24 @@ public class JokesRepositoryTest {
     }
 
     @Test
-    void createTemporaryCategoryReturnCategory() {
+    void createTemporaryCategoryReturnsCategory() {
         Assertions.assertThat(repository.createTemporaryCategory("Category1"))
                 .isNotEmpty()
                 .isEqualTo(Optional.of(new Category("Category1", true)));
     }
 
     @Test
-    void createMarkReturnMark() {
+    void createMarkReturnsMark() {
         Joke joke = new Joke(1, "Joke", "Category", false);
         repository.createTemporaryJoke(joke);
 
-        Assertions.assertThat(repository.createMark(new Mark(1, adminJokesRepository.getAll().get(0).getId(), 4.5)).get().getMark())
+        Assertions.assertThat(repository.createMark(new Mark(1, adminJokesRepository.getAll().get(0).getId(), 4.5))
+                .get().getMark())
                 .isEqualTo(4.5);
     }
 
     @Test
-    void getAvgJokeMarkReturnMarkApi() {
+    void getAvgJokeMarkReturnsMark() {
         Joke joke = new Joke(1, "Joke", "Category", true);
         repository.createTemporaryJoke(joke);
         repository.createMark(new Mark(1, repository.getRandomJoke().get().getId(), 5.0));
@@ -131,11 +129,11 @@ public class JokesRepositoryTest {
 
         Assertions.assertThat(repository.getAvgJokeMark(adminJokesRepository.getAll().get(0).getId().toString()))
                 .isNotEmpty()
-                .isEqualTo(Optional.of(new MarkApi(adminJokesRepository.getAll().get(0).getId(),4.5)));
+                .isEqualTo(Optional.of(new Mark(null,adminJokesRepository.getAll().get(0).getId(),4.5)));
     }
 
     @Test
-    void getAvgJokeMarkReturnEmpty() {
+    void getAvgJokeMarkGivenNonExistingJokeReturnsEmpty() {
         Assertions.assertThat(repository.getAvgJokeMark("1"))
                 .isEmpty();
     }
