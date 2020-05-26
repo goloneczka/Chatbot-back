@@ -5,7 +5,7 @@ Feature: Restaurants Api
     * def initDatabase =
     """
     function() {
-      var DbUtils = Java.type('com.pip.chatbot.integration.tests.tests.weather.WeatherDbUtils');
+      var DbUtils = Java.type('com.pip.chatbot.integration.tests.weather.WeatherDbUtils');
       var db = new DbUtils(dbConfig);
       db.initWeatherData();
      return db;

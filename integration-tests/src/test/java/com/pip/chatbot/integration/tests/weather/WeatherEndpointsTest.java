@@ -1,4 +1,4 @@
-package com.pip.chatbot.integration.tests.tests.weather;
+package com.pip.chatbot.integration.tests.weather;
 
 import com.intuit.karate.junit5.Karate;
 
