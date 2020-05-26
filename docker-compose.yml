@@ -6,3 +6,5 @@ services:
     build: ./api/
     ports:
       - "8080:8080"
+  python:
+    build: ./python/
