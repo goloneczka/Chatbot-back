@@ -8,6 +8,7 @@ import org.jooq.*;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.pip.chatbot.jooq.jokes.tables.Joke.JOKE;
 import static com.pip.chatbot.jooq.jokes.tables.Category.CATEGORY;
@@ -31,24 +32,22 @@ public class CategoriesRepository {
     }
 
     public Category create(Category category) {
-        CategoryRecord record = dslContext
+        return dslContext
                 .insertInto(CATEGORY, CATEGORY.CATEGORY_)
                 .values(category.getCategory())
                 .returning()
-                .fetchOne();
-
-        return modelMapper.map(record, Category.class);
+                .fetchOne()
+                .into(Category.class);
     }
 
-    public Category update(String category, String value) {
-        CategoryRecord record = dslContext
+    public Optional<Category> update(String category, String value) {
+        return dslContext
                 .update(CATEGORY)
                 .set(CATEGORY.CATEGORY_, value)
                 .where(CATEGORY.CATEGORY_.eq(category))
                 .returning()
-                .fetchOne();
-
-        return modelMapper.map(record, Category.class);
+                .fetchOptional()
+                .map(record -> modelMapper.map(record, Category.class));
     }
 
     public boolean delete(String category) {

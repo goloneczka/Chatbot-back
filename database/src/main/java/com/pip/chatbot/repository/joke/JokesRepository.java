@@ -4,9 +4,9 @@ package com.pip.chatbot.repository.joke;
 import com.pip.chatbot.model.joke.Category;
 import com.pip.chatbot.model.joke.Joke;
 import com.pip.chatbot.model.joke.Mark;
-import com.pip.chatbot.model.joke.MarkApi;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +20,7 @@ import static org.jooq.impl.DSL.avg;
 public class JokesRepository {
 
     private DSLContext dsl;
+    private ModelMapper modelMapper;
     private static final boolean CONFIRMED = true;
 
     public JokesRepository(DSLContext dsl) {
@@ -28,25 +29,21 @@ public class JokesRepository {
 
 
     public Optional<Joke> getRandomJoke() {
-        var result = dsl
+        return dsl
                 .selectFrom(JOKE)
                 .where(JOKE.IS_CONFIRMED.eq(CONFIRMED))
                 .orderBy(DSL.rand())
                 .limit(1)
-                .fetchOne();
-
-        return Optional.ofNullable(result.into(Joke.class));
+                .fetchOptionalInto(Joke.class);
     }
 
     public Optional<Joke> getRandomJokeByCategory(String category) {
-        var result = dsl
+        return dsl
                 .selectFrom(JOKE)
                 .where(JOKE.CATEGORY.eq(category).and(JOKE.IS_CONFIRMED.eq(CONFIRMED)))
                 .orderBy(DSL.rand())
                 .limit(1)
-                .fetchOne();
-
-        return Optional.ofNullable(result.into(Joke.class));
+                .fetchOptionalInto(Joke.class);
     }
 
     public List<Category> getAllCategories() {
@@ -65,42 +62,38 @@ public class JokesRepository {
     public Optional<Joke> createTemporaryJoke(Joke joke) {
         var result = dsl.insertInto(JOKE)
                 .set(JOKE.CATEGORY, joke.getCategory())
-                .set(JOKE.IS_CONFIRMED, !CONFIRMED)
+                .set(JOKE.IS_CONFIRMED, joke.isConfirmed())
                 .set(JOKE.JOKE_, joke.getJoke())
                 .returning()
-                .fetchOne();
-
-        return Optional.ofNullable(result.into(Joke.class));
+                .fetchOne().into(Joke.class);
+        return Optional.ofNullable(result);
     }
 
     public Optional<Category> createTemporaryCategory(String category) {
         var result = dsl.insertInto(CATEGORY)
                 .set(JOKE.CATEGORY, category)
-                .set(JOKE.IS_CONFIRMED, !CONFIRMED)
+                .set(JOKE.IS_CONFIRMED, CONFIRMED)
                 .returning()
                 .fetchOne();
 
         return Optional.ofNullable(result.into(Category.class));
     }
 
-    public Optional<MarkApi> createMark(Mark mark) {
+    public Mark createMark(Mark mark) {
 
-        var result = dsl.insertInto(MARK)
+        return dsl.insertInto(MARK)
                 .set(MARK.JOKE_ID, mark.getJokeId())
                 .set(MARK.MARK_, mark.getMark())
                 .returning()
-                .fetchOne();
-
-        return Optional.ofNullable(result.into(MarkApi.class));
+                .fetchOne().into(Mark.class);
     }
 
     public Optional<Mark> getAvgJokeMark(String id) {
-        var result = dsl.select(MARK.JOKE_ID, avg(MARK.MARK_).as("mark"))
+        return dsl.select(MARK.JOKE_ID, avg(MARK.MARK_).as("mark"))
                 .from(MARK)
                 .where(MARK.JOKE_ID.eq(Integer.parseInt(id)))
                 .groupBy(MARK.JOKE_ID)
-                .fetchOne();
+                .fetchOptionalInto(Mark.class);
 
-        return Optional.ofNullable(result.into(Mark.class));
     }
 }

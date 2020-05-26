@@ -28,7 +28,7 @@ public class CategoriesService {
     }
 
     public Category update(String category, Category body) {
-        return categoriesRepository.update(category, body.getCategory());
+        return categoriesRepository.update(category, body.getCategory()).get();
     }
 
     public void delete(String category) {
