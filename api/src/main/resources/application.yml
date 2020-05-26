@@ -1,6 +1,8 @@
 application:
   admin:
     password: "{bcrypt}$2a$10$N7tHgHhjvt.4AsnW9nMqduLrYLdKFEsP5GKBUPdeIB5emQ5Uz5nlC"
+  finance:
+    maximumPredictionDays: 7
 
 
 server:

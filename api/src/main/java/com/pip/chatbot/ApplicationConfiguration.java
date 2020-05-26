@@ -1,5 +1,7 @@
 package com.pip.chatbot;
 
+import com.pip.chatbot.repository.finance.StockRepository;
+import com.pip.chatbot.repository.finance.SymbolRepository;
 import com.pip.chatbot.repository.food.FoodRepository;
 import com.pip.chatbot.repository.forecast.CitiesRepository;
 import com.pip.chatbot.repository.forecast.CountriesRepository;
@@ -7,6 +9,7 @@ import com.pip.chatbot.repository.forecast.ForecastRepository;
 import com.pip.chatbot.repository.joke.AdminJokesRepository;
 import com.pip.chatbot.repository.joke.CategoriesRepository;
 import com.pip.chatbot.repository.joke.JokesRepository;
+import com.pip.chatbot.service.finance.StockService;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.*;
@@ -54,6 +57,16 @@ public class ApplicationConfiguration {
     @Bean
     public JokesRepository jokesRepository(DSLContext dsl) {
         return new JokesRepository(dsl);
+    }
+
+    @Bean
+    StockRepository stockRepository(){
+        return new StockRepository();
+    }
+
+    @Bean
+    SymbolRepository symbolRepository(){
+        return new SymbolRepository();
     }
 
     @Bean
