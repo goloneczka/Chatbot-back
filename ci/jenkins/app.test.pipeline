@@ -11,7 +11,12 @@ pipeline {
                 sh 'java -jar -Dspring.profiles.active=test api/target/api.jar &'
                 // Wait until launch application
                 sh 'sleep 5s'
-                sh 'mvn test -PfullTests'
+                dir('database') {
+                    sh 'mvn test =PfullTests'
+                }
+                dir('integration-tests') {
+                    sh 'mvn test -PfullTests'
+                }
                 cucumber failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: '**/*.json', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
             }
         }
