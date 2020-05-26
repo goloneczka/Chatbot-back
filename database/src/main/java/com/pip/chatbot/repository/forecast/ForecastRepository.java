@@ -32,7 +32,6 @@ public class ForecastRepository {
         forecastRecord.setPressure(forecast.getPressure());
         forecastRecord.setHumidity(forecast.getHumidity());
         forecastRecord.setSummary(forecast.getSummary());
-        forecastRecord.setPrecipType(forecast.getPrecipType());
         forecastRecord.setCity(forecast.getCity());
         forecastRecord.setIcon(forecast.getIcon());
         forecastRecord.store();
@@ -63,5 +62,11 @@ public class ForecastRepository {
                 .and(dayCondition)
                 .and(yearCondition)
                 .fetchAnyInto(Forecast.class));
+    }
+
+    public void deleteOutdatedForecasts(LocalDateTime dateTime) {
+        dsl.delete(Tables.FORECAST)
+                .where(Tables.FORECAST.CREATED_ON.lessThan(dateTime))
+                .execute();
     }
 }

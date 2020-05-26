@@ -6,10 +6,12 @@ import com.pip.chatbot.repository.forecast.ForecastRepository;
 import com.pip.chatbot.model.forecast.City;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @EnableScheduling
@@ -19,6 +21,9 @@ public class ScheduledForecasts {
     private final ForecastRepository forecastRepository;
     private final CitiesRepository citiesRepository;
     private final ModelMapper modelMapper;
+
+    @Value("${application.darksky.forecastDayBeforeToRemove}")
+    private Long daysBeforeToRemove;
 
     public ScheduledForecasts(DarkSkyApi darkSkyApi, ForecastRepository forecastRepository, CitiesRepository citiesRepository, ModelMapper modelMapper) {
         this.darkSkyApi = darkSkyApi;
@@ -33,6 +38,12 @@ public class ScheduledForecasts {
             List<Forecast> forecasts = modelMapper.map(darkSkyApi.getWeatherForecast(city), new TypeToken<List<Forecast>>() {
             }.getType());
             forecastRepository.createForecasts(forecasts);
+
         }
+    }
+
+    @Scheduled(fixedDelayString = "${application.darksky.forecastDelay}")
+    public void deleteOutdatedForecasts() {
+        forecastRepository.deleteOutdatedForecasts(LocalDateTime.now().minusDays(daysBeforeToRemove));
     }
 }

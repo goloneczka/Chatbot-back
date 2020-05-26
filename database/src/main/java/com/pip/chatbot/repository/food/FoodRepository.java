@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import static com.pip.chatbot.jooq.food.Food.FOOD;
@@ -27,7 +25,7 @@ public class FoodRepository {
 
     public List<Cuisine> getCuisineForCity(Integer cityId) {
         return dsl
-                .select(FOOD.RESTAURANT_CUISINE.CUISINE)
+                .selectDistinct(FOOD.RESTAURANT_CUISINE.CUISINE)
                 .from(FOOD.RESTAURANT)
                 .join(FOOD.RESTAURANT_CUISINE)
                 .on(FOOD.RESTAURANT_CUISINE.RESTAURANT_ID.eq(FOOD.RESTAURANT.ID))

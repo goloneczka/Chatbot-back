@@ -37,7 +37,8 @@ public class AdminJokesService {
     }
 
     public Joke update(Joke joke) {
-        return adminJokesRepository.update(joke);
+        return adminJokesRepository.update(joke)
+                .orElseThrow(() -> new ChatbotExceptionBuilder().addError(JokesErrorMessages.NOT_FOUND).build());
     }
 
     public void delete(int id) {
@@ -47,6 +48,7 @@ public class AdminJokesService {
     }
 
     public Joke confirm(int id) {
-        return adminJokesRepository.confirmJoke(id);
+        return adminJokesRepository.confirmJoke(id)
+                .orElseThrow(() -> new ChatbotExceptionBuilder().addError(JokesErrorMessages.NOT_FOUND).build());
     }
 }

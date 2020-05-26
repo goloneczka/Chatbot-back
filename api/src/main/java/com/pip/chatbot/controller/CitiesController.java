@@ -23,9 +23,9 @@ public class CitiesController {
     public ResponseEntity<List<City>> getCities(@RequestParam Optional<String> country) {
         List<City> cities;
         if (country.isPresent())
-            cities = citiesService.getCities(country.get());
+            cities = citiesService.getCitiesWithForecast(country.get());
         else
-            cities = citiesService.getCities();
+            cities = citiesService.getCitiesWithForecast();
         return ResponseEntity.status(ResponseStatus.OK).body(cities);
     }
 
@@ -33,4 +33,5 @@ public class CitiesController {
     public ResponseEntity<City> getCity(@PathVariable String city) {
         return ResponseEntity.status(ResponseStatus.OK).body(citiesService.getCity(city));
     }
+
 }

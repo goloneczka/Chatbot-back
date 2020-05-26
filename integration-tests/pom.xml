@@ -53,6 +53,15 @@
             <groupId>net.masterthought</groupId>
             <artifactId>cucumber-reporting</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.pip.chatbot</groupId>
+            <artifactId>database</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -17,7 +17,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row12;
+import org.jooq.Row11;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Forecast extends TableImpl<ForecastRecord> {
 
-    private static final long serialVersionUID = 1863546651;
+    private static final long serialVersionUID = 1218393732;
 
     /**
      * The reference instance of <code>weather.forecast</code>
@@ -91,12 +91,7 @@ public class Forecast extends TableImpl<ForecastRecord> {
     /**
      * The column <code>weather.forecast.summary</code>.
      */
-    public final TableField<ForecastRecord, String> SUMMARY = createField(DSL.name("summary"), org.jooq.impl.SQLDataType.CHAR(127).nullable(false), this, "");
-
-    /**
-     * The column <code>weather.forecast.precip_type</code>.
-     */
-    public final TableField<ForecastRecord, String> PRECIP_TYPE = createField(DSL.name("precip_type"), org.jooq.impl.SQLDataType.CHAR(127), this, "");
+    public final TableField<ForecastRecord, String> SUMMARY = createField(DSL.name("summary"), org.jooq.impl.SQLDataType.VARCHAR(127).nullable(false), this, "");
 
     /**
      * The column <code>weather.forecast.city</code>.
@@ -197,11 +192,11 @@ public class Forecast extends TableImpl<ForecastRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row12 type methods
+    // Row11 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row12<Integer, LocalDateTime, LocalDateTime, Float, Float, Float, Float, Float, String, String, String, String> fieldsRow() {
-        return (Row12) super.fieldsRow();
+    public Row11<Integer, LocalDateTime, LocalDateTime, Float, Float, Float, Float, Float, String, String, String> fieldsRow() {
+        return (Row11) super.fieldsRow();
     }
 }

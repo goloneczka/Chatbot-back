@@ -1,16 +1,16 @@
 package com.pip.chatbot.model.forecast;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Forecast {
+public class ForecastApi {
     private Integer id;
-    private LocalDateTime createdOn;
-    private LocalDateTime date;
     private float temperature;
     private float perceivedTemperature;
     private float windSpeed;
