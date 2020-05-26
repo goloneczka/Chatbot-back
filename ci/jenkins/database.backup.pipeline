@@ -13,6 +13,7 @@ pipeline {
                     #!/bin/bash
                     backup_file=backup_$(date +'%d_%m_%Y')
                     pg_dump -p 5432 -U app appdb > /home/app/backup/$backup_file.sql
+                    rocketSend channel: '#ip2020', message: 'Przykładowa, super świetna fajna , nie możliwa, cudowna , ambitna , fajowska, cudna, prze-za-od-mityczna, wiadomość od bota\'
                 '''
             }
         }
