@@ -27,8 +27,9 @@ pipeline {
                 export JENKINS_NODE_COOKIE=dontKillMe
                 
                 docker-compose up -d --build --force-recreate
-
+                                    
                 '''
+                rocketSend message: "Backend has been tested and deployed successfully"
             }
         }
     }
