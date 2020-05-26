@@ -29,7 +29,7 @@ pipeline {
                 docker-compose up -d --build --force-recreate
                                     
                 '''
-                rocketSend avatar: 'http://localhost:9090/jenkins/static/ff676c77/images/headshot.png',  message: "Backend has been tested and deployed successfully."
+                rocketSend avatar: 'https://secure.meetupstatic.com/photos/event/1/3/7/7/600_454384983.jpeg',  message: "Deploy of backend : ${currentBuild.currentResult}\n: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
             }
         }
     }
