@@ -14,7 +14,7 @@ pipeline {
                     backup_file=backup_$(date +'%d_%m_%Y')
                     pg_dump -p 5432 -U app appdb > /home/app/backup/$backup_file.sql
                 '''
-                rocketSend avatar: 'https://www.jenkins.io/images/logos/jenkins/jenkins.png',  message: "Backend has been tested and deployed successfully."
+                rocketSend avatar: 'https://secure.meetupstatic.com/photos/event/1/3/7/7/600_454384983.jpeg',  message: "Backend has been tested and deployed successfully."
 
             }
         }
