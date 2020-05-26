@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Integration tests') {
+        stage('Database tests and Integration tests') {
             steps {
                 build job: 'pip2020-backend-integration-tests/develop', wait: true
             }
