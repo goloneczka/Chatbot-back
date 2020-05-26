@@ -13,8 +13,8 @@ pipeline {
                 sh 'sleep 5s'
                 dir('database') {
                     sh 'mvn test -PfullTests'
-
                 }
+                sh 'sleep 5s'
                 dir('integration-tests') {
                     sh 'mvn test -PfullTests'
                 }
