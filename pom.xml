@@ -28,6 +28,7 @@
         <model-mapper.version>2.3.7</model-mapper.version>
         <maven-flyway-plugin.version>6.3.2</maven-flyway-plugin.version>
         <cucumber.version>3.8.0</cucumber.version>
+        <jacoco.version>0.7.0.201403182114</jacoco.version>
     </properties>
 
     <modules>
@@ -95,6 +96,11 @@
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${org.postgresql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jacoco</groupId>
+                <artifactId>org.jacoco.ant</artifactId>
+                <version>${jacoco.version}</version>
             </dependency>
             <!-- Tests dependencies !-->
             <dependency>
