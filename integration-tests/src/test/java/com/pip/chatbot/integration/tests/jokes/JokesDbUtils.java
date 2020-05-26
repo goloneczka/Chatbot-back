@@ -11,20 +11,15 @@ import com.pip.chatbot.repository.joke.CategoriesRepository;
 import com.pip.chatbot.repository.joke.JokesRepository;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
-import org.jooq.impl.DefaultConfiguration;
-import org.jooq.impl.DefaultDSLContext;
-import org.jooq.meta.derby.sys.Sys;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.sql.DataSource;
-import java.io.File;
 import java.sql.DriverManager;
-import java.util.List;
 import java.util.Map;
+
+import static com.pip.chatbot.jooq.jokes.tables.Mark.MARK;
+import static com.pip.chatbot.jooq.jokes.tables.Joke.JOKE;
+import static com.pip.chatbot.jooq.jokes.tables.Category.CATEGORY;
 
 public class JokesDbUtils {
     private final DSLContext dsl;
@@ -66,9 +61,9 @@ public class JokesDbUtils {
     }
 
     public void clearDb() {
-        adminJokesRepository.deleteAllMarks();
-        adminJokesRepository.deleteAllJokes();
-        categoriesRepository.deleteAll();
+        dsl.deleteFrom(MARK).execute();
+        dsl.deleteFrom(JOKE).execute();
+        dsl.deleteFrom(CATEGORY).execute();
     }
 
 

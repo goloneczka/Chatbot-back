@@ -57,10 +57,4 @@ public class CategoriesRepository {
                 .where(CATEGORY.CATEGORY_.eq(category))
                 .execute();
     }
-
-    public boolean deleteAll(){
-        return 0 < dslContext
-                .deleteFrom(CATEGORY)
-                .execute();
-    }
 }

@@ -8,7 +8,7 @@ Feature: Admin Jokes Endpoints
     * header Authorization =  correctAuthorization
     * def DbUtils = Java.type('com.pip.chatbot.integration.tests.jokes.JokesDbUtils')
     * def db = new DbUtils(dbConfig)
-
+    * db.clearDb()
     * db.insertCategory()
     * def joke = db.insertJoke()
     * def createTestJoke = read('classpath:jokes/jokeForCreateTest.json')

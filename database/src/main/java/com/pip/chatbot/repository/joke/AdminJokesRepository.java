@@ -73,16 +73,4 @@ public class AdminJokesRepository {
                 .fetchOne()
                 .into(Joke.class);
     }
-
-    public boolean deleteAllJokes() {
-        return 0 < dslContext
-                .deleteFrom(JOKE)
-                .execute();
-    }
-
-    public boolean deleteAllMarks() {
-        return 0 < dslContext
-                .deleteFrom(MARK)
-                .execute();
-    }
 }

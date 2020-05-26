@@ -4,7 +4,7 @@ Feature: Jokes Endpoints
     * url baseUrl
     * def DbUtils = Java.type('com.pip.chatbot.integration.tests.jokes.JokesDbUtils')
     * def db = new DbUtils(dbConfig)
-
+    * db.clearDb()
     * def category = db.insertCategory()
     * def joke = db.insertJoke()
     * def mark = db.insertMark(joke.id)

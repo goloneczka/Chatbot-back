@@ -5,7 +5,7 @@ Feature:  Admin Jokes Categories Endpoints
     * def DbUtils = Java.type('com.pip.chatbot.integration.tests.jokes.JokesDbUtils')
     * def db = new DbUtils(dbConfig)
     * header Authorization =  callonce read('basic-auth.js') {user: #(user), password: #(password)}
-
+    * db.clearDb()
     * def createTestCategory = read('classpath:jokes/categoryForCreateTest.json')
     * def category = db.insertCategory()
     * def joke = db.insertJoke()
