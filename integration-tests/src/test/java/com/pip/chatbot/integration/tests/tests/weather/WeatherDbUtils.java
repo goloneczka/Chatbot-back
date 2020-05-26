@@ -1,4 +1,4 @@
-package com.pip.chatbot.integration.tests;
+package com.pip.chatbot.integration.tests.tests.weather;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
