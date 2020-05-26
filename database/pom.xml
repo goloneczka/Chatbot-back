@@ -89,6 +89,9 @@
                                 <schema>
                                     <inputSchema>food</inputSchema>
                                 </schema>
+                                <schema>
+                                    <inputSchema>finance</inputSchema>
+                                </schema>
                             </schemata>
 
                         </database>
