@@ -17,6 +17,10 @@ pipeline {
                 dir('database') {
                     sh 'mvn test -PfullTests'
                 }
+
+                rocketSend avatar: 'https://www.mitrai.com/wp-content/uploads/2018/04/jenkins-thumb.jpg',
+                        message: "Tests backend status: ${currentBuild.currentResult}\n Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
+
                 cucumber failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: '**/*.json', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
             }
         }
