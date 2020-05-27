@@ -9,27 +9,34 @@ Feature: Food Endpoints
     * json city = db.insertCountryAndCity()
     * json cuisine = db.insertCuisine()
     * json restaurant = db.insertRestaurant()
-    * json mark = db.insertMark()
+    * json mark = read('classpath:food/mark.json')
     * configure afterScenario =
     """
     function(){
       db.clearDb()
     }
     """
-    Scenario: get all cities
+    Scenario: Get all cities
       Given path '/food/city'
       When method GET
       Then status 200
       And match each response == city
 
-    Scenario:
+    Scenario: Get cuisines for city
       Given path '/food/city', city.id, '/cuisine'
-      When method Get
+      When method GET
       Then status 200
       And match each response == cuisine
 
-    Scenario:
+    Scenario: Get restaurant for cuisine and city
       Given path '/food/city', city.id, '/cuisine', cuisine.cuisine, '/restaurant'
-      When method Get
+      When method GET
       Then status 200
 #      And match response == restaurant
+
+    Scenario: Create mark
+      Given path '/food/rate'
+      And request mark
+      When method POST
+      Then status 200
+      And match $ == {"restaurantId":#(mark.restaurantId),"mark":#(mark.mark)}
