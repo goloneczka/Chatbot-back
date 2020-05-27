@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "name": "testRestaurant",
+  "address": "testAddress",
+  "cityId": 1,
+  "averageUsersRating": 4.0,
+  "phoneNumbers": "123456789",
+  "cuisines": [{
+    "cuisine": "testCuisine"
+  }]
+}
