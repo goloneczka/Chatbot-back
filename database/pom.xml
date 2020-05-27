@@ -89,6 +89,9 @@
                                 <schema>
                                     <inputSchema>food</inputSchema>
                                 </schema>
+                                <schema>
+                                    <inputSchema>fortune</inputSchema>
+                                </schema>
                             </schemata>
 
                         </database>

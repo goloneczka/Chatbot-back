@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.pip.chatbot.jooq.jokes.tables.Joke.JOKE;
+import static com.pip.chatbot.jooq.jokes.tables.Mark.MARK;
 
 @AllArgsConstructor
 public class AdminJokesRepository {

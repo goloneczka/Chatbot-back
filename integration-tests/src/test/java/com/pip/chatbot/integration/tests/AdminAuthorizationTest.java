@@ -8,4 +8,5 @@ public class AdminAuthorizationTest {
     Karate test(){
         return Karate.run("./tests/adminAuthorization").relativeTo(getClass());
     }
+
 }

@@ -11,11 +11,10 @@ pipeline {
                 sh 'java -jar -Dspring.profiles.active=test api/target/api.jar &'
                 // Wait until launch application
                 sh 'sleep 5s'
-                dir('database') {
+                dir('integration-tests') {
                     sh 'mvn test -PfullTests'
                 }
-                sh 'sleep 5s'
-                dir('integration-tests') {
+                dir('database') {
                     sh 'mvn test -PfullTests'
                 }
 
@@ -23,7 +22,6 @@ pipeline {
                         message: "Tests backend status: ${currentBuild.currentResult}\n Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
 
                 cucumber failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: '**/*.json', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
-
             }
         }
     }
