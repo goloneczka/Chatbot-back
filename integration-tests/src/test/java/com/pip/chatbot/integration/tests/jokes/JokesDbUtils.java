@@ -55,9 +55,9 @@ public class JokesDbUtils {
         return adminJokesRepository.create(joke);
     }
 
-    public MarkApi insertMark(int jokeId) {
+    public Mark insertMark(int jokeId) {
         mark.setJokeId(jokeId);
-        return jokesRepository.createMark(mark).get();
+        return jokesRepository.createMark(mark);
     }
 
     public void clearDb() {
