@@ -19,7 +19,7 @@ class TestReportGenerator  {
     @Test
     public void generate() {
         System.setProperty("mock.env", "karateTesting"); // ensure reset if other tests (e.g. mock) had set env in CI
-        Results results = Runner.parallel(getClass(), 5);
+        Results results = Runner.parallel(getClass(), 1);
         TestReportGenerator.generateReport(results.getReportDir());
         assertEquals(0, results.getFailCount(), results.getErrorMessages());
     }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("admin/jokes/categories")
+@RequestMapping("/admin/jokes/categories")
 @AllArgsConstructor
 public class CategoriesController {
     private final CategoriesService categoriesService;
