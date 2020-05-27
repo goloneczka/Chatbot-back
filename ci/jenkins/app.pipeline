@@ -29,7 +29,8 @@ pipeline {
                 docker-compose up -d --build --force-recreate
                                     
                 '''
-                rocketSend avatar: 'https://secure.meetupstatic.com/photos/event/1/3/7/7/600_454384983.jpeg',  message: "Deploy of backend : ${currentBuild.currentResult}\n: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
+                rocketSend avatar: 'https://www.mitrai.com/wp-content/uploads/2018/04/jenkins-thumb.jpg',
+                        message: "Status deploy of backend : ${currentBuild.currentResult}\n Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
             }
         }
     }
