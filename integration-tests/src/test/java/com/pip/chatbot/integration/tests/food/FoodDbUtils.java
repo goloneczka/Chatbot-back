@@ -31,7 +31,6 @@ public class FoodDbUtils {
     private final City city;
     private final Cuisine cuisine;
     private final Restaurant restaurant;
-    private final Mark mark;
 
     public FoodDbUtils(Map<String, String> config) throws SQLException, IOException {
         dsl = DSL.using(DriverManager.getConnection(config.get("url"), config.get("username"), config.get("password")));
@@ -43,7 +42,6 @@ public class FoodDbUtils {
         this.country = objectMapper.readValue(getClass().getResourceAsStream("/food/country.json"), Country.class);
         this.restaurant = objectMapper.readValue(getClass().getResourceAsStream("/food/restaurant.json"), Restaurant.class);
         this.restaurant.setCuisines(Arrays.asList(cuisine));
-        this.mark = objectMapper.readValue(getClass().getResourceAsStream("/food/mark.json"), Mark.class);
 
         foodCountriesRepository = new FoodCountriesRepository(dsl);
         foodCitiesRepository = new FoodCitiesRepository(dsl);
@@ -57,19 +55,15 @@ public class FoodDbUtils {
         return foodCitiesRepository.createCity(city);
     }
 
-    public Cuisine insertCuisine(){
+    public Cuisine insertCuisine() {
         return cuisinesRepository.createCuisine(cuisine);
     }
 
-    public Restaurant insertRestaurant(){
+    public Restaurant insertRestaurant() {
         return restaurantRepository.createRestaurant(restaurant);
     }
 
-    public MarkApi insertMark(){
-        return foodRepository.createMark(mark).get();
-    }
-
-    public void clearDb(){
+    public void clearDb() {
         dsl.deleteFrom(MARK_RESTAURANT).execute();
         dsl.deleteFrom(CUISINE).execute();
         dsl.deleteFrom(RESTAURANT).execute();
