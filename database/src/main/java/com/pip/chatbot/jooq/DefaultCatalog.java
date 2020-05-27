@@ -4,8 +4,8 @@
 package com.pip.chatbot.jooq;
 
 
-import com.pip.chatbot.jooq.finance.Finance;
 import com.pip.chatbot.jooq.food.Food;
+import com.pip.chatbot.jooq.fortune.Fortune;
 import com.pip.chatbot.jooq.jokes.Jokes;
 import com.pip.chatbot.jooq.weather.Weather;
 
@@ -22,7 +22,7 @@ import org.jooq.impl.CatalogImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DefaultCatalog extends CatalogImpl {
 
-    private static final long serialVersionUID = -789733225;
+    private static final long serialVersionUID = -62868636;
 
     /**
      * The reference instance of <code>DEFAULT_CATALOG</code>
@@ -30,14 +30,14 @@ public class DefaultCatalog extends CatalogImpl {
     public static final DefaultCatalog DEFAULT_CATALOG = new DefaultCatalog();
 
     /**
-     * The schema <code>finance</code>.
-     */
-    public final Finance FINANCE = Finance.FINANCE;
-
-    /**
      * The schema <code>food</code>.
      */
     public final Food FOOD = Food.FOOD;
+
+    /**
+     * The schema <code>fortune</code>.
+     */
+    public final Fortune FORTUNE = Fortune.FORTUNE;
 
     /**
      * The schema <code>jokes</code>.
@@ -59,8 +59,8 @@ public class DefaultCatalog extends CatalogImpl {
     @Override
     public final List<Schema> getSchemas() {
         return Arrays.<Schema>asList(
-            Finance.FINANCE,
             Food.FOOD,
+            Fortune.FORTUNE,
             Jokes.JOKES,
             Weather.WEATHER);
     }

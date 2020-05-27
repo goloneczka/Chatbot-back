@@ -90,7 +90,7 @@
                                     <inputSchema>food</inputSchema>
                                 </schema>
                                 <schema>
-                                    <inputSchema>finance</inputSchema>
+                                    <inputSchema>fortune</inputSchema>
                                 </schema>
                             </schemata>
 
