@@ -31,11 +31,11 @@ pipeline {
                 '''
             }
         }
-        post {
-            always {
-                rocketSend avatar: 'https://www.mitrai.com/wp-content/uploads/2018/04/jenkins-thumb.jpg',
-                        message: "Tests backend status: ${currentBuild.currentResult}\n Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
-            }
+    }
+    post {
+        always {
+            rocketSend avatar: 'https://www.mitrai.com/wp-content/uploads/2018/04/jenkins-thumb.jpg',
+                    message: "Tests backend status: ${currentBuild.currentResult}\n Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
         }
     }
 }
