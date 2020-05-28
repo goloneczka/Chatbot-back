@@ -11,6 +11,6 @@ public class WeatherEndpointsTest {
 
     @Karate.Test
     Karate test(){
-        return Karate.run("./weather/feature/weather").relativeTo(getClass());
+        return Karate.run("./weather/feature/weatherAdmin").relativeTo(getClass());
     }
 }
