@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestReportGenerator  {
 
-    /*@Test
+    @Test
     public void generate() {
         System.setProperty("mock.env", "karateTesting"); // ensure reset if other tests (e.g. mock) had set env in CI
         Results results = Runner.parallel(getClass(), 1);
@@ -31,5 +31,5 @@ class TestReportGenerator  {
         Configuration config = new Configuration(new File("target"), "karateTesting");
         ReportBuilder reportBuilder = new ReportBuilder(jsonPaths, config);
         reportBuilder.generateReports();
-    }*/
+    }
 }
