@@ -49,6 +49,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
@@ -93,6 +99,9 @@
                                 <schema>
                                     <inputSchema>food</inputSchema>
                                 </schema>
+                                <schema>
+                                    <inputSchema>fortune</inputSchema>
+                                </schema>
                             </schemata>
 
                         </database>
@@ -136,7 +145,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 </project>

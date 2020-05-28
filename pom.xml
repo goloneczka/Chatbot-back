@@ -28,7 +28,7 @@
         <model-mapper.version>2.3.7</model-mapper.version>
         <maven-flyway-plugin.version>6.3.2</maven-flyway-plugin.version>
         <cucumber.version>3.8.0</cucumber.version>
-        <jacoco.version>0.7.0.201403182114</jacoco.version>
+        <jdbc.version>5.2.2.RELEASE</jdbc.version>
     </properties>
 
     <modules>
@@ -97,11 +97,6 @@
                 <artifactId>postgresql</artifactId>
                 <version>${org.postgresql.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.jacoco</groupId>
-                <artifactId>org.jacoco.ant</artifactId>
-                <version>${jacoco.version}</version>
-            </dependency>
             <!-- Tests dependencies !-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -114,6 +109,11 @@
                         <artifactId>junit-vintage-engine</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${jdbc.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.intuit.karate</groupId>
