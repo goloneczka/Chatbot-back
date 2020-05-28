@@ -41,7 +41,6 @@ public class JokesDbUtils {
         category = objectMapper.readValue(getClass().getResourceAsStream("/jokes/category.json"), Category.class);
         joke = objectMapper.readValue(getClass().getResourceAsStream("/jokes/joke.json"), Joke.class);
         mark = objectMapper.readValue(getClass().getResourceAsStream("/jokes/mark.json"), Mark.class);
-
         adminJokesRepository = new AdminJokesRepository(dsl, mapper);
         categoriesRepository = new CategoriesRepository(dsl, mapper);
         jokesRepository = new JokesRepository(dsl);

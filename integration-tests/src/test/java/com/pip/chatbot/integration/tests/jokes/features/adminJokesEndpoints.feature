@@ -38,7 +38,7 @@ Feature: Admin Jokes Endpoints
     And request createTestJoke
     When method POST
     Then status 200
-    And match response == {id: '#number', joke: #(createTestJoke.joke), category: #(createTestJoke.category), confirmed: #(createTestJoke.isConfirmed)}
+    And match response == {id: '#number', joke: #(createTestJoke.joke), category: #(createTestJoke.category), confirmed: true}
 
     * header Authorization =  correctAuthorization
     Given path '/admin/jokes', response.id
@@ -53,13 +53,13 @@ Feature: Admin Jokes Endpoints
     And request createTestJoke
     When method PUT
     Then status 200
-    And match response == {id: #(joke.id), joke: #(createTestJoke.joke), category: #(joke.category), confirmed: #(createTestJoke.isConfirmed)}
+    And match response == {id: #(joke.id), joke: #(createTestJoke.joke), category: #(joke.category), confirmed: #(joke.confirmed)}
 
     * header Authorization =  correctAuthorization
     Given path '/admin/jokes', joke.id
     When method GET
     Then status 200
-    And match response == {id: #(joke.id), joke: #(createTestJoke.joke), category: #(joke.category), confirmed: true}
+    And match response == {id: #(joke.id), joke: #(createTestJoke.joke), category: #(joke.category), confirmed: #(joke.confirmed)}
 
   Scenario: Delete joke by id
     Given path '/admin/jokes', joke.id
