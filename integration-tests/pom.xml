@@ -82,7 +82,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <skipTests>${skipTests}</skipTests>
+                    <includes>
+                        <include>TestReportGenerator.java</include>
+                    </includes>
                 </configuration>
             </plugin>
         </plugins>
