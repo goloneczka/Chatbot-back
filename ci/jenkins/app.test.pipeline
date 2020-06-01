@@ -13,7 +13,7 @@ pipeline {
                 sh 'sleep 5s'
                 dir('integration-tests') {
                     sh 'mvn test -PfullTests'
-                    jacoco()
+                    jacoco exclusionPattern: '**/Test*', inclusionPattern: 'target/*-classes'
                 }
                 dir('database') {
                     sh 'mvn test -PfullTests'
