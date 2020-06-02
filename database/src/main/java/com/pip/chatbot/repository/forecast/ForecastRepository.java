@@ -52,6 +52,11 @@ public class ForecastRepository {
                 .fetchInto(Forecast.class);
     }
 
+    public List<Forecast> getAllForecasts(){
+        return dsl.selectFrom(Tables.FORECAST)
+                .fetchInto(Forecast.class);
+    }
+
     public Optional<Forecast> getForecastsForCityAndDate(String city, LocalDateTime date) {
         Condition dayCondition = (DSL.dayOfYear(Tables.FORECAST.DATE)).eq(date.getDayOfYear());
         Condition yearCondition = DSL.year(Tables.FORECAST.DATE).eq(date.getYear());
