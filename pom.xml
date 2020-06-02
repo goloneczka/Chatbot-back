@@ -29,6 +29,7 @@
         <maven-flyway-plugin.version>6.3.2</maven-flyway-plugin.version>
         <cucumber.version>3.8.0</cucumber.version>
         <jdbc.version>5.2.2.RELEASE</jdbc.version>
+        <jacoco.version>0.8.5</jacoco.version>
     </properties>
 
     <modules>
@@ -131,6 +132,7 @@
                 <version>${cucumber.version}</version>
                 <scope>test</scope>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
