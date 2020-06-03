@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Symbol{
     String symbol;
-    String fullName;
+    String name;
     boolean isCurrency;
 }

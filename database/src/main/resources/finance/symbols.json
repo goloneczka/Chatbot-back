@@ -1,0 +1,12 @@
+[
+  {
+    "symbol":"EURUSD=X",
+    "name": "Euro to USD",
+    "currency": true
+  },
+  {
+    "symbol":"OTGLF",
+    "name": "CD Projekt S.A.",
+    "currency": false
+  }
+]

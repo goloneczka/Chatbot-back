@@ -1,42 +1,66 @@
 package com.pip.chatbot.controller;
 
-import com.pip.chatbot.exception.ChatbotExceptionBuilder;
-import com.pip.chatbot.exception.messages.StockErrorMessages;
 import com.pip.chatbot.model.finance.Stock;
+import com.pip.chatbot.model.finance.StockApi;
 import com.pip.chatbot.service.finance.StockService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @RequestMapping("/stocks")
 public class StockController {
     private final StockService stockService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/{symbol}")
-    public ResponseEntity<Stock> getStockForDay(@PathVariable String symbol, @RequestBody LocalDateTime date) {
+    public ResponseEntity<StockApi> getStockForDay(@PathVariable String symbol, @RequestParam Optional<String> dateParam) {
+        LocalDate date;
+        if (dateParam.isPresent()) {
+            date = LocalDate.parse(dateParam.get(), DateTimeFormatter.ISO_DATE);
+        } else {
+            date = LocalDate.now();
+        }
+
+        StockApi stockApi = modelMapper.map(stockService.getForDay(symbol, date), StockApi.class);
         return ResponseEntity
                 .ok()
-                .body(stockService.getCurrencyForDay(symbol, date));
+                .body(stockApi);
     }
 
     @GetMapping("/period/{symbol}")
-    public ResponseEntity<List<Stock>> getStocksForPeriod(@PathVariable String symbol, @RequestBody LocalDateTime startDay, @RequestBody LocalDateTime endDay) {
+    public ResponseEntity<List<StockApi>> getStocksForPeriod(@PathVariable String symbol, @RequestParam String startDateParam, @RequestParam Optional<String> endDateParam) {
+        LocalDate startDate = LocalDate.parse(startDateParam, DateTimeFormatter.ISO_DATE);
+
+        LocalDate endDate;
+        if (endDateParam.isPresent()) {
+            endDate = LocalDate.parse(endDateParam.get(), DateTimeFormatter.ISO_DATE);
+        } else {
+            endDate = LocalDate.now();
+        }
+
+        List<StockApi> stockApiList = modelMapper.map(stockService.getForPeriod(symbol, startDate, endDate), new TypeToken<List<StockApi>>() {
+        }.getType());
+
         return ResponseEntity
                 .ok()
-                .body(stockService.getCurrenciesForPeriod(symbol, startDay, endDay));
+                .body(stockApiList);
     }
 
     @GetMapping("/prediction/{symbol}")
-    public ResponseEntity<List<Stock>> getPredictedForDays(@PathVariable String symbol, @RequestBody int daysNumber) {
+    public ResponseEntity<List<StockApi>> getPredictedForDays(@PathVariable String symbol) {
+        List<StockApi> stockApiList = modelMapper.map(stockService.getPredictedForDays(symbol), new TypeToken<List<StockApi>>() {
+        }.getType());
+
         return ResponseEntity
                 .ok()
-                .body(stockService.getPredictedForDays(symbol, daysNumber));
+                .body(stockApiList);
     }
 }

@@ -1,5 +1,7 @@
 package com.pip.chatbot.repository.finance;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pip.chatbot.model.finance.Symbol;
 
 import java.util.ArrayList;
@@ -8,8 +10,13 @@ import java.util.List;
 public class SymbolRepository {
     List<Symbol> symbols;
 
-    public SymbolRepository() {
-        symbols = new ArrayList<>();
+    public SymbolRepository(){
+        try{
+            symbols = new ObjectMapper().readValue(getClass().getResourceAsStream("/finance/symbols.json"), new TypeReference<>() {});
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
     public List<Symbol> getAllCurrencies() {
         List<Symbol> resultSymbols = new ArrayList<>();

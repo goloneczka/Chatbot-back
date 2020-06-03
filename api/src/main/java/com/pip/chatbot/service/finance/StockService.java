@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,27 +20,24 @@ public class StockService {
         this.stockRepository = stockRepository;
     }
 
-    @Value("${application.finance.maximumPredictionDays}")
-    private Integer maximumPredictionDays;
+    @Value("${application.finance.predictionDaysNumber}")
+    private Integer predictionDaysNumber;
 
     public Stock get(int id) {
         return stockRepository.get(id)
                 .orElseThrow(() -> new ChatbotExceptionBuilder().addError(StockErrorMessages.NOT_FOUND).build());
     }
 
-    public Stock getCurrencyForDay(String symbol, LocalDateTime date) {
+    public Stock getForDay(String symbol, LocalDate date) {
         return stockRepository.getCurrencyForDay(symbol, date)
                 .orElseThrow(() -> new ChatbotExceptionBuilder().addError(StockErrorMessages.NOT_FOUND).build());
     }
 
-    public List<Stock> getCurrenciesForPeriod(String symbol, LocalDateTime startDay, LocalDateTime endDay) {
+    public List<Stock> getForPeriod(String symbol, LocalDate startDay, LocalDate endDay) {
         return stockRepository.getCurrenciesForPeriod(symbol, startDay, endDay);
     }
 
-    public List<Stock> getPredictedForDays(String symbol, int daysNumber) {
-        if (daysNumber > maximumPredictionDays) {
-            throw new ChatbotExceptionBuilder().addError(StockErrorMessages.DAYS_NUMBER_TOO_HIGH).build();
-        }
-        return stockRepository.getPredictedForDays(symbol, daysNumber);
+    public List<Stock> getPredictedForDays(String symbol) {
+        return stockRepository.getPredictedForDays(symbol, predictionDaysNumber);
     }
 }
