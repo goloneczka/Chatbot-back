@@ -19,6 +19,7 @@ public class CitiesRepositoryTest {
 
     private DSLContext dslContext;
     private CitiesRepository citiesRepository;
+    private ForecastRepository forecastRepository;
     private City city;
 
     @BeforeEach
@@ -28,6 +29,7 @@ public class CitiesRepositoryTest {
         CountriesRepository countriesRepository = new CountriesRepository(dslContext);
         countriesRepository.createCountry(new Country("Country"));
         this.city = new City("City", 1.11F, 2.22F, "Country");
+        this.forecastRepository = new ForecastRepository(dslContext);
 
         this.citiesRepository = new CitiesRepository(dslContext);
     }
@@ -92,6 +94,10 @@ public class CitiesRepositoryTest {
     void createCityReturnsCity() {
         Assertions.assertThat(citiesRepository.createCity(this.city))
                 .isEqualTo(city);
+
+        Assertions.assertThat(citiesRepository.getCity(city.getCity()))
+                .get()
+                .isEqualTo(city);
     }
 
     @Test
@@ -134,7 +140,7 @@ public class CitiesRepositoryTest {
 
         Assertions.assertThat(citiesRepository.getCitiesForCountry("Country"))
                 .isNotEmpty()
-                .contains(new City("City", 1.11F, 2.22F, "Country"));
+                .contains(this.city);
     }
 
     @Test
@@ -156,12 +162,11 @@ public class CitiesRepositoryTest {
     void getCitiesWithForecastReturnsListOfCities() {
         this.addCityToDatabase();
         citiesRepository.createCity(new City("City1",3.33F,4.44F,"Country"));
-        ForecastRepository forecastRepository = new ForecastRepository(dslContext);
         forecastRepository.createForecast(new Forecast(1, LocalDateTime.now(), LocalDateTime.now(), 1, 2, 3, 4, 5, "Summary", "City", "icon"));
 
         Assertions.assertThat(citiesRepository.getCitiesWithForecast())
                 .hasSize(1)
-                .contains(new City("City", 1.11F, 2.22F, "Country"));
+                .contains(this.city);
     }
 
     @Test
@@ -183,7 +188,6 @@ public class CitiesRepositoryTest {
     void getCitiesForCountryWithForecastReturnsListOfCities() {
         this.addCityToDatabase();
         citiesRepository.createCity(new City("City1",3.33F,4.44F,"Country"));
-        ForecastRepository forecastRepository = new ForecastRepository(dslContext);
         forecastRepository.createForecast(new Forecast(1, LocalDateTime.now(), LocalDateTime.now(), 1, 2, 3, 4, 5, "Summary", "City", "icon"));
 
         Assertions.assertThat(citiesRepository.getCitiesForCountryWithForecast("Country"))
