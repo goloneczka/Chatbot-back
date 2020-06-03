@@ -1,8 +1,7 @@
 package com.pip.chatbot.controller;
 
-import com.pip.chatbot.model.finance.Stock;
 import com.pip.chatbot.model.finance.StockApi;
-import com.pip.chatbot.service.finance.StockService;
+import com.pip.chatbot.service.fortune.StockService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;

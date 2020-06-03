@@ -1,4 +1,4 @@
-package com.pip.chatbot.repository.finance;
+package com.pip.chatbot.repository.fortune;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,7 +12,7 @@ public class SymbolRepository {
 
     public SymbolRepository(){
         try{
-            symbols = new ObjectMapper().readValue(getClass().getResourceAsStream("/finance/symbols.json"), new TypeReference<>() {});
+            symbols = new ObjectMapper().readValue(getClass().getResourceAsStream("/fortune/symbols.json"), new TypeReference<>() {});
         }catch (Exception e){
             e.printStackTrace();
         }

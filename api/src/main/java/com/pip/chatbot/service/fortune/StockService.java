@@ -1,15 +1,13 @@
-package com.pip.chatbot.service.finance;
+package com.pip.chatbot.service.fortune;
 
 import com.pip.chatbot.exception.ChatbotExceptionBuilder;
 import com.pip.chatbot.exception.messages.StockErrorMessages;
 import com.pip.chatbot.model.finance.Stock;
-import com.pip.chatbot.repository.finance.StockRepository;
-import lombok.AllArgsConstructor;
+import com.pip.chatbot.repository.fortune.StockRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -19,9 +17,6 @@ public class StockService {
     public StockService(StockRepository stockRepository){
         this.stockRepository = stockRepository;
     }
-
-    @Value("${application.finance.predictionDaysNumber}")
-    private Integer predictionDaysNumber;
 
     public Stock get(int id) {
         return stockRepository.get(id)
@@ -38,6 +33,6 @@ public class StockService {
     }
 
     public List<Stock> getPredictedForDays(String symbol) {
-        return stockRepository.getPredictedForDays(symbol, predictionDaysNumber);
+        return stockRepository.getPredictedForDays(symbol);
     }
 }

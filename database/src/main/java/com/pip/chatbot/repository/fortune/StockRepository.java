@@ -1,7 +1,5 @@
-package com.pip.chatbot.repository.finance;
+package com.pip.chatbot.repository.fortune;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pip.chatbot.model.finance.Stock;
 import com.pip.chatbot.model.finance.Symbol;
 
@@ -51,10 +49,10 @@ public class StockRepository {
         return resultStocks;
     }
 
-    public List<Stock> getPredictedForDays(String symbol, int daysNumber){
+    public List<Stock> getPredictedForDays(String symbol){
         List<Stock> resultStocks = new ArrayList<>();
         for (Stock stock : stocks) {
-            if (stock.getSymbol().getSymbol().equals(symbol) && stock.getDate().isAfter(LocalDate.now()) && stock.getDate().isBefore(LocalDate.now().plusDays(daysNumber)))
+            if (stock.getSymbol().getSymbol().equals(symbol) && stock.getDate().isAfter(LocalDate.now()) && stock.getDate().isBefore(LocalDate.now().plusWeeks(1)))
                 resultStocks.add(stock);
         }
         return resultStocks;

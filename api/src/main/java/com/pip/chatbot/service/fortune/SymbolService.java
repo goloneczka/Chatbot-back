@@ -1,7 +1,7 @@
-package com.pip.chatbot.service.finance;
+package com.pip.chatbot.service.fortune;
 
 import com.pip.chatbot.model.finance.Symbol;
-import com.pip.chatbot.repository.finance.SymbolRepository;
+import com.pip.chatbot.repository.fortune.SymbolRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
