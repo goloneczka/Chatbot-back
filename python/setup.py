@@ -6,6 +6,6 @@ setup(
     description= 'Moduł umożliwiający uczenie się',
     author = '',
     packages=['learning'],
-    install_requires = ['numpy', 'pandas ', 'tensorflow', 'sklearn' 'sklearn'],
+    install_requires = ['numpy', 'pandas ', 'tensorflow', 'sklearn'],
     license='MIT'
 )
