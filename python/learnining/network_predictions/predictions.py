@@ -19,7 +19,7 @@ def split_sequnces(seq, n_steps, n_steps_out):
         y.append(seq_y)
     return np.array(X),np.array(y)
 
-def learning(stock_name, from_date, to_date, n_predict_days):
+def learning(stock_name, from_date, to_date):
     df = web.DataReader(stock_name, data_source='yahoo', start=from_date, end=to_date)
     data = df.filter(['Close'])
     scaler = MinMaxScaler()
@@ -34,9 +34,9 @@ def learning(stock_name, from_date, to_date, n_predict_days):
 
     model.add(LSTM(50, return_sequences=False))
     model.add(LSTM(30,activation="softsign", return_sequences=True))
-    model.add(LSTM(10,activation="softsign", return_sequences=True))
-    model.add(LSTM(10,activation="softsign", return_sequences=True))
-    model.add(LSTM(10,activation="softsign", return_sequences=True))
+    model.add(LSTM(20,activation="softsign", return_sequences=True))
+    model.add(LSTM(15,activation="softsign", return_sequences=True))
+    model.add(LSTM(20,activation="softsign", return_sequences=True))
     model.add(LSTM(50, activation="softsign"))
     model.add(Dense(n_per_out))
     model.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
