@@ -10,7 +10,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 import java.time.LocalDateTime;
 
 import static com.pip.chatbot.jooq.weather.tables.City.CITY;
@@ -20,26 +19,27 @@ public class CitiesRepositoryTest {
 
     private DSLContext dslContext;
     private CitiesRepository citiesRepository;
+    private City city;
 
     @BeforeEach
-    void init(){
+    void init() {
         DslContextFactory dslContextFactory = new DslContextFactory();
         this.dslContext = dslContextFactory.getDslContext();
         CountriesRepository countriesRepository = new CountriesRepository(dslContext);
         countriesRepository.createCountry(new Country("Country"));
+        this.city = new City("City", 1.11F, 2.22F, "Country");
 
         this.citiesRepository = new CitiesRepository(dslContext);
     }
 
     @AfterEach
-    void clearDatabase(){
+    void clearDatabase() {
         dslContext.truncateTable(CITY).cascade().execute();
         dslContext.truncateTable(COUNTRY).cascade().execute();
     }
 
-    void addCityToDatabase(){
-
-        this.citiesRepository.createCity(new City("City",1.11F,2.22F,"Country"));
+    void addCityToDatabase() {
+        this.citiesRepository.createCity(this.city);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class CitiesRepositoryTest {
 
         Assertions.assertThat(citiesRepository.getCity("City"))
                 .get()
-                .isEqualTo(new City("City",1.11F,2.22F,"Country"));
+                .isEqualTo(this.city);
     }
 
     @Test
@@ -76,8 +76,10 @@ public class CitiesRepositoryTest {
         this.addCityToDatabase();
 
         Assertions.assertThat(citiesRepository.getAllCities())
-                .isNotEmpty()
-                .contains(new City("City",1.11F,2.22F,"Country"));
+                .isNotEmpty().contains(this.city);
+
+        Assertions.assertThat(citiesRepository.getCity(this.city.getCity()))
+                .get().isEqualTo(this.city);
     }
 
     @Test
@@ -88,25 +90,25 @@ public class CitiesRepositoryTest {
 
     @Test
     void createCityReturnsCity() {
-        City city = new City("City",1.11F,2.22F,"Country");
-
-        Assertions.assertThat(citiesRepository.createCity(city))
+        Assertions.assertThat(citiesRepository.createCity(this.city))
                 .isEqualTo(city);
     }
 
     @Test
     void updateCityReturnsCity() {
         this.addCityToDatabase();
-        City updatedCity = new City("CityUpdated",1.11F,2.22F,"Country");
+        City updatedCity = new City("CityUpdated", 1.11F, 2.22F, "Country");
 
         Assertions.assertThat(citiesRepository.updateCity("City", updatedCity))
-                .get()
-                .isEqualTo(updatedCity);
+                .get().isEqualTo(updatedCity);
+
+        Assertions.assertThat(citiesRepository.getCity(updatedCity.getCity()))
+                .get().isEqualTo(updatedCity);
     }
 
     @Test
     void updateCityGivenNonExistingCityReturnsEmpty() {
-        City updatedCity = new City("CityUpdated",1.11F,2.22F,"Country");
+        City updatedCity = new City("CityUpdated", 1.11F, 2.22F, "Country");
 
         Assertions.assertThat(citiesRepository.updateCity("City", updatedCity))
                 .isEmpty();
@@ -127,22 +129,22 @@ public class CitiesRepositoryTest {
     }
 
     @Test
-    void getCitiesForCountryReturnsListCities() {
+    void getCitiesForCountryReturnsListOfCities() {
         this.addCityToDatabase();
 
         Assertions.assertThat(citiesRepository.getCitiesForCountry("Country"))
                 .isNotEmpty()
-                .contains(new City("City",1.11F,2.22F,"Country"));
+                .contains(new City("City", 1.11F, 2.22F, "Country"));
     }
 
     @Test
-    void getCitiesForCountryReturnsEmptyList() {
+    void getCitiesForCountryReturnsEmptyListOfCities() {
         Assertions.assertThat(citiesRepository.getCitiesForCountry("Country"))
                 .isEmpty();
     }
 
     @Test
-    void getCitiesForCountryGivenNonExistingCountryReturnsEmpty() {
+    void getCitiesForCountryGivenNonExistingCountryReturnsEmptyListOfCities() {
         this.addCityToDatabase();
 
         Assertions.assertThat(citiesRepository.getCitiesForCountry("Country1"))
@@ -151,18 +153,19 @@ public class CitiesRepositoryTest {
 
 
     @Test
-    void getCitiesWithForecastReturnsListCities() {
+    void getCitiesWithForecastReturnsListOfCities() {
         this.addCityToDatabase();
+        citiesRepository.createCity(new City("City1",3.33F,4.44F,"Country"));
         ForecastRepository forecastRepository = new ForecastRepository(dslContext);
-        forecastRepository.createForecast(new Forecast(1, LocalDateTime.now(),LocalDateTime.now(),1,2,3,4,5,"Summary","City","icon"));
+        forecastRepository.createForecast(new Forecast(1, LocalDateTime.now(), LocalDateTime.now(), 1, 2, 3, 4, 5, "Summary", "City", "icon"));
 
         Assertions.assertThat(citiesRepository.getCitiesWithForecast())
-                .isNotEmpty()
-                .contains(new City("City",1.11F,2.22F,"Country"));
+                .hasSize(1)
+                .contains(new City("City", 1.11F, 2.22F, "Country"));
     }
 
     @Test
-    void getCitiesWithForecastWithNonGivenForecastReturnsEmptyList() {
+    void getCitiesWithForecastWithNonGivenForecastReturnsEmptyListOfCities() {
         this.addCityToDatabase();
 
         Assertions.assertThat(citiesRepository.getCitiesWithForecast())
@@ -171,24 +174,25 @@ public class CitiesRepositoryTest {
 
 
     @Test
-    void getCitiesWithForecastWithEmptyCityTableReturnsEmpty() {
+    void getCitiesWithForecastWithEmptyCityTableReturnsEmptyListOfCities() {
         Assertions.assertThat(citiesRepository.getCitiesWithForecast())
                 .isEmpty();
     }
 
     @Test
-    void getCitiesForCountryWithForecastReturnsListCities() {
+    void getCitiesForCountryWithForecastReturnsListOfCities() {
         this.addCityToDatabase();
+        citiesRepository.createCity(new City("City1",3.33F,4.44F,"Country"));
         ForecastRepository forecastRepository = new ForecastRepository(dslContext);
-        forecastRepository.createForecast(new Forecast(1, LocalDateTime.now(),LocalDateTime.now(),1,2,3,4,5,"Summary","City","icon"));
+        forecastRepository.createForecast(new Forecast(1, LocalDateTime.now(), LocalDateTime.now(), 1, 2, 3, 4, 5, "Summary", "City", "icon"));
 
         Assertions.assertThat(citiesRepository.getCitiesForCountryWithForecast("Country"))
-                .isNotEmpty()
-                .contains(new City("City",1.11F,2.22F,"Country"));
+                .hasSize(1)
+                .contains(new City("City", 1.11F, 2.22F, "Country"));
     }
 
     @Test
-    void getCitiesForCountryWithForecastWithNoForecastForCountryTableReturnsEmpty() {
+    void getCitiesForCountryWithForecastWithNoForecastForCountryTableReturnsEmptyListOfCities() {
         this.addCityToDatabase();
 
         Assertions.assertThat(citiesRepository.getCitiesForCountryWithForecast("Country"))
@@ -196,13 +200,12 @@ public class CitiesRepositoryTest {
     }
 
     @Test
-    void getCitiesForCountryWithForecastGivenNonExistingCountryReturnsEmpty() {
+    void getCitiesForCountryWithForecastGivenNonExistingCountryReturnsEmptyListOfCities() {
         this.addCityToDatabase();
 
         Assertions.assertThat(citiesRepository.getCitiesForCountryWithForecast("Country1"))
                 .isEmpty();
     }
-
 
 
 }

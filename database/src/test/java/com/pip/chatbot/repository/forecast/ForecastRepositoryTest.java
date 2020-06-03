@@ -29,6 +29,7 @@ public class ForecastRepositoryTest {
         countriesRepository.createCountry(new Country("Country"));
         CitiesRepository citiesRepository = new CitiesRepository(dslContext);
         citiesRepository.createCity(new City("City", 1F, 1F, "Country"));
+        citiesRepository.createCity(new City("City2",3F,4F,"Country"));
 
         this.forecastRepository = new ForecastRepository(dslContext);
     }
@@ -45,22 +46,26 @@ public class ForecastRepositoryTest {
     }
 
     @Test
-    void getForecastForCityReturnsListForecast() {
+    void getForecastForCityReturnsListOfForecasts() {
         this.addForecastToDatabase();
+        forecastRepository.createForecast(new Forecast(1, forecastRepository.getAllForecasts().get(0).getCreatedOn(),forecastRepository.getAllForecasts().get(0).getDate(), 1, 2, 3, 4, 5, "Summary", "City2", "icon"));
 
         Assertions.assertThat(forecastRepository.getForecastsForCity("City"))
+                .hasSize(1)
                 .contains(new Forecast(forecastRepository.getAllForecasts().get(0).getId() , forecastRepository.getAllForecasts().get(0).getCreatedOn(),forecastRepository.getAllForecasts().get(0).getDate(), 1, 2, 3, 4, 5, "Summary", "City", "icon"));
     }
 
     @Test
-    void getForecastForCityWithNoForecastsReturnsEmpty() {
-        Assertions.assertThat(forecastRepository.getForecastsForCity("City"))
+    void getForecastForCityWithNoForecastsReturnsEmptyListOfForecasts() {
+        this.addForecastToDatabase();
+
+        Assertions.assertThat(forecastRepository.getForecastsForCity("NonExistingCity"))
                 .isEmpty();
     }
 
     @Test
-    void getForecastForCityGivenNonExistingCityReturnsEmpty() {
-        Assertions.assertThat(forecastRepository.getForecastsForCity("City1"))
+    void getForecastForCityGivenNonExistingCityReturnsEmptyListOfForecasts() {
+        Assertions.assertThat(forecastRepository.getForecastsForCity("NonExistingCity"))
                 .isEmpty();
     }
 
@@ -68,6 +73,8 @@ public class ForecastRepositoryTest {
     @Test
     void getForecastForCityAndDateReturnsForecast() {
         this.addForecastToDatabase();
+        forecastRepository.createForecast(new Forecast(1, LocalDateTime.of(2000,12,31,5,6), LocalDateTime.of(2000,12,31,5,6) , 1, 2, 3, 4, 5, "Summary", "City2", "icon"));
+        forecastRepository.createForecast(new Forecast(1, LocalDateTime.of(2000,12,30,5,6), LocalDateTime.of(2000,12,30,5,6) , 1, 2, 3, 4, 5, "Summary", "City", "icon"));
 
         Assertions.assertThat(forecastRepository.getForecastsForCityAndDate("City", LocalDateTime.of(2000,12,31,5,6)))
                 .get()
@@ -76,12 +83,14 @@ public class ForecastRepositoryTest {
 
     @Test
     void getForecastForCityAndDateGivenNonExistingCityReturnsEmpty() {
-        Assertions.assertThat(forecastRepository.getForecastsForCityAndDate("City1", LocalDateTime.of(2000,12,31,5,6)))
+        this.addForecastToDatabase();
+
+        Assertions.assertThat(forecastRepository.getForecastsForCityAndDate("NonExistingCity", LocalDateTime.of(2000,12,31,5,6)))
                 .isEmpty();
     }
 
     @Test
-    void getForecastForCityAndDateGivenNonWrongDataReturnsEmpty() {
+    void getForecastForCityAndDateGivenExistingCityAndNonExistingDateRangeReturnsEmpty() {
         Assertions.assertThat(forecastRepository.getForecastsForCityAndDate("City", LocalDateTime.now().minusDays(8)))
                 .isEmpty();
     }

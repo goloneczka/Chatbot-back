@@ -36,6 +36,9 @@ public class CountriesRepositoryTest {
 
         Assertions.assertThat(countriesRepository.createCountry(country))
                 .isEqualTo(country);
+
+        Assertions.assertThat(countriesRepository.getCountriesList())
+                .contains(country);
     }
 
     @Test
@@ -45,6 +48,9 @@ public class CountriesRepositoryTest {
         Assertions.assertThat(countriesRepository.updateCountry("Country", new Country("CountryUpdated")))
                 .get()
                 .isEqualTo(new Country("CountryUpdated"));
+
+        Assertions.assertThat(countriesRepository.getCountriesList())
+                .contains(new Country("CountryUpdated"));
     }
 
     @Test
