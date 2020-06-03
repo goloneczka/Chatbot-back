@@ -1,5 +1,7 @@
 package com.pip.chatbot;
 
+import com.pip.chatbot.repository.fortune.StockRepository;
+import com.pip.chatbot.repository.fortune.SymbolRepository;
 import com.pip.chatbot.repository.food.FoodRepository;
 import com.pip.chatbot.repository.forecast.CitiesRepository;
 import com.pip.chatbot.repository.forecast.CountriesRepository;
@@ -54,6 +56,16 @@ public class ApplicationConfiguration {
     @Bean
     public JokesRepository jokesRepository(DSLContext dsl) {
         return new JokesRepository(dsl);
+    }
+
+    @Bean
+    StockRepository stockRepository(){
+        return new StockRepository();
+    }
+
+    @Bean
+    SymbolRepository symbolRepository(){
+        return new SymbolRepository();
     }
 
     @Bean
