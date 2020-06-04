@@ -64,8 +64,8 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    SymbolRepository symbolRepository(){
-        return new SymbolRepository();
+    SymbolRepository symbolRepository(DSLContext dsl){
+        return new SymbolRepository(dsl);
     }
 
     @Bean

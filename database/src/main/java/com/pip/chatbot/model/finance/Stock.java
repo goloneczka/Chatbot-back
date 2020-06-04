@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Stock {
-    private Integer id;
-    private Symbol symbol;
+    private Long id;
+    private String symbol;
     private float value;
-    private LocalDate date;
+    private LocalDateTime date;
     private boolean isHistorical;
 }
