@@ -59,8 +59,8 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    StockRepository stockRepository(){
-        return new StockRepository();
+    StockRepository stockRepository(DSLContext dsl){
+        return new StockRepository(dsl);
     }
 
     @Bean

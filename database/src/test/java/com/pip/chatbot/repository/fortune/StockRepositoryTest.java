@@ -10,8 +10,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class StockRepositoryTest {
 
@@ -19,19 +19,17 @@ public class StockRepositoryTest {
     private StockRepository stockRepository;
     private Stock stock;
     private Symbol symbol;
-    private DateTimeFormatter formatter;
 
     @BeforeEach
     void init() {
         DslContextFactory dslContextFactory = new DslContextFactory();
         this.dslContext = dslContextFactory.getDslContext();
-        this.symbol = new Symbol("Symbol1", "name1", true);
+        this.symbol = new Symbol("Symbol1", "name1", false);
         Symbol symbol1 = new Symbol("Symbol2", "name2", false);
         SymbolRepository symbolRepository = new SymbolRepository(dslContext);
         symbolRepository.createSymbol(symbol);
         symbolRepository.createSymbol(symbol1);
-        this.formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.stock = new Stock(1L, "Symbol1", 1.1078F, LocalDateTime.parse("2020-05-20 00:00", formatter), true);
+        this.stock = new Stock(1L, "Symbol1", 1.1078F, LocalDate.of(2020,5,20).atStartOfDay(), true);
 
         this.stockRepository = new StockRepository(dslContext);
     }
@@ -44,9 +42,10 @@ public class StockRepositoryTest {
 
     void addStockToDatabase() {
         this.stockRepository.createStock(stock);
-        stockRepository.createStock(new Stock(2L, "Symbol1", 1.1078F, LocalDateTime.parse("2020-05-25 00:00", formatter), true));
-        stockRepository.createStock(new Stock(3L, "Symbol1", 1.1078F, LocalDateTime.parse("2020-05-30 00:00", formatter), true));
-        stockRepository.createStock(new Stock(4L, "Symbol2", 1.1078F, LocalDateTime.parse("2020-06-10 00:00", formatter), true));
+        stockRepository.createStock(new Stock(2L, "Symbol1", 1.1078F, LocalDate.of(2020,5,25).atStartOfDay(), true));
+        stockRepository.createStock(new Stock(3L, "Symbol1", 1.1078F, LocalDate.of(2020,5,30).atStartOfDay(), true));
+        stockRepository.createStock(new Stock(4L, "Symbol2", 1.1078F, LocalDate.of(2020,6,4).atStartOfDay(), true));
+        stockRepository.createStock(new Stock(5L, "Symbol1", 1.1078F, LocalDate.of(2020,6,10).atStartOfDay(), true));
     }
 
     @Test
@@ -95,7 +94,7 @@ public class StockRepositoryTest {
     void getCurrencyForDayGivenWrongDateReturnsEmpty() {
         this.addStockToDatabase();
 
-        Assertions.assertThat(stockRepository.getCurrencyForDay("NonExistingSymbol", LocalDateTime.parse("2010-05-30 00:00", formatter)))
+        Assertions.assertThat(stockRepository.getCurrencyForDay("NonExistingSymbol", LocalDate.of(2010,5,20).atStartOfDay()))
                 .isEmpty();
     }
 

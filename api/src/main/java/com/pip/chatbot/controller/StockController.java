@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -19,27 +20,22 @@ import java.util.Optional;
 public class StockController {
     private final StockService stockService;
     private final ModelMapper modelMapper;
-    private final DateTimeFormatter dateTimeFormatter;
 
     @GetMapping("/{symbol}")
-    public ResponseEntity<StockApi> getStockForDay(@PathVariable String symbol, @RequestParam Optional<String> dateParam) {
-        StockApi stockApi = modelMapper.map(stockService.getForDay(symbol,
-                dateParam.map(s -> LocalDateTime.parse(s, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
-                        .orElseGet(LocalDateTime::now)), StockApi.class);
-
+    public ResponseEntity<Stock> getStockForDay(@PathVariable String symbol, @RequestParam Optional<String> dateParam) {
         return ResponseEntity
                 .ok()
-                .body(stockApi);
+                .body(modelMapper.map(stockService.getForDay(symbol,
+                        dateParam.map(s -> LocalDate.parse(s).atStartOfDay())
+                                .orElseGet(LocalDateTime::now)), Stock.class));
     }
 
     @GetMapping("/period/{symbol}")
     public ResponseEntity<List<Stock>> getStocksForPeriod(@PathVariable String symbol, @RequestParam String startDateParam, @RequestParam Optional<String> endDateParam) {
-        LocalDateTime startDate = LocalDateTime.parse(startDateParam, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-
         return ResponseEntity
                 .ok()
-                .body(stockService.getForPeriod(symbol, startDate,  endDateParam.map(s ->
-                        LocalDateTime.parse(s, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                .body(stockService.getForPeriod(symbol, LocalDate.parse(startDateParam).atStartOfDay(),  endDateParam.map(s ->
+                        LocalDate.parse(s).atStartOfDay())
                         .orElseGet(LocalDateTime::now)));
     }
 
