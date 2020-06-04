@@ -5,6 +5,7 @@ import com.pip.chatbot.model.forecast.Country;
 import org.jooq.DSLContext;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CountriesRepository {
     private final DSLContext dsl;
@@ -21,13 +22,13 @@ public class CountriesRepository {
                 .into(Country.class);
     }
 
-    public Country updateCountry(String countryId, Country country) {
+    public Optional<Country> updateCountry(String countryId, Country country) {
         return dsl.update(Tables.COUNTRY)
                 .set(Tables.COUNTRY.COUNTRY_, country.getCountry())
                 .where(Tables.COUNTRY.COUNTRY_.eq(countryId))
                 .returning()
-                .fetchOne()
-                .into(Country.class);
+                .fetchOptional()
+                .map(countryRecord -> countryRecord.into(Country.class));
     }
 
     public boolean doesCountryExist(String country) {

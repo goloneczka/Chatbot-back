@@ -1,5 +1,6 @@
 package com.pip.chatbot.service.forecast;
 
+import com.pip.chatbot.exception.ChatbotException;
 import com.pip.chatbot.exception.ChatbotExceptionBuilder;
 import com.pip.chatbot.exception.messages.CountriesErrorMessages;
 import com.pip.chatbot.model.forecast.Country;
@@ -12,7 +13,7 @@ import java.util.List;
 public class CountriesService {
 
     private final CountriesRepository countriesRepository;
-    
+
     public CountriesService(CountriesRepository countriesRepository) {
         this.countriesRepository = countriesRepository;
     }
@@ -26,7 +27,8 @@ public class CountriesService {
     }
 
     public Country updateCountry(String countryId,Country country) {
-        return countriesRepository.updateCountry(countryId, country);
+        return countriesRepository.updateCountry(countryId, country)
+                .orElseThrow(() -> new ChatbotExceptionBuilder().addError(CountriesErrorMessages.NOT_FOUND).build());
     }
 
     public void deleteCountry(String country) {

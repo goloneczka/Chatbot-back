@@ -40,7 +40,7 @@ public class CitiesRepository {
                 .into(City.class);
     }
 
-    public City updateCity(String cityId, City city) {
+    public Optional<City> updateCity(String cityId, City city) {
         return dsl.update(Tables.CITY)
                 .set(Tables.CITY.CITY_, city.getCity())
                 .set(Tables.CITY.COUNTRY, city.getCountry())
@@ -48,8 +48,8 @@ public class CitiesRepository {
                 .set(Tables.CITY.LONGITUDE, city.getLongitude())
                 .where(Tables.CITY.CITY_.eq(cityId))
                 .returning()
-                .fetchOne()
-                .into(City.class);
+                .fetchOptional()
+                .map(cityRecord -> cityRecord.into(City.class));
     }
 
     public boolean deleteCity(String city) {

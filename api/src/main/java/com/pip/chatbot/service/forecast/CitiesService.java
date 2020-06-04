@@ -35,7 +35,8 @@ public class CitiesService {
     }
 
     public City updateCity(String cityId, City city) {
-        return citiesRepository.updateCity(cityId, city);
+        return citiesRepository.updateCity(cityId, city)
+                .orElseThrow(() -> new ChatbotExceptionBuilder().addError(CitiesErrorMessages.NOT_FOUND).build());
     }
 
     public void deleteCity(String city) {
