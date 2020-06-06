@@ -28,19 +28,15 @@ def learning(stock_name, from_date, to_date):
     n_per_out = 10
     n_features = 1
     X, y = split_sequnces(list(df.Close), n_per_in, n_per_out)
-    X = X.reshape(X.shape[0], X.shape[1], 1)
+    X = X.reshape(X.shape[0], X.shape[1], n_features)
     model = Sequential()
     model.add(LSTM(50,activation="softsign", return_sequences=True, input_shape=(n_per_in, n_features)))
-
-    model.add(LSTM(50, return_sequences=False))
     model.add(LSTM(30,activation="softsign", return_sequences=True))
-    model.add(LSTM(20,activation="softsign", return_sequences=True))
-    model.add(LSTM(15,activation="softsign", return_sequences=True))
-    model.add(LSTM(20,activation="softsign", return_sequences=True))
+    model.add(LSTM(10,activation="softsign", return_sequences=True))
+    model.add(LSTM(10,activation="softsign", return_sequences=True))
+    model.add(LSTM(10,activation="softsign", return_sequences=True))
     model.add(LSTM(50, activation="softsign"))
     model.add(Dense(n_per_out))
-    model.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
-    res = model.fit(X,y, epochs=100, batch_size=32, validation_split=0.1)
     yhat = model.predict(np.array(df.tail(n_per_in)).reshape(1, n_per_in, n_features)).tolist()[0]
     yhat = scaler.inverse_transform(np.array(yhat).reshape(-1,1)).tolist()
     return pd.DataFrame(yhat, index=pd.date_range(start=df.index[-1], periods=len(yhat),freq="D"), columns=df.columns)
