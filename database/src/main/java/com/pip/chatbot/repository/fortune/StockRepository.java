@@ -1,10 +1,10 @@
 package com.pip.chatbot.repository.fortune;
 
-import com.pip.chatbot.model.finance.Stock;
+import com.pip.chatbot.model.fortune.Stock;
 import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,24 +33,27 @@ public class StockRepository {
                 .into(Stock.class);
     }
 
-    public Optional<Stock> getCurrencyForDay(String symbol, LocalDateTime date) {
+    public Optional<Stock> getCurrencyForDay(String symbol, LocalDate date) {
         return dsl.selectFrom(STOCK)
                 .where(STOCK.SYMBOL.eq(symbol))
                 .and(STOCK.DATE.eq(date))
+                .and(STOCK.IS_HISTORICAL.eq(true))
                 .fetchOptionalInto(Stock.class);
     }
 
-    public List<Stock> getCurrenciesForPeriod(String symbol, LocalDateTime startDay, LocalDateTime endDay) {
+    public List<Stock> getCurrenciesForPeriod(String symbol, LocalDate startDay, LocalDate endDay) {
                 return dsl.selectFrom(STOCK)
                         .where(STOCK.SYMBOL.eq(symbol))
                         .and(STOCK.DATE.between(startDay, endDay))
+                        .and(STOCK.IS_HISTORICAL.eq(true))
                         .fetchInto(Stock.class);
     }
 
     public List<Stock> getPredictedForDays(String symbol) {
                 return dsl.selectFrom(STOCK)
                         .where(STOCK.SYMBOL.eq(symbol))
-                        .and(STOCK.DATE.between(LocalDateTime.now(), LocalDateTime.now().plusDays(7)))
+                        .and(STOCK.DATE.greaterThan(LocalDate.now()))
+                        .and(STOCK.IS_HISTORICAL.eq(false))
                         .fetchInto(Stock.class);
     }
 }

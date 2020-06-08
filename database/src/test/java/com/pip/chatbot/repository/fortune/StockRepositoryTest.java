@@ -1,8 +1,8 @@
 package com.pip.chatbot.repository.fortune;
 
 import com.pip.chatbot.jooq.fortune.Tables;
-import com.pip.chatbot.model.finance.Stock;
-import com.pip.chatbot.model.finance.Symbol;
+import com.pip.chatbot.model.fortune.Stock;
+import com.pip.chatbot.model.fortune.Symbol;
 import com.pip.chatbot.repository.DslContextFactory;
 import org.assertj.core.api.Assertions;
 import org.jooq.DSLContext;
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class StockRepositoryTest {
 
@@ -29,7 +28,7 @@ public class StockRepositoryTest {
         SymbolRepository symbolRepository = new SymbolRepository(dslContext);
         symbolRepository.createSymbol(symbol);
         symbolRepository.createSymbol(symbol1);
-        this.stock = new Stock(1L, "Symbol1", 1.1078F, LocalDate.of(2020,5,20).atStartOfDay(), true);
+        this.stock = new Stock(1L, "Symbol1", 1.1078F, LocalDate.of(2020,5,20), true);
 
         this.stockRepository = new StockRepository(dslContext);
     }
@@ -42,10 +41,10 @@ public class StockRepositoryTest {
 
     void addStockToDatabase() {
         this.stockRepository.createStock(stock);
-        stockRepository.createStock(new Stock(2L, "Symbol1", 1.1078F, LocalDate.of(2020,5,25).atStartOfDay(), true));
-        stockRepository.createStock(new Stock(3L, "Symbol1", 1.1078F, LocalDate.of(2020,5,30).atStartOfDay(), true));
-        stockRepository.createStock(new Stock(4L, "Symbol2", 1.1078F, LocalDate.of(2020,6,4).atStartOfDay(), true));
-        stockRepository.createStock(new Stock(5L, "Symbol1", 1.1078F, LocalDate.of(2020,6,10).atStartOfDay(), true));
+        stockRepository.createStock(new Stock(2L, "Symbol1", 1.1078F, LocalDate.of(2020,5,25), true));
+        stockRepository.createStock(new Stock(3L, "Symbol1", 1.1078F, LocalDate.of(2020,5,30), true));
+        stockRepository.createStock(new Stock(4L, "Symbol2", 1.1078F, LocalDate.of(2020,6,4), true));
+        stockRepository.createStock(new Stock(5L, "Symbol1", 1.1078F, LocalDate.of(2020,6,10), false));
     }
 
     @Test
@@ -94,7 +93,7 @@ public class StockRepositoryTest {
     void getCurrencyForDayGivenWrongDateReturnsEmpty() {
         this.addStockToDatabase();
 
-        Assertions.assertThat(stockRepository.getCurrencyForDay("NonExistingSymbol", LocalDate.of(2010,5,20).atStartOfDay()))
+        Assertions.assertThat(stockRepository.getCurrencyForDay("NonExistingSymbol", LocalDate.of(2010,5,20)))
                 .isEmpty();
     }
 
@@ -125,7 +124,7 @@ public class StockRepositoryTest {
 
     @Test
     void getPredictedForDaysReturnsListOfStocks() {
-        stockRepository.createStock(new Stock(4L, "Symbol1", 1.1078F, LocalDateTime.now().plusDays(1),true));
+        stockRepository.createStock(new Stock(4L, "Symbol1", 1.1078F, LocalDate.now().plusDays(1),false));
 
         Assertions.assertThat(stockRepository.getPredictedForDays(symbol.getSymbol()))
                 .hasSize(1);

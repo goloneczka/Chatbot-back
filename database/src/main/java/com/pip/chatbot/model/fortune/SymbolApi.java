@@ -1,4 +1,4 @@
-package com.pip.chatbot.model.finance;
+package com.pip.chatbot.model.fortune;
 
 public class SymbolApi {
     String symbol;

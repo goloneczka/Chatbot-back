@@ -1,9 +1,8 @@
 package com.pip.chatbot.service.fortune;
 
-import com.pip.chatbot.exception.ChatbotException;
 import com.pip.chatbot.exception.ChatbotExceptionBuilder;
 import com.pip.chatbot.exception.messages.CitiesErrorMessages;
-import com.pip.chatbot.model.finance.Symbol;
+import com.pip.chatbot.model.fortune.Symbol;
 import com.pip.chatbot.repository.fortune.SymbolRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

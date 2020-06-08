@@ -1,7 +1,7 @@
 package com.pip.chatbot.repository.fortune;
 
 import com.pip.chatbot.jooq.fortune.Tables;
-import com.pip.chatbot.model.finance.Symbol;
+import com.pip.chatbot.model.fortune.Symbol;
 import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
 

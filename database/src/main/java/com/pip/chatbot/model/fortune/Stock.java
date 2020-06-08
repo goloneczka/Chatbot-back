@@ -1,4 +1,4 @@
-package com.pip.chatbot.model.finance;
+package com.pip.chatbot.model.fortune;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +14,6 @@ public class Stock {
     private Long id;
     private String symbol;
     private float value;
-    private LocalDateTime date;
+    private LocalDate date;
     private boolean isHistorical;
 }
