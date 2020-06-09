@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +24,7 @@ public class StockController {
         return ResponseEntity
                 .ok()
                 .body(modelMapper.map(stockService.getForDay(symbol,
-                        dateParam.map(LocalDate::parse)
+                        dateParam.map(date -> LocalDate.parse(date, DateTimeFormatter.ISO_DATE))
                                 .orElseGet(LocalDate::now)), Stock.class));
     }
 
@@ -32,8 +32,9 @@ public class StockController {
     public ResponseEntity<List<Stock>> getStocksForPeriod(@PathVariable String symbol, @RequestParam String startDateParam, @RequestParam Optional<String> endDateParam) {
         return ResponseEntity
                 .ok()
-                .body(stockService.getForPeriod(symbol, LocalDate.parse(startDateParam), endDateParam.map(LocalDate::parse)
-                        .orElseGet(LocalDate::now)));
+                .body(stockService.getForPeriod(symbol, LocalDate.parse(startDateParam, DateTimeFormatter.ISO_DATE),
+                        endDateParam.map(date -> LocalDate.parse(date, DateTimeFormatter.ISO_DATE))
+                                .orElseGet(LocalDate::now)));
     }
 
     @GetMapping("/prediction/{symbol}")

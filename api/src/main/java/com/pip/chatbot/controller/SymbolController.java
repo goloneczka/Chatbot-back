@@ -17,18 +17,18 @@ public class SymbolController {
 
 
     @PostMapping
-    public ResponseEntity<Symbol> createSymbol(@RequestBody Symbol symbol){
+    public ResponseEntity<Symbol> createSymbol(@RequestBody Symbol symbol) {
         return ResponseEntity.ok().body(symbolService.createSymbol(symbol));
     }
 
 
     @PutMapping
-    public ResponseEntity<Symbol> updateSymbol(@RequestBody Symbol symbol){
+    public ResponseEntity<Symbol> updateSymbol(@RequestBody Symbol symbol) {
         return ResponseEntity.ok().body(symbolService.updateSymbol(symbol));
     }
 
     @DeleteMapping
-    public ResponseEntity<?> deleteSymbol(@RequestBody String id){
+    public ResponseEntity<?> deleteSymbol(@RequestBody String id) {
         symbolService.deleteSymbol(id);
         return Response.SUCCESS;
     }
