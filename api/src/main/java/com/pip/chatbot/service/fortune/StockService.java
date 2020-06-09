@@ -2,9 +2,8 @@ package com.pip.chatbot.service.fortune;
 
 import com.pip.chatbot.exception.ChatbotExceptionBuilder;
 import com.pip.chatbot.exception.messages.StockErrorMessages;
-import com.pip.chatbot.model.finance.Stock;
+import com.pip.chatbot.model.fortune.Stock;
 import com.pip.chatbot.repository.fortune.StockRepository;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,7 +17,7 @@ public class StockService {
         this.stockRepository = stockRepository;
     }
 
-    public Stock get(int id) {
+    public Stock get(Long id) {
         return stockRepository.get(id)
                 .orElseThrow(() -> new ChatbotExceptionBuilder().addError(StockErrorMessages.NOT_FOUND).build());
     }

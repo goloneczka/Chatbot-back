@@ -8,7 +8,7 @@ import com.pip.chatbot.jooq.fortune.Fortune;
 import com.pip.chatbot.jooq.fortune.Keys;
 import com.pip.chatbot.jooq.fortune.tables.records.StockRecord;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Stock extends TableImpl<StockRecord> {
 
-    private static final long serialVersionUID = 1743128644;
+    private static final long serialVersionUID = -706789718;
 
     /**
      * The reference instance of <code>fortune.stock</code>
@@ -66,7 +66,7 @@ public class Stock extends TableImpl<StockRecord> {
     /**
      * The column <code>fortune.stock.date</code>.
      */
-    public final TableField<StockRecord, LocalDateTime> DATE = createField(DSL.name("date"), org.jooq.impl.SQLDataType.LOCALDATETIME.nullable(false), this, "");
+    public final TableField<StockRecord, LocalDate> DATE = createField(DSL.name("date"), org.jooq.impl.SQLDataType.LOCALDATE.nullable(false), this, "");
 
     /**
      * The column <code>fortune.stock.is_historical</code>.
@@ -166,7 +166,7 @@ public class Stock extends TableImpl<StockRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<Long, String, Float, LocalDateTime, Boolean> fieldsRow() {
+    public Row5<Long, String, Float, LocalDate, Boolean> fieldsRow() {
         return (Row5) super.fieldsRow();
     }
 }

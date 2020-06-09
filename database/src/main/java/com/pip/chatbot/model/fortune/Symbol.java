@@ -1,4 +1,4 @@
-package com.pip.chatbot.model.finance;
+package com.pip.chatbot.model.fortune;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

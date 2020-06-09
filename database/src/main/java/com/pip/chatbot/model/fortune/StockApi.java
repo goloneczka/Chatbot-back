@@ -1,7 +1,6 @@
-package com.pip.chatbot.model.finance;
+package com.pip.chatbot.model.fortune;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class StockApi {
     private Integer id;
