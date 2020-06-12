@@ -31,7 +31,7 @@ def populate_db():
         for symbol in symbols:
             logging.info(f"Using symbol: {symbol}")
 
-            stocks = web.DataReader(symbol[0], data_source='yahoo', start="2020-06-12", end="2020-06-12")
+            stocks = web.DataReader(symbol[0], data_source='yahoo', start=date.today(), end=date.today())
             logging.info(f"Stocks number: {len(stocks)}")
             populate_table(stocks, symbol, cursor, True)
 
