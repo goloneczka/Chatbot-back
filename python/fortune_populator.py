@@ -3,13 +3,16 @@ import psycopg2 as pg
 from psycopg2 import extras
 import predictions
 import logging
-from datetime import date
+import time
+from datetime import date, timedelta, datetime
 
 HOST = "trainings"
 PORT = 5432
 USER = "app"
 PASSWORD = "Ao4eiT2w"
 DATABASE = "appdb"
+INTEGRATION_HOUR = 1
+HOUR_TO_SECONDS = 3600
 
 logging.basicConfig(level=logging.INFO)
 
@@ -21,30 +24,65 @@ def populate_table(df, symbol, cursor, is_historical):
                           [(symbol, data[i], indexes[i], is_historical) for i in range(len(indexes))])
 
 
+def get_last_date(cursor, symbol):
+    cursor.execute("SELECT date FROM stock where symbol = %s and is_historical = 'true' ORDER BY date DESC LIMIT 1",
+                   symbol)
+    date_of_last_stock = cursor.fetchone()
+    if date_of_last_stock is None:
+        date_of_last_stock = date(2000, 1, 1)
+    else:
+        date_of_last_stock = date_of_last_stock[0]
+
+    return date_of_last_stock
+
+
+def clear_db(cursor):
+    cursor.execute("DELETE FROM stock where is_historical = 'false'")
+
+
 def populate_db():
     with pg.connect(host=HOST, port=PORT, user=USER, password=PASSWORD, database=DATABASE) as conn:
         cursor = conn.cursor()
         cursor.execute("SET search_path to fortune")
+        clear_db(cursor)
         cursor.execute("SELECT symbol FROM symbol")
         symbols = cursor.fetchall()
         logging.info(f"Symbols from db: {symbols}")
         for symbol in symbols:
             logging.info(f"Using symbol: {symbol}")
 
-            stocks = web.DataReader(symbol[0], data_source='yahoo', start=date.today(), end=date.today())
-            logging.info(f"Stocks number: {len(stocks)}")
-            populate_table(stocks, symbol, cursor, True)
+            date_of_last_stock = get_last_date(cursor, symbol)
+            if date_of_last_stock == date.today():
+                logging.info("Stocks for today exists. Skipping to populate forecasts")
+            else:
+                start_date = date_of_last_stock + timedelta(days=1)
+                logging.info(f"Searching stocks from {start_date} to {date.today()}")
+                stocks = web.DataReader(symbol[0], data_source='yahoo', start=start_date,
+                                        end=date.today())
+                logging.info(f"Stocks number: {len(stocks)}")
+                populate_table(stocks, symbol, cursor, True)
 
-            forecasts = predictions.learn_and_predict(symbol[0], "2000-01-01", date.today())
+            forecasts = predictions.learn_and_predict(symbol[0], date(2000, 1, 1), date.today())
             logging.info(f"Forecasts number: {len(forecasts)}")
+
             populate_table(forecasts, symbol, cursor, False)
 
             conn.commit()
 
 
-try:
-    populate_db()
-except KeyError as e:
-    logging.error("Stocks not found")
-except Exception as e:
-    logging.error(repr(e))
+populate_flag = True
+while True:
+    current_hour = datetime.today().hour
+    logging.info(f"Current hour is: {current_hour}, populate flag is: {populate_flag}")
+    if populate_flag or current_hour == INTEGRATION_HOUR:
+        try:
+            logging.info("Populating DB...")
+            populate_db()
+            populate_flag = False
+        except Exception as e:
+            logging.exception("Problems while populating db")
+            populate_flag = True
+    else:
+        logging.info("Conditions not met")
+    logging.info("Going to sleep...")
+    time.sleep(HOUR_TO_SECONDS)
