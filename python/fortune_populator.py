@@ -13,6 +13,7 @@ PASSWORD = "Ao4eiT2w"
 DATABASE = "appdb"
 INTEGRATION_HOUR = 1
 HOUR_TO_SECONDS = 3600
+OLDEST_DATE = date(2000, 1, 1)
 
 logging.basicConfig(level=logging.INFO)
 
@@ -25,11 +26,11 @@ def populate_table(df, symbol, cursor, is_historical):
 
 
 def get_last_date(cursor, symbol):
-    cursor.execute("SELECT date FROM stock where symbol = %s and is_historical = 'true' ORDER BY date DESC LIMIT 1",
+    cursor.execute("SELECT date FROM stock where symbol = %s and is_historical = true ORDER BY date DESC LIMIT 1",
                    symbol)
     date_of_last_stock = cursor.fetchone()
     if date_of_last_stock is None:
-        date_of_last_stock = date(2000, 1, 1)
+        date_of_last_stock = OLDEST_DATE
     else:
         date_of_last_stock = date_of_last_stock[0]
 
@@ -53,7 +54,7 @@ def populate_db():
 
             date_of_last_stock = get_last_date(cursor, symbol)
             if date_of_last_stock == date.today():
-                logging.info("Stocks for today exists. Skipping to populate forecasts")
+                logging.info("Stocks for today exists. Skipping stocks population")
             else:
                 start_date = date_of_last_stock + timedelta(days=1)
                 logging.info(f"Searching stocks from {start_date} to {date.today()}")
@@ -62,7 +63,7 @@ def populate_db():
                 logging.info(f"Stocks number: {len(stocks)}")
                 populate_table(stocks, symbol, cursor, True)
 
-            forecasts = predictions.learn_and_predict(symbol[0], date(2000, 1, 1), date.today())
+            forecasts = predictions.learn_and_predict(symbol[0], OLDEST_DATE, date.today())
             logging.info(f"Forecasts number: {len(forecasts)}")
 
             populate_table(forecasts, symbol, cursor, False)
@@ -79,7 +80,7 @@ while True:
             logging.info("Populating DB...")
             populate_db()
             populate_flag = False
-        except Exception as e:
+        except Exception:
             logging.exception("Problems while populating db")
             populate_flag = True
     else:
