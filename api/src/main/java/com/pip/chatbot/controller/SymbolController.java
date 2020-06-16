@@ -32,13 +32,6 @@ public class SymbolController {
         return Response.SUCCESS;
     }
 
-    @GetMapping("/currencies")
-    public ResponseEntity<List<String>> getAllCurrencies() {
-        return ResponseEntity
-                .ok()
-                .body(symbolService.getAllCurrencies());
-    }
-
     @GetMapping("/companies")
     public ResponseEntity<List<Symbol>> getAllCompanies() {
         return ResponseEntity
