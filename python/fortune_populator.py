@@ -1,7 +1,7 @@
 import pandas_datareader as web
 import psycopg2 as pg
 from psycopg2 import extras
-import predictions
+# import predictions
 import logging
 import time
 from datetime import date, timedelta, datetime
@@ -39,6 +39,22 @@ def get_last_date(cursor, symbol):
 
 def clear_db(cursor):
     cursor.execute("DELETE FROM stock where is_historical = 'false'")
+    cursor.execute("delete from symbol "
+                   "where is_currency = 'true' and name not in "
+                   "(select CONCAT(c1.name,'/',c2.name) from currency c1, currency c2 where c1.name != c2.name)")
+
+
+def init_currencies(cursor):
+    cursor.execute("SELECT name FROM currency")
+    currencies = cursor.fetchall()
+    for i in range(len(currencies)):
+        for j in range(len(currencies)):
+            if j != i:
+                symbol = currencies[i][0].strip('()') + currencies[j][0].strip('()') + '=X'
+                name = currencies[i][0].strip('()') + '/' + currencies[j][0].strip('()')
+                cursor.execute(
+                    "INSERT INTO symbol(symbol, name, is_currency) VALUES (%s, %s, %s) ON CONFLICT DO NOTHING",
+                    (symbol, name, 'true'))
 
 
 def populate_db():
@@ -46,6 +62,12 @@ def populate_db():
         cursor = conn.cursor()
         cursor.execute("SET search_path to fortune")
         clear_db(cursor)
+        init_currencies(cursor)
+        conn.commit()
+
+    with pg.connect(host=HOST, port=PORT, user=USER, password=PASSWORD, database=DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute("SET search_path to fortune")
         cursor.execute("SELECT symbol FROM symbol")
         symbols = cursor.fetchall()
         logging.info(f"Symbols from db: {symbols}")
@@ -63,10 +85,11 @@ def populate_db():
                 logging.info(f"Stocks number: {len(stocks)}")
                 populate_table(stocks, symbol, cursor, True)
 
-            forecasts = predictions.learn_and_predict(symbol[0], OLDEST_DATE, date.today())
-            logging.info(f"Forecasts number: {len(forecasts)}")
+            # forecasts = predictions.learn_and_predict(symbol[0], OLDEST_DATE, date.today())
+            # logging.info(f"Forecasts number: {len(forecasts)}")
+            #
+            # populate_table(forecasts, symbol, cursor, False)
 
-            populate_table(forecasts, symbol, cursor, False)
             conn.commit()
 
 
