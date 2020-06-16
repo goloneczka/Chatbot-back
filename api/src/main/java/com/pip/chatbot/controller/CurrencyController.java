@@ -5,6 +5,8 @@ import com.pip.chatbot.model.fortune.Symbol;
 import com.pip.chatbot.payload.response.Response;
 import com.pip.chatbot.service.fortune.CurrencyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
