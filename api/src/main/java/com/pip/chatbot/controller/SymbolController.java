@@ -15,7 +15,6 @@ import java.util.List;
 public class SymbolController {
     private final SymbolService symbolService;
 
-
     @PostMapping
     public ResponseEntity<Symbol> createSymbol(@RequestBody Symbol symbol) {
         return ResponseEntity.ok().body(symbolService.createSymbol(symbol));
@@ -34,7 +33,7 @@ public class SymbolController {
     }
 
     @GetMapping("/currencies")
-    public ResponseEntity<List<Symbol>> getAllCurrencies() {
+    public ResponseEntity<List<String>> getAllCurrencies() {
         return ResponseEntity
                 .ok()
                 .body(symbolService.getAllCurrencies());
