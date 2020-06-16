@@ -4,6 +4,7 @@
 package com.pip.chatbot.jooq.fortune;
 
 
+import com.pip.chatbot.jooq.fortune.tables.Currency;
 import com.pip.chatbot.jooq.fortune.tables.Stock;
 import com.pip.chatbot.jooq.fortune.tables.Symbol;
 
@@ -13,6 +14,11 @@ import com.pip.chatbot.jooq.fortune.tables.Symbol;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>fortune.currency</code>.
+     */
+    public static final Currency CURRENCY = Currency.CURRENCY;
 
     /**
      * The table <code>fortune.stock</code>.

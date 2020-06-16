@@ -5,6 +5,7 @@ package com.pip.chatbot.jooq.fortune;
 
 
 import com.pip.chatbot.jooq.DefaultCatalog;
+import com.pip.chatbot.jooq.fortune.tables.Currency;
 import com.pip.chatbot.jooq.fortune.tables.Stock;
 import com.pip.chatbot.jooq.fortune.tables.Symbol;
 
@@ -23,12 +24,17 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Fortune extends SchemaImpl {
 
-    private static final long serialVersionUID = -1182461330;
+    private static final long serialVersionUID = 1325760814;
 
     /**
      * The reference instance of <code>fortune</code>
      */
     public static final Fortune FORTUNE = new Fortune();
+
+    /**
+     * The table <code>fortune.currency</code>.
+     */
+    public final Currency CURRENCY = Currency.CURRENCY;
 
     /**
      * The table <code>fortune.stock</code>.
@@ -62,6 +68,7 @@ public class Fortune extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.<Table<?>>asList(
+            Currency.CURRENCY,
             Stock.STOCK,
             Symbol.SYMBOL);
     }

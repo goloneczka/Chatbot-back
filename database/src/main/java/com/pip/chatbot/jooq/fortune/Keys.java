@@ -4,8 +4,10 @@
 package com.pip.chatbot.jooq.fortune;
 
 
+import com.pip.chatbot.jooq.fortune.tables.Currency;
 import com.pip.chatbot.jooq.fortune.tables.Stock;
 import com.pip.chatbot.jooq.fortune.tables.Symbol;
+import com.pip.chatbot.jooq.fortune.tables.records.CurrencyRecord;
 import com.pip.chatbot.jooq.fortune.tables.records.StockRecord;
 import com.pip.chatbot.jooq.fortune.tables.records.SymbolRecord;
 
@@ -33,6 +35,7 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<CurrencyRecord> CURRENCY_PKEY = UniqueKeys0.CURRENCY_PKEY;
     public static final UniqueKey<StockRecord> STOCK_PKEY = UniqueKeys0.STOCK_PKEY;
     public static final UniqueKey<SymbolRecord> SYMBOL_PKEY = UniqueKeys0.SYMBOL_PKEY;
     public static final UniqueKey<SymbolRecord> SYMBOL_NAME_KEY = UniqueKeys0.SYMBOL_NAME_KEY;
@@ -52,6 +55,7 @@ public class Keys {
     }
 
     private static class UniqueKeys0 {
+        public static final UniqueKey<CurrencyRecord> CURRENCY_PKEY = Internal.createUniqueKey(Currency.CURRENCY, "currency_pkey", new TableField[] { Currency.CURRENCY.NAME }, true);
         public static final UniqueKey<StockRecord> STOCK_PKEY = Internal.createUniqueKey(Stock.STOCK, "stock_pkey", new TableField[] { Stock.STOCK.ID }, true);
         public static final UniqueKey<SymbolRecord> SYMBOL_PKEY = Internal.createUniqueKey(Symbol.SYMBOL, "symbol_pkey", new TableField[] { Symbol.SYMBOL.SYMBOL_ }, true);
         public static final UniqueKey<SymbolRecord> SYMBOL_NAME_KEY = Internal.createUniqueKey(Symbol.SYMBOL, "symbol_name_key", new TableField[] { Symbol.SYMBOL.NAME }, true);
