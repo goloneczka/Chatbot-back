@@ -1,4 +1,4 @@
-FROM python:3.7-slim-buster
+FROM python:3.7
 
 RUN pip3 install tensorflow pandas pandas-datareader scikit-learn psycopg2-binary
 

@@ -67,7 +67,6 @@ def populate_db():
             logging.info(f"Forecasts number: {len(forecasts)}")
 
             populate_table(forecasts, symbol, cursor, False)
-
             conn.commit()
 
 
