@@ -38,10 +38,10 @@ def get_last_date(cursor, symbol):
 
 
 def clear_db(cursor):
-    cursor.execute("DELETE FROM stock where is_historical = 'false'")
-    cursor.execute("delete from symbol "
-                   "where is_currency = 'true' and name not in "
-                   "(select CONCAT(c1.name,'/',c2.name) from currency c1, currency c2 where c1.name != c2.name)")
+    cursor.execute("DELETE FROM stock where is_historical = false")
+    cursor.execute("DELETE FROM symbol "
+                   "WHERE is_currency = true AND name NOT IN "
+                   "(SELECT CONCAT(c1.name,'/',c2.name) FROM currency c1, currency c2 WHERE c1.name != c2.name)")
 
 
 def init_currencies(cursor):
