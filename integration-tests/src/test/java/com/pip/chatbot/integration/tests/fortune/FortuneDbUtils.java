@@ -46,6 +46,16 @@ public class FortuneDbUtils {
         this.stockRepository.createStock(stock);
     }
 
+    public Stock insertPrediction() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Stock stockPrediction = objectMapper.readValue(getClass().getResourceAsStream("/fortune/predictionStock.json"), Stock.class);
+
+        stockPrediction.setDate(LocalDate.parse("2222-05-04"));
+        stockPrediction.setId(2L);
+
+        return this.stockRepository.createStock(stockPrediction);
+    }
+
     public void clearDatabase(){
         dslContext.truncateTable(STOCK).cascade().execute();
         dslContext.truncateTable(SYMBOL).cascade().execute();

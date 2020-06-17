@@ -14,6 +14,7 @@ Feature: Stock Api
     * def db = callonce initDatabase
     * json symbol = read('classpath:fortune/symbol.json')
     * json stock = read('classpath:fortune/stock.json')
+    * def predictionSymbol = callonce db.insertPrediction()
 
     * configure afterFeature =
     """
@@ -36,10 +37,10 @@ Feature: Stock Api
     And param endDateParam = "2020-05-06"
     When method GET
     Then status 200
-    And match response == [{"id": 1, "symbol": "symbol", "date":[2020,5,4],"value": 1.1078, "historical": true}]  Scenario: get stock for period
+    And match response == [{"id": 1, "symbol": "symbol", "date":[2020,5,4],"value": 1.1078, "historical": true}]
 
   Scenario: get prediction for symbol
     Given path "stocks/prediction", symbol.symbol
     When method GET
     Then status 200
-    And match response == []
+    And match response == [{ "id": 2, "symbol": "symbol", "date": [2222,5,4] ,"value": 1.1078, "historical": false}]
