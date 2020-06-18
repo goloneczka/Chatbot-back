@@ -39,7 +39,6 @@ Feature: Symbol Api
     Then status 200
     And match response == {"symbol": "symbolToCreate","name": "nameSymbolToCreate","currency": false }
 
-  Scenario: get symbol after adding another one
     Given path 'symbols/companies'
     When method GET
     Then status 200
@@ -52,12 +51,10 @@ Feature: Symbol Api
     Then status 200
     And match response == { "symbol": "symbol","name": "nameSymbolUpdated","currency": false}
 
-  Scenario: get symbols after updating
     Given path 'symbols/companies'
     When method GET
     Then status 200
     And match response == [{"symbol": "symbolToCreate","name": "nameSymbolToCreate","currency": false },{ "symbol": "symbol","name": "nameSymbolUpdated","currency": false}]
-
 
   Scenario: delete symbol
     Given path 'symbols'
@@ -65,7 +62,6 @@ Feature: Symbol Api
     When method DELETE
     Then status 200
 
-  Scenario: get symbols after updating
     Given path 'symbols/companies'
     When method GET
     Then status 200
