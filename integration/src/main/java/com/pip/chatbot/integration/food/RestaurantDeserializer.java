@@ -9,7 +9,9 @@ import com.pip.chatbot.model.food.Cuisine;
 import com.pip.chatbot.model.food.Restaurant;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class RestaurantDeserializer extends StdDeserializer<Restaurant> {
@@ -34,7 +36,10 @@ public class RestaurantDeserializer extends StdDeserializer<Restaurant> {
         restaurant.setAverageUsersRating(node.get("user_rating").get("aggregate_rating").asDouble());
         restaurant.setPhoneNumbers(node.get("phone_numbers").asText());
         restaurant.setCuisines(Arrays.stream(node.get("cuisines").asText().split(", ")).map(Cuisine::new).collect(Collectors.toList()));
-
+        List<Cuisine> translateCuisines = new ArrayList<>();
+        for(var cusine: restaurant.getCuisines())
+            translateCuisines.add(new Cuisine(CuisineTranslation.translate(cusine.getCuisine())));
+        restaurant.setCuisines(translateCuisines);
         return restaurant;
     }
 }
