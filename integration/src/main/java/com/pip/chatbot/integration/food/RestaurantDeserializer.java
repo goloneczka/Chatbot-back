@@ -38,7 +38,7 @@ public class RestaurantDeserializer extends StdDeserializer<Restaurant> {
         restaurant.setCuisines(Arrays.stream(node.get("cuisines").asText().split(", ")).map(Cuisine::new).collect(Collectors.toList()));
         List<Cuisine> translateCuisines = new ArrayList<>();
         for(var cusine: restaurant.getCuisines())
-            translateCuisines.add(new Cuisine(CusineTranslate.translate(cusine.getCuisine())));
+            translateCuisines.add(new Cuisine(CuisineTranslation.translate(cusine.getCuisine())));
         restaurant.setCuisines(translateCuisines);
         return restaurant;
     }
